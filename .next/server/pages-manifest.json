@@ -1,0 +1,15 @@
+{
+  "/_app": "pages/_app.js",
+  "/404": "pages/404.html",
+  "/_document": "pages/_document.js",
+  "/_error": "pages/_error.js",
+  "/account": "pages/account.html",
+  "/customers": "pages/customers.html",
+  "/": "pages/index.html",
+  "/products": "pages/products.html",
+  "/login": "pages/login.html",
+  "/settings": "pages/settings.html",
+  "/register": "pages/register.html",
+  "/sign-in/confirm": "pages/sign-in/confirm.html",
+  "/sign-in": "pages/sign-in.html"
+}
