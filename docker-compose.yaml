@@ -1,0 +1,25 @@
+version: '3'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: "bash"
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    ports:
+      - 3000:3000
+    expose:
+      - 3000
+    volumes:
+        - ./:/app
+    networks:
+      - default
+
+networks:
+  default:
+    name: localdev
+
+volumes:
+  database_data:
+    driver: local
