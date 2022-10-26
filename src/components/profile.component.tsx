@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { Navigate } from "react-router-dom";
-import AuthService from "../services/auth.service";
-import IUser from "../domain/user.type";
+import AuthService from "../services/AuthService";
+import IUser from "../domain/User";
 
 type Props = {};
 
