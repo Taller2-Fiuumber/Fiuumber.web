@@ -1,7 +1,16 @@
 # Fiuumber
 
+## Commands to run docker
 
-## Commands
+``` bash
+docker-compose up --force-recreate -d
+```
+
+``` bash
+docker exec -it fiuumberapitrips_web_1 bash
+```
+
+## Commands inside docker
 
 ``` bash
 npm install
