@@ -2,12 +2,16 @@
 
 ## Commands to run docker
 
+To create developement containers:
+
 ``` bash
 docker-compose up --force-recreate -d
 ```
 
+To get inside developement web containers:
+
 ``` bash
-docker exec -it fiuumberapitrips_web_1 bash
+docker exec -it fiuumberweb_web_1 bash
 ```
 
 ## Commands inside docker
