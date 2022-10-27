@@ -16,7 +16,7 @@ const Page = () => (
   <>
     <Head>
       <title>
-        Dashboard | Fiuumber
+        Metrics | Fiuumber
       </title>
     </Head>
     <Box
@@ -31,7 +31,7 @@ const Page = () => (
           container
           spacing={3}
         >
-          <Grid
+          {/* <Grid
             item
             lg={3}
             sm={6}
@@ -39,7 +39,7 @@ const Page = () => (
             xs={12}
           >
             <Budget />
-          </Grid>
+          </Grid> */}
           <Grid
             item
             xl={3}
@@ -56,7 +56,7 @@ const Page = () => (
             sm={6}
             xs={12}
           >
-              <TotalDrivers />
+            <TotalDrivers />
           </Grid>
           <Grid
             item
@@ -65,7 +65,7 @@ const Page = () => (
             sm={6}
             xs={12}
           >
-              <TotalAdmins />
+            <TotalAdmins />
           </Grid>
           <Grid
             item
@@ -74,7 +74,7 @@ const Page = () => (
             sm={6}
             xs={12}
           >
-            <TasksProgress />
+            {/* <TasksPrTaskogress /> */}
           </Grid>
           <Grid
             item
@@ -92,7 +92,7 @@ const Page = () => (
             xl={9}
             xs={12}
           >
-            <Sales />
+            {/* <Sales /> */}
           </Grid>
           <Grid
             item
@@ -101,7 +101,7 @@ const Page = () => (
             xl={3}
             xs={12}
           >
-            <TrafficByDevice sx={{ height: '100%' }} />
+            {/* <TrafficByDevice sx={{ height: '100%' }} /> */}
           </Grid>
           <Grid
             item
@@ -119,7 +119,7 @@ const Page = () => (
             xl={9}
             xs={12}
           >
-            <LatestOrders />
+            {/* <LatestOrders /> */}
           </Grid>
         </Grid>
       </Container>

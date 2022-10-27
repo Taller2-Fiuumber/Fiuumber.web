@@ -20,7 +20,7 @@ const items = [
   {
     href: '/',
     icon: (<ChartBarIcon fontSize="small" />),
-    title: 'Dashboard'
+    title: 'Metrics'
   },
   {
     href: '/customers',
@@ -115,9 +115,9 @@ export const DashboardSidebar = (props) => {
                 /> */}
                           <Typography
             color="neutral.100"
-            variant="subtitle2"
+            // variant="subtitle2"
           >
-            FIUUMBER
+            fiuumber
           </Typography>
               </a>
             </NextLink>
@@ -184,7 +184,7 @@ export const DashboardSidebar = (props) => {
             py: 3
           }}
         >
-          <Typography
+          {/* <Typography
             color="neutral.100"
             variant="subtitle2"
           >
@@ -195,8 +195,8 @@ export const DashboardSidebar = (props) => {
             variant="body2"
           >
             Check out our Pro solution template.
-          </Typography>
-          <Box
+          </Typography> */}
+          {/* <Box
             sx={{
               display: 'flex',
               mt: 2,
@@ -211,8 +211,8 @@ export const DashboardSidebar = (props) => {
               alt="Go to pro"
               src="/static/images/sidebar_pro.png"
             />
-          </Box>
-          <NextLink
+          </Box> */}
+          {/* <NextLink
             href="https://material-kit-pro-react.devias.io/"
             passHref
           >
@@ -226,7 +226,7 @@ export const DashboardSidebar = (props) => {
             >
               Pro Live Preview
             </Button>
-          </NextLink>
+          </NextLink> */}
         </Box>
       </Box>
     </>
