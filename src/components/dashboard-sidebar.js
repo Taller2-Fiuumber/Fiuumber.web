@@ -28,10 +28,20 @@ const items = [
     title: 'Customers'
   },
   {
-    href: '/products',
-    icon: (<ShoppingBagIcon fontSize="small" />),
-    title: 'Products'
+    href: '/drivers',
+    icon: (<UsersIcon fontSize="small" />),
+    title: 'Drivers'
   },
+  {
+    href: '/admins',
+    icon: (<UsersIcon fontSize="small" />),
+    title: 'Admins'
+  },
+  // {
+  //   href: '/products',
+  //   icon: (<ShoppingBagIcon fontSize="small" />),
+  //   title: 'Products'
+  // },
   {
     href: '/account',
     icon: (<UserIcon fontSize="small" />),
@@ -97,17 +107,23 @@ export const DashboardSidebar = (props) => {
               passHref
             >
               <a>
-                <Logo
+                {/* <Logo
                   sx={{
                     height: 42,
                     width: 42
                   }}
-                />
+                /> */}
+                          <Typography
+            color="neutral.100"
+            variant="subtitle2"
+          >
+            FIUUMBER
+          </Typography>
               </a>
             </NextLink>
           </Box>
-          <Box sx={{ px: 2 }}>
-            <Box
+          {/* <Box sx={{ px: 2 }}> */}
+            {/* <Box
               sx={{
                 alignItems: 'center',
                 backgroundColor: 'rgba(255, 255, 255, 0.04)',
@@ -118,8 +134,8 @@ export const DashboardSidebar = (props) => {
                 py: '11px',
                 borderRadius: 1
               }}
-            >
-              <div>
+            > */}
+              {/* <div>
                 <Typography
                   color="inherit"
                   variant="subtitle1"
@@ -134,16 +150,16 @@ export const DashboardSidebar = (props) => {
                   {' '}
                   : Premium
                 </Typography>
-              </div>
-              <SelectorIcon
+              </div> */}
+              {/* <SelectorIcon
                 sx={{
                   color: 'neutral.500',
                   width: 14,
                   height: 14
                 }}
-              />
-            </Box>
-          </Box>
+              /> */}
+            {/* </Box> */}
+          {/* </Box> */}
         </div>
         <Divider
           sx={{

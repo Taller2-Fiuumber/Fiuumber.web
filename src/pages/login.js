@@ -35,7 +35,7 @@ const Login = () => {
   return (
     <>
       <Head>
-        <title>Login | Material Kit</title>
+        <title>Login | Fiuumber</title>
       </Head>
       <Box
         component="main"
@@ -53,6 +53,7 @@ const Login = () => {
           >
             <Button
               component="a"
+              color="secondary"
               startIcon={<ArrowBackIcon fontSize="small" />}
             >
               Dashboard
@@ -61,7 +62,7 @@ const Login = () => {
           <form onSubmit={formik.handleSubmit}>
             <Box sx={{ my: 3 }}>
               <Typography
-                color="textPrimary"
+                color="textSecondary"
                 variant="h4"
               >
                 Sign in
@@ -71,19 +72,18 @@ const Login = () => {
                 gutterBottom
                 variant="body2"
               >
-                Sign in on the internal platform
               </Typography>
             </Box>
             <Grid
               container
               spacing={3}
             >
-              <Grid
+              {/* <Grid
                 item
                 xs={12}
                 md={6}
-              >
-                <Button
+              > */}
+                {/* <Button
                   color="info"
                   fullWidth
                   startIcon={<FacebookIcon />}
@@ -92,12 +92,12 @@ const Login = () => {
                   variant="contained"
                 >
                   Login with Facebook
-                </Button>
-              </Grid>
+                </Button> */}
+              {/* </Grid> */}
               <Grid
                 item
                 xs={12}
-                md={6}
+                // md={6}
               >
                 <Button
                   color="error"
@@ -122,14 +122,14 @@ const Login = () => {
                 color="textSecondary"
                 variant="body1"
               >
-                or login with email address
+                or login with an admin email address
               </Typography>
             </Box>
             <TextField
               error={Boolean(formik.touched.email && formik.errors.email)}
               fullWidth
               helperText={formik.touched.email && formik.errors.email}
-              label="Email Address"
+              label="Admin Email Address"
               margin="normal"
               name="email"
               onBlur={formik.handleBlur}
@@ -153,7 +153,7 @@ const Login = () => {
             />
             <Box sx={{ py: 2 }}>
               <Button
-                color="primary"
+                color="secondary"
                 disabled={formik.isSubmitting}
                 fullWidth
                 size="large"
@@ -167,7 +167,7 @@ const Login = () => {
               color="textSecondary"
               variant="body2"
             >
-              Don&apos;t have an account?
+              Don&apos;t have an admin account?
               {' '}
               <NextLink
                 href="/register"

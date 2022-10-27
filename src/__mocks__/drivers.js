@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 
-export const customers = [
+export const drivers = [
   {
     id: uuid(),
     address: {
@@ -12,7 +12,7 @@ export const customers = [
     avatarUrl: '/static/images/avatars/avatar_3.png',
     createdAt: 1555016400000,
     email: 'ekaterina.tankova@devias.io',
-    name: 'Maria Caiana',
+    name: 'Ekaterina Tankova Gualdieri',
     phone: '304-428-3097'
   },
   {
@@ -26,7 +26,7 @@ export const customers = [
     avatarUrl: '/static/images/avatars/avatar_4.png',
     createdAt: 1555016400000,
     email: 'cao.yu@devias.io',
-    name: 'Jeremias MIlhas',
+    name: 'Cao Yu',
     phone: '712-351-5711'
   },
   {

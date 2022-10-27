@@ -1,15 +1,15 @@
 import Head from 'next/head';
 import { Box, Container } from '@mui/material';
-import { CustomerListResults } from '../components/customer/customer-list-results';
-import { CustomerListToolbar } from '../components/customer/customer-list-toolbar';
+import { DriverListResults } from '../components/driver/driver-list-results';
+import { DriverListToolbar } from '../components/driver/driver-list-toolbar';
 import { DashboardLayout } from '../components/dashboard-layout';
-import { customers } from '../__mocks__/customers';
+import { drivers } from '../__mocks__/drivers';
 
 const Page = () => (
   <>
     <Head>
       <title>
-        Customers | Fiuumber
+        Drivers | Fiuumber
       </title>
     </Head>
     <Box
@@ -20,9 +20,9 @@ const Page = () => (
       }}
     >
       <Container maxWidth={false}>
-        <CustomerListToolbar />
+        <DriverListToolbar />
         <Box sx={{ mt: 3 }}>
-          <CustomerListResults customers={customers} />
+          <DriverListResults drivers={drivers} />
         </Box>
       </Container>
     </Box>

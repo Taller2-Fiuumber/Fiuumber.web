@@ -1,15 +1,15 @@
 import Head from 'next/head';
 import { Box, Container } from '@mui/material';
-import { CustomerListResults } from '../components/customer/customer-list-results';
-import { CustomerListToolbar } from '../components/customer/customer-list-toolbar';
+import { AdminListResults } from '../components/admin/admin-list-results';
+import { AdminListToolbar } from '../components/admin/admin-list-toolbar';
 import { DashboardLayout } from '../components/dashboard-layout';
-import { customers } from '../__mocks__/customers';
+import { admins } from '../__mocks__/admins';
 
 const Page = () => (
   <>
     <Head>
       <title>
-        Customers | Fiuumber
+        Admins | Fiuumber
       </title>
     </Head>
     <Box
@@ -20,9 +20,9 @@ const Page = () => (
       }}
     >
       <Container maxWidth={false}>
-        <CustomerListToolbar />
+        <AdminListToolbar />
         <Box sx={{ mt: 3 }}>
-          <CustomerListResults customers={customers} />
+          <AdminListResults admins={admins} />
         </Box>
       </Container>
     </Box>
