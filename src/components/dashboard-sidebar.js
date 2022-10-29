@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-import { Box, Button, Divider, Drawer, Typography, useMediaQuery } from '@mui/material';
+import { Box, Toolbar, Avatar, Button, Divider, Drawer, Typography, useMediaQuery } from '@mui/material';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { ChartBar as ChartBarIcon } from '../icons/chart-bar';
 import { Cog as CogIcon } from '../icons/cog';
@@ -12,9 +12,12 @@ import { ShoppingBag as ShoppingBagIcon } from '../icons/shopping-bag';
 import { User as UserIcon } from '../icons/user';
 import { UserAdd as UserAddIcon } from '../icons/user-add';
 import { Users as UsersIcon } from '../icons/users';
+import { UserCircle as UserCircleIcon } from '../icons/user-circle';
 import { XCircle as XCircleIcon } from '../icons/x-circle';
 import { Logo } from './logo';
 import { NavItem } from './nav-item';
+import { AccountPopover } from './account-popover';
+
 
 const items = [
   {
@@ -48,30 +51,19 @@ const items = [
     title: 'Account'
   },
   {
-    href: '/settings',
-    icon: (<CogIcon fontSize="small" />),
-    title: 'Settings'
-  },
-  {
-    href: '/login',
-    icon: (<LockIcon fontSize="small" />),
-    title: 'Login'
-  },
-  {
     href: '/register',
     icon: (<UserAddIcon fontSize="small" />),
-    title: 'Register'
-  },
-  {
-    href: '/404',
-    icon: (<XCircleIcon fontSize="small" />),
-    title: 'Error'
+    title: 'Register new admin'
   }
 ];
 
 export const DashboardSidebar = (props) => {
   const { open, onClose } = props;
   const router = useRouter();
+  const settingsRef = useRef(null);
+  const [openAccountPopover, setOpenAccountPopover] = useState(false);
+
+
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'), {
     defaultMatches: true,
     noSsr: false
@@ -101,65 +93,45 @@ export const DashboardSidebar = (props) => {
         }}
       >
         <div>
-          <Box sx={{ p: 3 }}>
+                  {/* <Toolbar
+          disableGutters
+          sx={{
+            minHeight: 64,
+            left: 0,
+            px: 2
+          }}
+        > */}
+          <Box sx={{ p:3, flexDirection: 'row', display: 'flex'}}>
+          <Avatar
+            onClick={() => setOpenAccountPopover(true)}
+            ref={settingsRef}
+            sx={{
+              cursor: 'pointer',
+              height: 40,
+              width: 40,
+              ml: 1
+            }}
+            src="/static/images/avatars/avatar_1.png"
+          >
+            <UserCircleIcon fontSize="small" />
+          </Avatar>
             <NextLink
               href="/"
               passHref
             >
+            
               <a>
-                {/* <Logo
-                  sx={{
-                    height: 42,
-                    width: 42
-                  }}
-                /> */}
-                          <Typography
+
+                          {/* <Typography
             color="neutral.100"
-            // variant="subtitle2"
+            align="right"
+            marginLeft="50"
           >
             fiuumber
-          </Typography>
+          </Typography> */}
               </a>
             </NextLink>
           </Box>
-          {/* <Box sx={{ px: 2 }}> */}
-            {/* <Box
-              sx={{
-                alignItems: 'center',
-                backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                cursor: 'pointer',
-                display: 'flex',
-                justifyContent: 'space-between',
-                px: 3,
-                py: '11px',
-                borderRadius: 1
-              }}
-            > */}
-              {/* <div>
-                <Typography
-                  color="inherit"
-                  variant="subtitle1"
-                >
-                  Acme Inc
-                </Typography>
-                <Typography
-                  color="neutral.400"
-                  variant="body2"
-                >
-                  Your tier
-                  {' '}
-                  : Premium
-                </Typography>
-              </div> */}
-              {/* <SelectorIcon
-                sx={{
-                  color: 'neutral.500',
-                  width: 14,
-                  height: 14
-                }}
-              /> */}
-            {/* </Box> */}
-          {/* </Box> */}
         </div>
         <Divider
           sx={{
@@ -229,6 +201,11 @@ export const DashboardSidebar = (props) => {
           </NextLink> */}
         </Box>
       </Box>
+      <AccountPopover
+        anchorEl={settingsRef.current}
+        open={openAccountPopover}
+        onClose={() => setOpenAccountPopover(false)}
+      />
     </>
   );
 
