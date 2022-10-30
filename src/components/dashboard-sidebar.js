@@ -21,14 +21,14 @@ import { AccountPopover } from './account-popover';
 
 const items = [
   {
-    href: '/',
+    href: '/metrics',
     icon: (<ChartBarIcon fontSize="small" />),
     title: 'Metrics'
   },
   {
     href: '/customers',
     icon: (<UsersIcon fontSize="small" />),
-    title: 'Customers'
+    title: 'Passengers'
   },
   {
     href: '/drivers',
@@ -111,7 +111,7 @@ export const DashboardSidebar = (props) => {
               width: 40,
               ml: 1
             }}
-            src="/static/images/avatars/avatar_1.png"
+            src="/static/images/icon.jpg"
           >
             <UserCircleIcon fontSize="small" />
           </Avatar>

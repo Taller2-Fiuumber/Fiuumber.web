@@ -9,7 +9,7 @@ const Page = () => (
   <>
     <Head>
       <title>
-        Customers | Fiuumber
+        Passengers | Fiuumber
       </title>
     </Head>
     <Box

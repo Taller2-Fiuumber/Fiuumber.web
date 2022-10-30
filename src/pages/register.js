@@ -43,16 +43,10 @@ const Register = () => {
         .string()
         .max(255)
         .required('Password is required'),
-      policy: Yup
-        .boolean()
-        .oneOf(
-          [true],
-          'This field must be checked'
-        )
     }),
     onSubmit: () => {
       Router
-        .push('/')
+        .push('/metrics')
         .catch(console.error);
     }
   });
@@ -75,14 +69,15 @@ const Register = () => {
       >
         <Container maxWidth="sm">
           <NextLink
-            href="/"
+            href="/metrics"
             passHref
           >
             <Button
               component="a"
+              color="secondary"
               startIcon={<ArrowBackIcon fontSize="small" />}
             >
-              Dashboard
+              Metrics
             </Button>
           </NextLink>
           <form onSubmit={formik.handleSubmit}>
@@ -91,7 +86,7 @@ const Register = () => {
                 color="textPrimary"
                 variant="h4"
               >
-                Create a new administrator account
+                Create a new admin account
               </Typography>
               <Typography
                 color="textSecondary"
@@ -158,12 +153,12 @@ const Register = () => {
                 ml: -1
               }}
             >
-              <Checkbox
+              {/* <Checkbox
                 checked={formik.values.policy}
                 name="policy"
                 onChange={formik.handleChange}
-              />
-              <Typography
+              /> */}
+              {/* <Typography
                 color="textSecondary"
                 variant="body2"
               >
@@ -181,7 +176,7 @@ const Register = () => {
                     Terms and Conditions
                   </Link>
                 </NextLink>
-              </Typography>
+              </Typography> */}
             </Box>
             {Boolean(formik.touched.policy && formik.errors.policy) && (
               <FormHelperText error>
@@ -190,7 +185,7 @@ const Register = () => {
             )}
             <Box sx={{ py: 2 }}>
               <Button
-                color="primary"
+                color="secondary"
                 disabled={formik.isSubmitting}
                 fullWidth
                 size="large"
@@ -200,7 +195,7 @@ const Register = () => {
                 Sign Up Now
               </Button>
             </Box>
-            <Typography
+            {/* <Typography
               color="textSecondary"
               variant="body2"
             >
@@ -217,7 +212,7 @@ const Register = () => {
                   Sign In
                 </Link>
               </NextLink>
-            </Typography>
+            </Typography> */}
           </form>
         </Container>
       </Box>

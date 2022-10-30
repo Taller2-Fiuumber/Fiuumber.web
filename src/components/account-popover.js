@@ -10,6 +10,9 @@ export const AccountPopover = (props) => {
   const authContext = useContext(AuthContext);
 
   const handleSignOut = async () => {
+    Router
+    .push('/')
+    .catch(console.error);
     onClose?.();
 
     // Check if authentication with Zalter is enabled
@@ -29,7 +32,7 @@ export const AccountPopover = (props) => {
 
       // Redirect to sign-in page
       Router
-        .push('/sign-in')
+        .push('/')
         .catch(console.error);
       return;
     }
@@ -43,7 +46,7 @@ export const AccountPopover = (props) => {
 
       // Redirect to sign-in page
       Router
-        .push('/sign-in')
+        .push('/')
         .catch(console.error);
     } catch (err) {
       console.error(err);
