@@ -59,7 +59,7 @@ const Login = () => {
                 color="textSecondary"
                 variant="h4"
               >
-                Log in
+                Login
               </Typography>
               <Typography
                 color="textSecondary"

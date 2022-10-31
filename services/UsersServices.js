@@ -1,4 +1,4 @@
-//import axios from 'axios';// For API consuming
+import axios from 'axios';// For API consuming
 import { HEADERS, URL_USERS } from "./Constants";
 import { User } from '../models/user';
 

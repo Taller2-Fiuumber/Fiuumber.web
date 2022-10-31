@@ -118,17 +118,17 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                         display: 'flex'
                       }}
                     >
-                      <Avatar
+                      {/* <Avatar
                         src={customer.avatarUrl}
                         sx={{ mr: 2 }}
                       >
-                        {getInitials(customer.name)}
-                      </Avatar>
+                        {getInitials(customer.firstName)}
+                      </Avatar> */}
                       <Typography
                         color="textPrimary"
                         variant="body1"
                       >
-                        {customer.name}
+                        {customer.firstName}
                       </Typography>
                     </Box>
                   </TableCell>
@@ -139,10 +139,10 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                     {/* {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`} */}
                   </TableCell>
                   <TableCell>
-                    {customer.phone}
+                    {/* {customer.phone} */}
                   </TableCell>
                   <TableCell>
-                    {format(customer.createdAt, 'dd/MM/yyyy')}
+                    {/* {format(customer.createdAt, 'dd/MM/yyyy')} */}
                   </TableCell>
                 </TableRow>
               ))}

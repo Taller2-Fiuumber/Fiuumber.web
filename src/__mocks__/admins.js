@@ -11,7 +11,7 @@ export const admins = [
     },
     avatarUrl: '/static/images/avatars/avatar_3.png',
     createdAt: 1555016400000,
-    email: 'ekaterina.tankova@devias.io',
+    email: 'tomi.oli@devias.io',
     name: 'Tomas Bernardotti Admin Principal',
     phone: '304-428-3097'
   },
