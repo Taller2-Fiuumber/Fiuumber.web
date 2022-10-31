@@ -46,21 +46,6 @@ const Register = () => {
         .required('Password is required'),
     }),
     onSubmit: () => {
-
-      axios.post('/user', {
-        firstName: 'Fred',
-        lastName: 'Flintstone'
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-
-
-
       Router
         .push('/metrics')
         .catch(console.error);
