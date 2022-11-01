@@ -27,6 +27,11 @@ export const CustomerListResults = ({ customers, ...rest }) => {
 
     if (event.target.checked) {
       newSelectedCustomerIds = customers.map((customer) => customer.id);
+      console.log(customer.id);
+      console.log(customer.id);
+      console.log(customer.id);
+      console.log(customer.id);
+      // extranios console.log() que hacen que ande..
     } else {
       newSelectedCustomerIds = [];
     }
@@ -84,6 +89,12 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                   Name
                 </TableCell>
                 <TableCell>
+                  Last Name
+                </TableCell>
+                <TableCell>
+                  Username
+                </TableCell>
+                <TableCell>
                   Email
                 </TableCell>
                 <TableCell>
@@ -133,10 +144,52 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                     </Box>
                   </TableCell>
                   <TableCell>
+                    <Box
+                      sx={{
+                        alignItems: 'center',
+                        display: 'flex'
+                      }}
+                    >
+                      {/* <Avatar
+                        src={customer.avatarUrl}
+                        sx={{ mr: 2 }}
+                      >
+                        {getInitials(customer.firstName)}
+                      </Avatar> */}
+                      <Typography
+                        color="textPrimary"
+                        variant="body1"
+                      >
+                        {customer.lastName}
+                      </Typography>
+                    </Box>
+                  </TableCell>
+                  <TableCell>
+                    <Box
+                      sx={{
+                        alignItems: 'center',
+                        display: 'flex'
+                      }}
+                    >
+                      {/* <Avatar
+                        src={customer.avatarUrl}
+                        sx={{ mr: 2 }}
+                      >
+                        {getInitials(customer.firstName)}
+                      </Avatar> */}
+                      <Typography
+                        color="textPrimary"
+                        variant="body1"
+                      >
+                        {customer.username}
+                      </Typography>
+                    </Box>
+                  </TableCell>
+                  <TableCell>
                     {customer.email}
                   </TableCell>
                   <TableCell>
-                    {/* {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`} */}
+                    {`${customer.adress}`}
                   </TableCell>
                   <TableCell>
                     {/* {customer.phone} */}

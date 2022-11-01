@@ -37,10 +37,16 @@ const Page = () => (
 
 const fetchUsers = () => {
   const users = [];
+  console.log("Estoy por getear los users");
   const passengerId = 1;
-  for (let index = 0; index < 2; index++) {
-    users[index] = UsersService.getUser(passengerId)
+  for (let index = 0; index < 4; index++) {
+    UsersService.getUser(passengerId).then((value) => {
+      users[index] = value;
+    })
+    //users[index] = UsersService.getUser(passengerId);
+    passengerId++;
   } 
+  console.log(users);
   return users
 }
 
