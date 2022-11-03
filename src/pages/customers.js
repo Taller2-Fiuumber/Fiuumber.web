@@ -36,18 +36,23 @@ const Page = () => (
 
 
 const fetchUsers = () => {
-  const users = [];
-  console.log("Estoy por getear los users");
-  const passengerId = 1;
-  for (let index = 0; index < 4; index++) {
-    UsersService.getUser(passengerId).then((value) => {
-      users[index] = value;
+  UsersService.getUsers().then((value) => { //aca surge el problema del doble print
+    //console.log(value);
+    const passengers = [];
+    value.forEach(passenger => {
+      passengers.push({
+        id: passenger.id,
+        firstName: passenger.firstName,
+        lastName: passenger.lastName,
+        username: passenger.username,
+        adress: passenger.adress,
+      }
+      )
     })
-    //users[index] = UsersService.getUser(passengerId);
-    passengerId++;
-  } 
-  console.log(users);
-  return users
+    console.log(passengers);
+    return passengers;
+  })
+  return []
 }
 
 

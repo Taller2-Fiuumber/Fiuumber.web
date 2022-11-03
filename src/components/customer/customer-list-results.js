@@ -27,11 +27,6 @@ export const CustomerListResults = ({ customers, ...rest }) => {
 
     if (event.target.checked) {
       newSelectedCustomerIds = customers.map((customer) => customer.id);
-      console.log(customer.id);
-      console.log(customer.id);
-      console.log(customer.id);
-      console.log(customer.id);
-      // extranios console.log() que hacen que ande..
     } else {
       newSelectedCustomerIds = [];
     }

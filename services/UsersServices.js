@@ -3,17 +3,23 @@ import { HEADERS, URL_USERS } from "./Constants";
 import { User } from '../models/user';
 
 export const UsersService = {
-    getUser: async (userId) => {
+    getUsers: async () => {
         try {
-            // const url = `${URL_USERS}/user/${userId}`;
-            const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/user/${userId}`;
-            //const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/user`;
-            //const url = `http://localhost:8081/api/users-service/user/${userId}`;
+
+            const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/passenger`
             const response = await axios.get(url, HEADERS); //falla ac[a]
-            const user = new User();
-            user = response.data;
+
+            const users = [];
+            for (let index = 0; index < response.data.length; index++) {
+                let userId = response.data[index].userId
+                const url_user = `https://fiuumber-api-users.herokuapp.com/api/users-service/user/${userId}`;
+                const response_user = await axios.get(url_user, HEADERS); 
+                const user = new User();
+                user = response_user.data;
+                users[index] = user;
+            } 
             
-            return user;
+            return users;
         } 
         catch (error) {
             console.log(`UsersService getUser: ${error}`);
