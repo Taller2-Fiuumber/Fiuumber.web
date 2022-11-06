@@ -26,7 +26,7 @@ const items = [
     title: 'Metrics'
   },
   {
-    href: '/customers',
+    href: '/passengers',
     icon: (<UsersIcon fontSize="small" />),
     title: 'Passengers'
   },

@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect, Text} from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
+import { UsersService } from '../../../services/UsersServices';
 import {
   Avatar,
   Box,
@@ -13,45 +14,56 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Typography
+  Typography,
 } from '@mui/material';
 import { getInitials } from '../../utils/get-initials';
 
-export const CustomerListResults = ({ customers, ...rest }) => {
-  const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
+export const PassengerListResults = ({...rest }) => {
+  const [selectedPassengerIds, setSelectedPassengerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
+  const [passengers, setPassengers] = useState([]);
+
+  useEffect(() => {
+    UsersService.getUsers().then((value) => { //aca surge el problema del doble print
+      setPassengers(value);
+    }).catch((error) => {
+      console.log(error);
+    });
+    
+  }, [setPassengers]);
+
 
   const handleSelectAll = (event) => {
-    let newSelectedCustomerIds;
+    let newSelectedPassengerIds;
 
     if (event.target.checked) {
-      newSelectedCustomerIds = customers.map((customer) => customer.id);
+      newSelectedPassengerIds = passengers.map((passenger) => passenger.id);
     } else {
-      newSelectedCustomerIds = [];
+      newSelectedPassengerIds = [];
     }
 
-    setSelectedCustomerIds(newSelectedCustomerIds);
+    setSelectedPassengerIds(newSelectedPassengerIds);
   };
 
   const handleSelectOne = (event, id) => {
-    const selectedIndex = selectedCustomerIds.indexOf(id);
-    let newSelectedCustomerIds = [];
+    const selectedIndex = selectedPassengerIds.indexOf(id);
+    let newSelectedPassengerIds = [];
 
     if (selectedIndex === -1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds, id);
+      newSelectedPassengerIds = newSelectedPassengerIds.concat(selectedPassengerIds, id);
     } else if (selectedIndex === 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(1));
-    } else if (selectedIndex === selectedCustomerIds.length - 1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(0, -1));
+      newSelectedPassengerIds = newSelectedPassengerIds.concat(selectedPassengerIds.slice(1));
+    } else if (selectedIndex === selectedPassengerIds.length - 1) {
+      newSelectedPassengerIds = newSelectedPassengerIds.concat(selectedPassengerIds.slice(0, -1));
     } else if (selectedIndex > 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(0, selectedIndex),
-        selectedCustomerIds.slice(selectedIndex + 1)
+      newSelectedPassengerIds = newSelectedPassengerIds.concat(
+        selectedPassengerIds.slice(0, selectedIndex),
+        selectedPassengerIds.slice(selectedIndex + 1)
       );
     }
 
-    setSelectedCustomerIds(newSelectedCustomerIds);
+    setSelectedPassengerIds(newSelectedPassengerIds);
   };
 
   const handleLimitChange = (event) => {
@@ -59,6 +71,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
   };
 
   const handlePageChange = (event, newPage) => {
+    setPassengers(fetchUsers());
     setPage(newPage);
   };
 
@@ -71,11 +84,11 @@ export const CustomerListResults = ({ customers, ...rest }) => {
               <TableRow>
                 <TableCell padding="checkbox">
                   <Checkbox
-                    checked={selectedCustomerIds.length === customers.length}
+                    checked={selectedPassengerIds.length === passengers.length}
                     color="primary"
                     indeterminate={
-                      selectedCustomerIds.length > 0
-                      && selectedCustomerIds.length < customers.length
+                      selectedPassengerIds.length > 0
+                      && selectedPassengerIds.length < passengers.length
                     }
                     onChange={handleSelectAll}
                   />
@@ -93,7 +106,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                   Email
                 </TableCell>
                 <TableCell>
-                  Location
+                  Address
                 </TableCell>
                 <TableCell>
                   Phone
@@ -104,16 +117,16 @@ export const CustomerListResults = ({ customers, ...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {customers.slice(0, limit).map((customer) => (
+              {passengers.slice(0, limit).map((passenger) => (
                 <TableRow
                   hover
-                  key={customer.id}
-                  selected={selectedCustomerIds.indexOf(customer.id) !== -1}
+                  key={passenger.id}
+                  selected={selectedPassengerIds.indexOf(passenger.id) !== -1}
                 >
                   <TableCell padding="checkbox">
                     <Checkbox
-                      checked={selectedCustomerIds.indexOf(customer.id) !== -1}
-                      onChange={(event) => handleSelectOne(event, customer.id)}
+                      checked={selectedPassengerIds.indexOf(passenger.id) !== -1}
+                      onChange={(event) => handleSelectOne(event, passenger.id)}
                       value="true"
                     />
                   </TableCell>
@@ -125,16 +138,16 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                       }}
                     >
                       {/* <Avatar
-                        src={customer.avatarUrl}
+                        src={passenger.avatarUrl}
                         sx={{ mr: 2 }}
                       >
-                        {getInitials(customer.firstName)}
+                        {getInitials(passenger.firstName)}
                       </Avatar> */}
                       <Typography
                         color="textPrimary"
                         variant="body1"
                       >
-                        {customer.firstName}
+                        {passenger.firstName}
                       </Typography>
                     </Box>
                   </TableCell>
@@ -146,16 +159,16 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                       }}
                     >
                       {/* <Avatar
-                        src={customer.avatarUrl}
+                        src={passenger.avatarUrl}
                         sx={{ mr: 2 }}
                       >
-                        {getInitials(customer.firstName)}
+                        {getInitials(passenger.firstName)}
                       </Avatar> */}
                       <Typography
                         color="textPrimary"
                         variant="body1"
                       >
-                        {customer.lastName}
+                        {passenger.lastName}
                       </Typography>
                     </Box>
                   </TableCell>
@@ -167,30 +180,31 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                       }}
                     >
                       {/* <Avatar
-                        src={customer.avatarUrl}
+                        src={passenger.avatarUrl}
                         sx={{ mr: 2 }}
                       >
-                        {getInitials(customer.firstName)}
+                        {getInitials(passenger.firstName)}
                       </Avatar> */}
                       <Typography
                         color="textPrimary"
                         variant="body1"
                       >
-                        {customer.username}
+                        {passenger.username}
                       </Typography>
                     </Box>
                   </TableCell>
                   <TableCell>
-                    {customer.email}
+                    {passenger.email}
                   </TableCell>
                   <TableCell>
-                    {`${customer.adress}`}
+                    {/* {`${passenger.address}`} */}
+                    {passenger.address}
                   </TableCell>
                   <TableCell>
-                    {/* {customer.phone} */}
+                    {/* {passenger.phone} */}
                   </TableCell>
                   <TableCell>
-                    {/* {format(customer.createdAt, 'dd/MM/yyyy')} */}
+                    {/* {format(passenger.createdAt, 'dd/MM/yyyy')} */}
                   </TableCell>
                 </TableRow>
               ))}
@@ -200,7 +214,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={customers.length}
+        count={passengers.length}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleLimitChange}
         page={page}
@@ -211,6 +225,6 @@ export const CustomerListResults = ({ customers, ...rest }) => {
   );
 };
 
-CustomerListResults.propTypes = {
-  customers: PropTypes.array.isRequired
-};
+// PassengerListResults.propTypes = {
+//   passengers: PropTypes.array.isRequired
+// };

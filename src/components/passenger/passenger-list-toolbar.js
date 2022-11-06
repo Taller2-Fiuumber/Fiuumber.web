@@ -11,7 +11,7 @@ import { Search as SearchIcon } from '../../icons/search';
 import { Upload as UploadIcon } from '../../icons/upload';
 import { Download as DownloadIcon } from '../../icons/download';
 
-export const CustomerListToolbar = (props) => (
+export const PassengerListToolbar = (props) => (
   <Box {...props}>
     <Box
       sx={{
@@ -29,7 +29,7 @@ export const CustomerListToolbar = (props) => (
         Passengers
       </Typography>
       <Box sx={{ m: 1 }}>
-        <Button
+        {/* <Button
           color="secondary"
           startIcon={(<UploadIcon fontSize="small" />)}
           sx={{ mr: 1 }}
@@ -42,7 +42,7 @@ export const CustomerListToolbar = (props) => (
           sx={{ mr: 1 }}
         >
           Export
-        </Button>
+        </Button> */}
         <Button
           color="secondary"
           variant="contained"
@@ -69,7 +69,7 @@ export const CustomerListToolbar = (props) => (
                   </InputAdornment>
                 )
               }}
-              placeholder="Search customer"
+              placeholder="Search passenger"
               variant="outlined"
             />
           </Box>

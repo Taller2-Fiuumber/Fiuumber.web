@@ -5,7 +5,7 @@ import { LatestOrders } from '../components/dashboard/latest-orders';
 // import { LatestProducts } from '../components/dashboard/latest-products';
 import { Sales } from '../components/dashboard/sales';
 import { TasksProgress } from '../components/dashboard/tasks-progress';
-import { TotalCustomers } from '../components/dashboard/total-customers';
+import { TotalPassengers } from '../components/dashboard/total-passengers';
 import { TotalDrivers } from '../components/dashboard/total-drivers';
 import { TotalAdmins } from '../components/dashboard/total-admins';
 import { TotalProfit } from '../components/dashboard/total-profit';
@@ -47,7 +47,7 @@ const Page = () => (
             sm={6}
             xs={12}
           >
-            <TotalCustomers />
+            <TotalPassengers />
           </Grid>
           <Grid
             item

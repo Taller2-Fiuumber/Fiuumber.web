@@ -29,7 +29,7 @@ export const AdminListToolbar = (props) => (
         Admins
       </Typography>
       <Box sx={{ m: 1 }}>
-        <Button
+        {/* <Button
           color="secondary"
           startIcon={(<UploadIcon fontSize="small" />)}
           sx={{ mr: 1 }}
@@ -42,7 +42,7 @@ export const AdminListToolbar = (props) => (
           sx={{ mr: 1 }}
         >
           Export
-        </Button>
+        </Button> */}
         <Button
           color="secondary"
           variant="contained"

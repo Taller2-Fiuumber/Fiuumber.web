@@ -1,11 +1,11 @@
 export class Wallet {
   id;
-  adress;
+  address;
   privateKey;
 
-  constructor(id, adress, privateKey) {
+  constructor(id, address, privateKey) {
     this.id = id;
-    this.adress = adress;
+    this.address = address;
     this.privateKey = privateKey;
   }
 }
