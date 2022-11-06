@@ -13,7 +13,7 @@ const Page = () => (
       <title>
         Passengers | Fiuumber
       </title>
-    </Head>
+    </Head> 
     <Box
       component="main"
       sx={{

@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect, Text} from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
+import { UsersService } from '../../../services/UsersServices';
+
 import {
   Avatar,
   Box,
@@ -17,10 +19,24 @@ import {
 } from '@mui/material';
 import { getInitials } from '../../utils/get-initials';
 
-export const DriverListResults = ({ drivers, ...rest }) => {
+export const DriverListResults = ({...rest }) => {
   const [selectedDriverIds, setSelectedDriverIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
+  const [drivers, setDrivers] = useState([]);
+
+
+  useEffect(() => {
+    UsersService.getDrivers().then((value) => { //aca surge el problema del doble print
+      console.log(value);
+      setDrivers(value);
+    }).catch((error) => {
+      console.log(error);
+    });
+    
+  }, [setDrivers]);
+
+
 
   const handleSelectAll = (event) => {
     let newSelectedDriverIds;
@@ -84,14 +100,18 @@ export const DriverListResults = ({ drivers, ...rest }) => {
                   Name
                 </TableCell>
                 <TableCell>
-                  Email
+                  Last Name
                 </TableCell>
                 <TableCell>
-                  Location
+                  Username
                 </TableCell>
                 <TableCell>
-                  Phone
+                  Contact
                 </TableCell>
+                <TableCell>
+                  Address
+                </TableCell>
+                
                 <TableCell>
                   Registration date
                 </TableCell>
@@ -118,17 +138,59 @@ export const DriverListResults = ({ drivers, ...rest }) => {
                         display: 'flex'
                       }}
                     >
-                      <Avatar
-                        src={driver.avatarUrl}
+                      {/* <Avatar
+                        src={passenger.avatarUrl}
                         sx={{ mr: 2 }}
                       >
-                        {getInitials(driver.name)}
-                      </Avatar>
+                        {getInitials(passenger.firstName)}
+                      </Avatar> */}
                       <Typography
                         color="textPrimary"
                         variant="body1"
                       >
-                        {driver.name}
+                        {driver.firstName}
+                      </Typography>
+                    </Box>
+                  </TableCell>
+                  <TableCell>
+                    <Box
+                      sx={{
+                        alignItems: 'center',
+                        display: 'flex'
+                      }}
+                    >
+                      {/* <Avatar
+                        src={passenger.avatarUrl}
+                        sx={{ mr: 2 }}
+                      >
+                        {getInitials(passenger.firstName)}
+                      </Avatar> */}
+                      <Typography
+                        color="textPrimary"
+                        variant="body1"
+                      >
+                        {driver.lastName}
+                      </Typography>
+                    </Box>
+                  </TableCell>
+                  <TableCell>
+                    <Box
+                      sx={{
+                        alignItems: 'center',
+                        display: 'flex'
+                      }}
+                    >
+                      {/* <Avatar
+                        src={passenger.avatarUrl}
+                        sx={{ mr: 2 }}
+                      >
+                        {getInitials(passenger.firstName)}
+                      </Avatar> */}
+                      <Typography
+                        color="textPrimary"
+                        variant="body1"
+                      >
+                        {driver.username}
                       </Typography>
                     </Box>
                   </TableCell>
@@ -136,13 +198,14 @@ export const DriverListResults = ({ drivers, ...rest }) => {
                     {driver.email}
                   </TableCell>
                   <TableCell>
-                    {`${driver.address.city}, ${driver.address.state}, ${driver.address.country}`}
+                    {/* {`${passenger.address}`} */}
+                    {driver.address}
                   </TableCell>
                   <TableCell>
-                    {driver.phone}
+                    {/* {passenger.phone} */}
                   </TableCell>
                   <TableCell>
-                    {format(driver.createdAt, 'dd/MM/yyyy')}
+                    {/* {format(passenger.createdAt, 'dd/MM/yyyy')} */}
                   </TableCell>
                 </TableRow>
               ))}
@@ -163,6 +226,6 @@ export const DriverListResults = ({ drivers, ...rest }) => {
   );
 };
 
-DriverListResults.propTypes = {
-  drivers: PropTypes.array.isRequired
-};
+// DriverListResults.propTypes = {
+//   drivers: PropTypes.array.isRequired
+// };

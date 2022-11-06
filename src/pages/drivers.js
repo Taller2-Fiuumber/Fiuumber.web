@@ -22,7 +22,8 @@ const Page = () => (
       <Container maxWidth={false}>
         <DriverListToolbar />
         <Box sx={{ mt: 3 }}>
-          <DriverListResults drivers={drivers} />
+        <DriverListResults/>
+          {/* <DriverListResults drivers={drivers} /> */}
         </Box>
       </Container>
     </Box>

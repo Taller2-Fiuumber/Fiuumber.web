@@ -1,28 +1,59 @@
 import axios from 'axios';// For API consuming
 import { HEADERS, URL_USERS } from "./Constants";
 import { User } from '../models/user';
+import { Passenger } from '../models/passenger';
+import { Driver } from '../models/driver';
+
+
 
 export const UsersService = {
-    getUsers: async () => {
-        try {
+    getPassengers: async () => {
+        try { 
 
             const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/passenger`
-            const response = await axios.get(url, HEADERS); //falla ac[a]
+            const response = await axios.get(url, HEADERS); 
 
-            const users = [];
+            const passengers = [];
             for (let index = 0; index < response.data.length; index++) {
                 let userId = response.data[index].userId
                 const url_user = `https://fiuumber-api-users.herokuapp.com/api/users-service/user/${userId}`;
                 const response_user = await axios.get(url_user, HEADERS); 
-                const user = new User();
-                user = response_user.data;
-                users[index] = user;
+                const passenger = new Passenger();
+                passenger = response_user.data;
+                console.log(passenger);
+                passengers[index] = passenger;
             } 
             
-            return users;
+            return passengers;
         } 
         catch (error) {
-            console.log(`UsersService getUser: ${error}`);
+            console.log(`UsersService getPassengers: ${error}`);
+            if (error && error.response && error.response.status == 401) return null;
+            throw error;
+        }
+    },
+
+    getDrivers: async () => {
+        try { 
+
+            const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/driver`
+            const response = await axios.get(url, HEADERS); 
+
+            const drivers = [];
+            for (let index = 0; index < response.data.length; index++) {
+                let userId = response.data[index].userId
+                const url_user = `https://fiuumber-api-users.herokuapp.com/api/users-service/user/${userId}`;
+                const response_user = await axios.get(url_user, HEADERS); 
+                const driver = new Driver();
+                driver = response_user.data;
+                console.log(driver);
+                drivers[index] = driver;
+            } 
+            
+            return drivers;
+        } 
+        catch (error) {
+            console.log(`UsersService getDrivers: ${error}`);
             if (error && error.response && error.response.status == 401) return null;
             throw error;
         }

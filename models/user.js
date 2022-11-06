@@ -1,32 +1,24 @@
-import { Wallet } from "./wallet";
-
 export class User {
   id;
   email;
   firstName;
-  lastName;
-  location;
+  lastName;  
   blocked;
   password;
-  wallet;
-
 
   constructor(
     id,
     email,
     firstName,
-    lastName,
-    location,
+    lastName,   
     password,
-    wallet,
+   
   ) {
     this.id = id;
     this.email = email;
     this.firstName = firstName;
     this.lastName = lastName;
-    this.location = location;
     this.blocked = false;
     this.password = password;
-    this.wallet = wallet;
   }
 }

@@ -25,7 +25,8 @@ export const PassengerListResults = ({...rest }) => {
   const [passengers, setPassengers] = useState([]);
 
   useEffect(() => {
-    UsersService.getUsers().then((value) => { //aca surge el problema del doble print
+    UsersService.getPassengers().then((value) => { //aca surge el problema del doble print
+      console.log(value);
       setPassengers(value);
     }).catch((error) => {
       console.log(error);
@@ -60,7 +61,7 @@ export const PassengerListResults = ({...rest }) => {
       newSelectedPassengerIds = newSelectedPassengerIds.concat(
         selectedPassengerIds.slice(0, selectedIndex),
         selectedPassengerIds.slice(selectedIndex + 1)
-      );
+      ); 
     }
 
     setSelectedPassengerIds(newSelectedPassengerIds);
@@ -71,7 +72,7 @@ export const PassengerListResults = ({...rest }) => {
   };
 
   const handlePageChange = (event, newPage) => {
-    setPassengers(fetchUsers());
+    //setPassengers(fetchUsers());
     setPage(newPage);
   };
 
@@ -83,7 +84,7 @@ export const PassengerListResults = ({...rest }) => {
             <TableHead>
               <TableRow>
                 <TableCell padding="checkbox">
-                  <Checkbox
+                  {/* <Checkbox
                     checked={selectedPassengerIds.length === passengers.length}
                     color="primary"
                     indeterminate={
@@ -91,7 +92,7 @@ export const PassengerListResults = ({...rest }) => {
                       && selectedPassengerIds.length < passengers.length
                     }
                     onChange={handleSelectAll}
-                  />
+                  /> */}
                 </TableCell>
                 <TableCell>
                   Name
@@ -103,16 +104,13 @@ export const PassengerListResults = ({...rest }) => {
                   Username
                 </TableCell>
                 <TableCell>
-                  Email
+                  Contact
                 </TableCell>
                 <TableCell>
                   Address
-                </TableCell>
+                </TableCell>              
                 <TableCell>
-                  Phone
-                </TableCell>
-                <TableCell>
-                  Registration date
+                  Profile
                 </TableCell>
               </TableRow>
             </TableHead>
