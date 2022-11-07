@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect, Text} from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
+import { UsersService } from '../../../services/UsersServices';
+
 import {
   Avatar,
   Box,
@@ -11,16 +13,29 @@ import {
   TableBody,
   TableCell,
   TableHead,
-  TablePagination,
+  TablePagination, 
   TableRow,
   Typography
 } from '@mui/material';
 import { getInitials } from '../../utils/get-initials';
 
-export const AdminListResults = ({ admins, ...rest }) => {
+export const AdminListResults = ({...rest }) => {
   const [selectedAdminIds, setSelectedAdminIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
+  const [admins, setAdmins] = useState([]);
+
+  useEffect(() => {
+    UsersService.getAdmins().then((value) => {
+      console.log(value);
+      setAdmins(value);
+    }).catch((error) => {
+      console.log(error);
+    });
+    
+  }, [setAdmins]);
+
+
 
   const handleSelectAll = (event) => {
     let newSelectedadminIds;
@@ -65,35 +80,24 @@ export const AdminListResults = ({ admins, ...rest }) => {
   return (
     <Card {...rest}>
       <PerfectScrollbar>
-        <Box sx={{ minWidth: 1050 }}>
+        <Box sx={{ minWidth: 1000 }}>
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell padding="checkbox">
-                  <Checkbox
-                    checked={selectedAdminIds.length === admins.length}
-                    color="primary"
-                    indeterminate={
-                      selectedAdminIds.length > 0
-                      && selectedAdminIds.length < admins.length
-                    }
-                    onChange={handleSelectAll}
-                  />
-                </TableCell>
                 <TableCell>
                   Name
                 </TableCell>
                 <TableCell>
-                  Email
+                  Last Name
                 </TableCell>
                 <TableCell>
-                  Location
+                  Username
                 </TableCell>
                 <TableCell>
-                  Phone
+                  Contact
                 </TableCell>
                 <TableCell>
-                  Registration date
+                  Perfil
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -104,13 +108,7 @@ export const AdminListResults = ({ admins, ...rest }) => {
                   key={admin.id}
                   selected={selectedAdminIds.indexOf(admin.id) !== -1}
                 >
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={selectedAdminIds.indexOf(admin.id) !== -1}
-                      onChange={(event) => handleSelectOne(event, admin.id)}
-                      value="true"
-                    />
-                  </TableCell>
+                 
                   <TableCell>
                     <Box
                       sx={{
@@ -118,31 +116,26 @@ export const AdminListResults = ({ admins, ...rest }) => {
                         display: 'flex'
                       }}
                     >
-                      <Avatar
-                        src={admin.avatarUrl}
-                        sx={{ mr: 2 }}
-                      >
-                        {getInitials(admin.name)}
-                      </Avatar>
+                      
                       <Typography
                         color="textPrimary"
                         variant="body1"
                       >
-                        {admin.name}
+                        {admin.firstName}
                       </Typography>
                     </Box>
+                  </TableCell>
+                  <TableCell>
+                    {admin.lastName}
+                  </TableCell>
+                  <TableCell>
+                   {/* {admin.email}                    */}
                   </TableCell>
                   <TableCell>
                     {admin.email}
                   </TableCell>
                   <TableCell>
-                    {`${admin.address.city}, ${admin.address.state}, ${admin.address.country}`}
-                  </TableCell>
-                  <TableCell>
-                    {admin.phone}
-                  </TableCell>
-                  <TableCell>
-                    {format(admin.createdAt, 'dd/MM/yyyy')}
+                    
                   </TableCell>
                 </TableRow>
               ))}
@@ -163,6 +156,6 @@ export const AdminListResults = ({ admins, ...rest }) => {
   );
 };
 
-AdminListResults.propTypes = {
-  admins: PropTypes.array.isRequired
-};
+// AdminListResults.propTypes = {
+//   admins: PropTypes.array.isRequired
+// };

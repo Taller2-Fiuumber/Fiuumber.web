@@ -12,7 +12,7 @@ const Page = () => (
         Admins | Fiuumber
       </title>
     </Head>
-    <Box
+    <Box 
       component="main"
       sx={{
         flexGrow: 1,
@@ -22,7 +22,7 @@ const Page = () => (
       <Container maxWidth={false}>
         <AdminListToolbar />
         <Box sx={{ mt: 3 }}>
-          <AdminListResults admins={admins} />
+          <AdminListResults/>
         </Box>
       </Container>
     </Box>

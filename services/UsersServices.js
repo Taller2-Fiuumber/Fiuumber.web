@@ -3,6 +3,7 @@ import { HEADERS, URL_USERS } from "./Constants";
 import { User } from '../models/user';
 import { Passenger } from '../models/passenger';
 import { Driver } from '../models/driver';
+import { Admin } from '../models/admin';
 
 
 
@@ -54,6 +55,31 @@ export const UsersService = {
         } 
         catch (error) {
             console.log(`UsersService getDrivers: ${error}`);
+            if (error && error.response && error.response.status == 401) return null;
+            throw error;
+        }
+    },
+
+    getAdmins: async () => {
+        try { 
+
+            const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/administrator`
+            const response = await axios.get(url, HEADERS); 
+
+            const admins = [];
+            for (let index = 0; index < response.data.length; index++) {
+                
+                const admin = new Admin();
+                console.log(response.data[index])
+                admin = response.data[index];
+                console.log(admin);
+                admins[index] = admin;
+            } 
+            
+            return admins;
+        } 
+        catch (error) {
+            console.log(`UsersService getAdmins: ${error}`);
             if (error && error.response && error.response.status == 401) return null;
             throw error;
         }

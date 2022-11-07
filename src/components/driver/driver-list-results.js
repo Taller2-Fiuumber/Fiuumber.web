@@ -81,21 +81,10 @@ export const DriverListResults = ({...rest }) => {
   return (
     <Card {...rest}>
       <PerfectScrollbar>
-        <Box sx={{ minWidth: 1050 }}>
+        <Box sx={{ minWidth: 1000 }}>
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell padding="checkbox">
-                  <Checkbox
-                    checked={selectedDriverIds.length === drivers.length}
-                    color="primary"
-                    indeterminate={
-                      selectedDriverIds.length > 0
-                      && selectedDriverIds.length < drivers.length
-                    }
-                    onChange={handleSelectAll}
-                  />
-                </TableCell>
                 <TableCell>
                   Name
                 </TableCell>
@@ -110,8 +99,7 @@ export const DriverListResults = ({...rest }) => {
                 </TableCell>
                 <TableCell>
                   Address
-                </TableCell>
-                
+                </TableCell>                
                 <TableCell>
                   Registration date
                 </TableCell>
@@ -124,13 +112,6 @@ export const DriverListResults = ({...rest }) => {
                   key={driver.id}
                   selected={selectedDriverIds.indexOf(driver.id) !== -1}
                 >
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={selectedDriverIds.indexOf(driver.id) !== -1}
-                      onChange={(event) => handleSelectOne(event, driver.id)}
-                      value="true"
-                    />
-                  </TableCell>
                   <TableCell>
                     <Box
                       sx={{

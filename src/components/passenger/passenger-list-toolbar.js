@@ -28,27 +28,7 @@ export const PassengerListToolbar = (props) => (
       >
         Passengers
       </Typography>
-      <Box sx={{ m: 1 }}>
-        {/* <Button
-          color="secondary"
-          startIcon={(<UploadIcon fontSize="small" />)}
-          sx={{ mr: 1 }}
-        >
-          Import
-        </Button>
-        <Button
-          color="secondary"
-          startIcon={(<DownloadIcon fontSize="small" />)}
-          sx={{ mr: 1 }}
-        >
-          Export
-        </Button> */}
-        <Button
-          color="secondary"
-          variant="contained"
-        >
-          Add Passengers
-        </Button>
+      <Box sx={{ m: 1 }}>        
       </Box>
     </Box>
     <Box sx={{ mt: 3 }}>

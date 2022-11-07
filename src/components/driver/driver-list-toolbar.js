@@ -27,29 +27,7 @@ export const DriverListToolbar = (props) => (
         variant="h4"
       >
         Drivers
-      </Typography>
-      <Box sx={{ m: 1 }}>
-        {/* <Button
-          color="secondary"
-          startIcon={(<UploadIcon fontSize="small" />)}
-          sx={{ mr: 1 }}
-        >
-          Import
-        </Button>
-        <Button
-          color="secondary"
-          startIcon={(<DownloadIcon fontSize="small" />)}
-          sx={{ mr: 1 }}
-        >
-          Export
-        </Button> */}
-        <Button
-          color="secondary"
-          variant="contained"
-        >
-          Add Drivers
-        </Button>
-      </Box>
+      </Typography>     
     </Box>
     <Box sx={{ mt: 3 }}>
       <Card>

@@ -25,7 +25,7 @@ export const PassengerListResults = ({...rest }) => {
   const [passengers, setPassengers] = useState([]);
 
   useEffect(() => {
-    UsersService.getPassengers().then((value) => { //aca surge el problema del doble print
+    UsersService.getPassengers().then((value) => { 
       console.log(value);
       setPassengers(value);
     }).catch((error) => {
@@ -79,21 +79,10 @@ export const PassengerListResults = ({...rest }) => {
   return (
     <Card {...rest}>
       <PerfectScrollbar>
-        <Box sx={{ minWidth: 1050 }}>
+        <Box sx={{ minWidth: 1000 }}>
           <Table>
             <TableHead>
-              <TableRow>
-                <TableCell padding="checkbox">
-                  {/* <Checkbox
-                    checked={selectedPassengerIds.length === passengers.length}
-                    color="primary"
-                    indeterminate={
-                      selectedPassengerIds.length > 0
-                      && selectedPassengerIds.length < passengers.length
-                    }
-                    onChange={handleSelectAll}
-                  /> */}
-                </TableCell>
+              <TableRow>               
                 <TableCell>
                   Name
                 </TableCell>
@@ -120,14 +109,7 @@ export const PassengerListResults = ({...rest }) => {
                   hover
                   key={passenger.id}
                   selected={selectedPassengerIds.indexOf(passenger.id) !== -1}
-                >
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={selectedPassengerIds.indexOf(passenger.id) !== -1}
-                      onChange={(event) => handleSelectOne(event, passenger.id)}
-                      value="true"
-                    />
-                  </TableCell>
+                >                
                   <TableCell>
                     <Box
                       sx={{
@@ -135,12 +117,7 @@ export const PassengerListResults = ({...rest }) => {
                         display: 'flex'
                       }}
                     >
-                      {/* <Avatar
-                        src={passenger.avatarUrl}
-                        sx={{ mr: 2 }}
-                      >
-                        {getInitials(passenger.firstName)}
-                      </Avatar> */}
+                      
                       <Typography
                         color="textPrimary"
                         variant="body1"
