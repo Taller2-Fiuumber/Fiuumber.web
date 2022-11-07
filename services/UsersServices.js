@@ -17,10 +17,18 @@ export const UsersService = {
             const passengers = [];
             for (let index = 0; index < response.data.length; index++) {
                 let userId = response.data[index].userId
+                let wallet = response.data[index].wallet
                 const url_user = `https://fiuumber-api-users.herokuapp.com/api/users-service/user/${userId}`;
                 const response_user = await axios.get(url_user, HEADERS); 
-                const passenger = new Passenger();
-                passenger = response_user.data;
+                const passenger = new Passenger( response_user.data.id,
+                    response_user.data.email,
+                    response_user.data.firstName,
+                    response_user.data.lastName,
+                    response_user.data.username,
+                    response_user.data.address,
+                    response_user.data.password,
+                    wallet);
+                //passenger = response_user.data;
                 console.log(passenger);
                 passengers[index] = passenger;
             } 
