@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { Box, Container } from '@mui/material';
+import { Box, Container, Typography} from '@mui/material';
 import { PassengerListResults } from '../components/passenger/passenger-list-results';
 import { PassengerListToolbar } from '../components/passenger/passenger-list-toolbar';
 import { DashboardLayout } from '../components/dashboard-layout';
@@ -18,9 +18,16 @@ const Page = () => (
       component="main"
       sx={{
         flexGrow: 1,
-        py: 8
+        py: 2
       }}
     >
+      <Typography
+        sx={{ m: 1 }}
+        variant="h2"
+        color="#10B981"
+      > Fiuumber - Passengers
+      </Typography>
+
       <Container maxWidth={false}>
         <PassengerListToolbar />
         <Box sx={{ mt: 3 }}>
@@ -33,9 +40,6 @@ const Page = () => (
     </Box>
   </>
 );
-
-
-
 
 
 Page.getLayout = (page) => (

@@ -13,7 +13,7 @@ import { Download as DownloadIcon } from '../../icons/download';
 
 export const DriverListToolbar = (props) => (
   <Box {...props}>
-    <Box
+    {/* <Box
       sx={{
         alignItems: 'center',
         display: 'flex',
@@ -28,7 +28,7 @@ export const DriverListToolbar = (props) => (
       >
         Drivers
       </Typography>     
-    </Box>
+    </Box> */}
     <Box sx={{ mt: 3 }}>
       <Card>
         <CardContent>

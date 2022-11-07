@@ -15,16 +15,23 @@ const Page = () => (
       component="main"
       sx={{
         flexGrow: 1,
-        py: 8
+        py: 2
       }}
     >
+      <Typography
+        sx={{ m: 1 }}
+        variant="h2"
+        color="#10B981"
+      > Fiuumber - Account
+      </Typography>
+
       <Container maxWidth="lg">
-        <Typography
+        {/* <Typography
           sx={{ mb: 3 }}
           variant="h4"
         >
           Account
-        </Typography>
+        </Typography> */}
         <Grid
           container
           spacing={3}

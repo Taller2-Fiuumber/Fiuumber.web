@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { Box, Container, Grid } from '@mui/material';
+import { Box, Container, Grid, Typography } from '@mui/material';
 import { Budget } from '../components/dashboard/budget';
 import { LatestOrders } from '../components/dashboard/latest-orders';
 // import { LatestProducts } from '../components/dashboard/latest-products';
@@ -23,9 +23,16 @@ const Page = () => (
       component="main"
       sx={{
         flexGrow: 1,
-        py: 8
+        py: 2
       }}
     >
+      <Typography
+        sx={{ m: 1 }}
+        variant="h2"
+        color="#10B981"
+      > Fiuumber - Metrics
+      </Typography>
+
       <Container maxWidth={false}>
         <Grid
           container

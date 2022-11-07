@@ -16,7 +16,7 @@ const DashboardLayoutRoot = styled('div')(({ theme }) => ({
 
 export const DashboardLayout = (props) => {
   const { children } = props;
-  const [isSidebarOpen, setSidebarOpen] = useState(true);  
+  const [isSidebarOpen, setSidebarOpen] = useState(true);
 
   return (
     
@@ -30,14 +30,12 @@ export const DashboardLayout = (props) => {
             width: '100%'
           }}
         >
-      <Typography
+      {/* <Typography
         sx={{ m: 1 }}
         variant="h2"
         color="#10B981"
-
       >
-        Fiuumber
-      </Typography>
+      </Typography> */}
           {children}
         </Box>
       </DashboardLayoutRoot>

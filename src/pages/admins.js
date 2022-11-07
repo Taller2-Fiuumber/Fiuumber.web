@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { Box, Container } from '@mui/material';
+import { Box, Container , Typography} from '@mui/material';
 import { AdminListResults } from '../components/admin/admin-list-results';
 import { AdminListToolbar } from '../components/admin/admin-list-toolbar';
 import { DashboardLayout } from '../components/dashboard-layout';
@@ -12,17 +12,25 @@ const Page = () => (
         Admins | Fiuumber
       </title>
     </Head>
-    <Box 
+
+    <Box
       component="main"
       sx={{
         flexGrow: 1,
-        py: 8
+        py: 2
       }}
     >
+      <Typography
+        sx={{ m: 1 }}
+        variant="h2"
+        color="#10B981"
+      > Fiuumber - Admins
+      </Typography>
+
       <Container maxWidth={false}>
         <AdminListToolbar />
         <Box sx={{ mt: 3 }}>
-          <AdminListResults/>
+          <AdminListResults admins={admins} />
         </Box>
       </Container>
     </Box>

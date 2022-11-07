@@ -13,7 +13,7 @@ import { Download as DownloadIcon } from '../../icons/download';
 
 export const AdminListToolbar = (props) => (
   <Box {...props}>
-    <Box
+    {/* <Box
       sx={{
         alignItems: 'center',
         display: 'flex',
@@ -29,28 +29,9 @@ export const AdminListToolbar = (props) => (
         Admins
       </Typography>
       <Box sx={{ m: 1 }}>
-        {/* <Button
-          color="secondary"
-          startIcon={(<UploadIcon fontSize="small" />)}
-          sx={{ mr: 1 }}
-        >
-          Import
-        </Button>
-        <Button
-          color="secondary"
-          startIcon={(<DownloadIcon fontSize="small" />)}
-          sx={{ mr: 1 }}
-        >
-          Export
-        </Button> */}
-        <Button
-          color="secondary"
-          variant="contained"
-        >
-          Add Admins
-        </Button>
+    
       </Box>
-    </Box>
+    </Box> */}
     <Box sx={{ mt: 3 }}>
       <Card>
         <CardContent>
