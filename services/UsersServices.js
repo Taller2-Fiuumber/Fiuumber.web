@@ -51,10 +51,20 @@ export const UsersService = {
             const drivers = [];
             for (let index = 0; index < response.data.length; index++) {
                 let userId = response.data[index].userId
+                let wallet = response.data[index].wallet
+                let vehicle = response.data[index].driverVehicle
                 const url_user = `https://fiuumber-api-users.herokuapp.com/api/users-service/user/${userId}`;
                 const response_user = await axios.get(url_user, HEADERS); 
-                const driver = new Driver();
-                driver = response_user.data;
+                const driver = new Driver(response_user.data.id,
+                    response_user.data.email,
+                    response_user.data.firstName,
+                    response_user.data.lastName,
+                    response_user.data.username,
+                    response_user.data.address,
+                    response_user.data.password,
+                    wallet,
+                    vehicle);
+                // driver = response_user.data;
                 console.log(driver);
                 drivers[index] = driver;
             } 
@@ -77,10 +87,8 @@ export const UsersService = {
             const admins = [];
             for (let index = 0; index < response.data.length; index++) {
                 
-                const admin = new Admin();
-                console.log(response.data[index])
-                admin = response.data[index];
-                console.log(admin);
+                const admin = new Admin(response.data[index].id, response.data[index].email, response.data[index].firstName, response.data[index].lastName, response.data[index].password,  response.data[index].createdAt);
+
                 admins[index] = admin;
             } 
             

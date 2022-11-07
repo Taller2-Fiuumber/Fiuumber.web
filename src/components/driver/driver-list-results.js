@@ -99,9 +99,12 @@ export const DriverListResults = ({...rest }) => {
                 </TableCell>
                 <TableCell>
                   Address
-                </TableCell>                
+                </TableCell>   
                 <TableCell>
-                  Registration date
+                  Vehicle Domain
+                </TableCell>
+                <TableCell>
+                  Profile
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -183,7 +186,7 @@ export const DriverListResults = ({...rest }) => {
                     {driver.address}
                   </TableCell>
                   <TableCell>
-                    {/* {passenger.phone} */}
+                    {driver.vehicle.domain}
                   </TableCell>
                   <TableCell>
                     {/* {format(passenger.createdAt, 'dd/MM/yyyy')} */}

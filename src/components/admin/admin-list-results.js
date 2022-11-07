@@ -90,11 +90,14 @@ export const AdminListResults = ({...rest }) => {
                 <TableCell>
                   Last Name
                 </TableCell>
-                <TableCell>
+                {/* <TableCell>
                   Username
-                </TableCell>
+                </TableCell> */}
                 <TableCell>
                   Contact
+                </TableCell>
+                <TableCell>
+                  Created At
                 </TableCell>
                 <TableCell>
                   Perfil
@@ -129,13 +132,10 @@ export const AdminListResults = ({...rest }) => {
                     {admin.lastName}
                   </TableCell>
                   <TableCell>
-                   {/* {admin.email}                    */}
-                  </TableCell>
-                  <TableCell>
                     {admin.email}
                   </TableCell>
                   <TableCell>
-                    
+                    {admin.createdAt}
                   </TableCell>
                 </TableRow>
               ))}
