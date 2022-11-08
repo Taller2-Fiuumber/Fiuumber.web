@@ -60,9 +60,10 @@ export const AccountProfile = (props) => (
     <Divider />
     <CardActions>
       <Button
-        color="primary"
+       color="secondary"
+       variant="contained"
         fullWidth
-        variant="text"
+       // variant="text"
       >
         Upload picture
       </Button>

@@ -3,9 +3,14 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import { UsersService } from '../../../services/UsersServices';
+// import * as React from "react";
+// import * as ReactDOM from "react-dom";
+
+// import { useNavigate } from "react-router-dom";
 
 import {
   Avatar,
+  Button,
   Box,
   Card,
   Checkbox,
@@ -35,39 +40,42 @@ export const AdminListResults = ({...rest }) => {
     
   }, [setAdmins]);
 
+  // let navigate = useNavigate(); 
+  // const routeChange = (selected) =>{ 
+  //   navigate(selected);
+  // }
 
+  // const handleSelectAll = (event) => {
+  //   let newSelectedadminIds;
 
-  const handleSelectAll = (event) => {
-    let newSelectedadminIds;
+  //   if (event.target.checked) {
+  //     newSelectedAdminIds = admins.map((admin) => admin.id);
+  //   } else {
+  //     newSelectedAdminIds = [];
+  //   }
 
-    if (event.target.checked) {
-      newSelectedAdminIds = admins.map((admin) => admin.id);
-    } else {
-      newSelectedAdminIds = [];
-    }
+  //   setSelectedAdminIds(newSelectedAdminIds);
+  // };
 
-    setSelectedAdminIds(newSelectedAdminIds);
-  };
+  // const handleSelectOne = (event, id) => {
+  //   const selectedIndex = selectedAdminIds.indexOf(id);
+  //   let newSelectedAdminIds = [];
 
-  const handleSelectOne = (event, id) => {
-    const selectedIndex = selectedAdminIds.indexOf(id);
-    let newSelectedAdminIds = [];
+  //   if (selectedIndex === -1) {
+  //     newSelectedAdminIds = newSelectedAdminIds.concat(selectedAdminIds, id);
+  //   } else if (selectedIndex === 0) {
+  //     newSelectedAdminIds = newSelectedAdminIds.concat(selectedAdminIds.slice(1));
+  //   } else if (selectedIndex === selectedAdminIds.length - 1) {
+  //     newSelectedAdminIds = newSelectedAdminIds.concat(selectedAdminIds.slice(0, -1));
+  //   } else if (selectedIndex > 0) {
+  //     newSelectedAdminIds = newSelectedAdminIds.concat(
+  //       selectedAdminIds.slice(0, selectedIndex),
+  //       selectedAdminIds.slice(selectedIndex + 1)
+  //     );
+  //   }
 
-    if (selectedIndex === -1) {
-      newSelectedAdminIds = newSelectedAdminIds.concat(selectedAdminIds, id);
-    } else if (selectedIndex === 0) {
-      newSelectedAdminIds = newSelectedAdminIds.concat(selectedAdminIds.slice(1));
-    } else if (selectedIndex === selectedAdminIds.length - 1) {
-      newSelectedAdminIds = newSelectedAdminIds.concat(selectedAdminIds.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelectedAdminIds = newSelectedAdminIds.concat(
-        selectedAdminIds.slice(0, selectedIndex),
-        selectedAdminIds.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelectedAdminIds(newSelectedAdminIds);
-  };
+  //   setSelectedAdminIds(newSelectedAdminIds);
+  // };
 
   const handleLimitChange = (event) => {
     setLimit(event.target.value);
@@ -137,7 +145,18 @@ export const AdminListResults = ({...rest }) => {
                   <TableCell>
                     {admin.createdAt}
                   </TableCell>
+                  <TableCell>
+                  <Button
+                    color="secondary"
+                    variant="contained"
+                    // onclick={  }
+                  >
+                  View Profile
+                  </Button>
+                  </TableCell>
                 </TableRow>
+
+            
               ))}
             </TableBody>
           </Table>

@@ -24,6 +24,7 @@ const Page = () => (
         sx={{ m: 1 }}
         variant="h2"
         color="#10B981"
+        //color="#10B9D7" 
       > Fiuumber - Admins
       </Typography>
 

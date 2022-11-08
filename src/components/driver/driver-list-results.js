@@ -6,6 +6,7 @@ import { UsersService } from '../../../services/UsersServices';
 
 import {
   Avatar,
+  Button,
   Box,
   Card,
   Checkbox,
@@ -37,38 +38,37 @@ export const DriverListResults = ({...rest }) => {
   }, [setDrivers]);
 
 
+  // const handleSelectAll = (event) => {
+  //   let newSelectedDriverIds;
 
-  const handleSelectAll = (event) => {
-    let newSelectedDriverIds;
+  //   if (event.target.checked) {
+  //     newSelectedDriverIds = drivers.map((driver) => driver.id);
+  //   } else {
+  //     newSelectedDriverIds = [];
+  //   }
 
-    if (event.target.checked) {
-      newSelectedDriverIds = drivers.map((driver) => driver.id);
-    } else {
-      newSelectedDriverIds = [];
-    }
+  //   setSelectedDriverIds(newSelectedDriverIds);
+  // };
 
-    setSelectedDriverIds(newSelectedDriverIds);
-  };
+  // const handleSelectOne = (event, id) => {
+  //   const selectedIndex = selectedDriverIds.indexOf(id);
+  //   let newSelectedDriverIds = [];
 
-  const handleSelectOne = (event, id) => {
-    const selectedIndex = selectedDriverIds.indexOf(id);
-    let newSelectedDriverIds = [];
+  //   if (selectedIndex === -1) {
+  //     newSelectedDriverIds = newSelectedDriverIds.concat(selectedDriverIds, id);
+  //   } else if (selectedIndex === 0) {
+  //     newSelectedDriverIds = newSelectedDriverIds.concat(selectedDriverIds.slice(1));
+  //   } else if (selectedIndex === selectedDriverIds.length - 1) {
+  //     newSelectedDriverIds = newSelectedDriverIds.concat(selectedDriverIds.slice(0, -1));
+  //   } else if (selectedIndex > 0) {
+  //     newSelectedDriverIds = newSelectedDriverIds.concat(
+  //       selectedDriverIds.slice(0, selectedIndex),
+  //       selectedDriverIds.slice(selectedIndex + 1)
+  //     );
+  //   }
 
-    if (selectedIndex === -1) {
-      newSelectedDriverIds = newSelectedDriverIds.concat(selectedDriverIds, id);
-    } else if (selectedIndex === 0) {
-      newSelectedDriverIds = newSelectedDriverIds.concat(selectedDriverIds.slice(1));
-    } else if (selectedIndex === selectedDriverIds.length - 1) {
-      newSelectedDriverIds = newSelectedDriverIds.concat(selectedDriverIds.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelectedDriverIds = newSelectedDriverIds.concat(
-        selectedDriverIds.slice(0, selectedIndex),
-        selectedDriverIds.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelectedDriverIds(newSelectedDriverIds);
-  };
+  //   setSelectedDriverIds(newSelectedDriverIds);
+  // };
 
   const handleLimitChange = (event) => {
     setLimit(event.target.value);
@@ -116,67 +116,70 @@ export const DriverListResults = ({...rest }) => {
                   selected={selectedDriverIds.indexOf(driver.id) !== -1}
                 >
                   <TableCell>
-                    <Box
-                      sx={{
-                        alignItems: 'center',
-                        display: 'flex'
-                      }}
-                    >
-                      {/* <Avatar
-                        src={passenger.avatarUrl}
-                        sx={{ mr: 2 }}
+                      {/* <Box
+                        sx={{
+                          alignItems: 'center',
+                          display: 'flex'
+                        }}
                       >
-                        {getInitials(passenger.firstName)}
-                      </Avatar> */}
-                      <Typography
-                        color="textPrimary"
-                        variant="body1"
-                      >
-                        {driver.firstName}
-                      </Typography>
-                    </Box>
+                        <Avatar
+                          src={passenger.avatarUrl}
+                          sx={{ mr: 2 }}
+                        >
+                          {getInitials(passenger.firstName)}
+                        </Avatar>
+                        <Typography
+                          color="textPrimary"
+                          variant="body1"
+                        >
+                          
+                        </Typography>
+                      </Box> */}
+                    {driver.firstName}
                   </TableCell>
                   <TableCell>
-                    <Box
+                    {/* <Box
                       sx={{
                         alignItems: 'center',
                         display: 'flex'
                       }}
                     >
-                      {/* <Avatar
+                      <Avatar
                         src={passenger.avatarUrl}
                         sx={{ mr: 2 }}
                       >
                         {getInitials(passenger.firstName)}
-                      </Avatar> */}
+                      </Avatar>
                       <Typography
                         color="textPrimary"
                         variant="body1"
                       >
                         {driver.lastName}
                       </Typography>
-                    </Box>
+                    </Box> */}
+                    {driver.lastName}
                   </TableCell>
                   <TableCell>
-                    <Box
+                    {/* <Box
                       sx={{
                         alignItems: 'center',
                         display: 'flex'
                       }}
                     >
-                      {/* <Avatar
+                      <Avatar
                         src={passenger.avatarUrl}
                         sx={{ mr: 2 }}
                       >
                         {getInitials(passenger.firstName)}
-                      </Avatar> */}
+                      </Avatar>
                       <Typography
                         color="textPrimary"
                         variant="body1"
                       >
                         {driver.username}
                       </Typography>
-                    </Box>
+                    </Box> */}
+                    {driver.username}
                   </TableCell>
                   <TableCell>
                     {driver.email}
@@ -188,9 +191,20 @@ export const DriverListResults = ({...rest }) => {
                   <TableCell>
                     {driver.vehicle.domain}
                   </TableCell>
+                  {/* <TableCell>
+                    {format(passenger.createdAt, 'dd/MM/yyyy')}
+                  </TableCell> */}
                   <TableCell>
-                    {/* {format(passenger.createdAt, 'dd/MM/yyyy')} */}
+                  <Button
+                    color="secondary"
+                    variant="contained"
+                    // onclick={  }
+                  >
+                  View Profile
+                  </Button>
                   </TableCell>
+                  
+
                 </TableRow>
               ))}
             </TableBody>

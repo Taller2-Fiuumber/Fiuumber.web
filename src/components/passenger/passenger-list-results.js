@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import { UsersService } from '../../../services/UsersServices';
 import {
   Avatar,
+  Button,
   Box,
   Card,
   Checkbox,
@@ -35,37 +36,37 @@ export const PassengerListResults = ({...rest }) => {
   }, [setPassengers]);
 
 
-  const handleSelectAll = (event) => {
-    let newSelectedPassengerIds;
+  // const handleSelectAll = (event) => {
+  //   let newSelectedPassengerIds;
 
-    if (event.target.checked) {
-      newSelectedPassengerIds = passengers.map((passenger) => passenger.id);
-    } else {
-      newSelectedPassengerIds = [];
-    }
+  //   if (event.target.checked) {
+  //     newSelectedPassengerIds = passengers.map((passenger) => passenger.id);
+  //   } else {
+  //     newSelectedPassengerIds = [];
+  //   }
 
-    setSelectedPassengerIds(newSelectedPassengerIds);
-  };
+  //   setSelectedPassengerIds(newSelectedPassengerIds);
+  // };
 
-  const handleSelectOne = (event, id) => {
-    const selectedIndex = selectedPassengerIds.indexOf(id);
-    let newSelectedPassengerIds = [];
+  // const handleSelectOne = (event, id) => {
+  //   const selectedIndex = selectedPassengerIds.indexOf(id);
+  //   let newSelectedPassengerIds = [];
 
-    if (selectedIndex === -1) {
-      newSelectedPassengerIds = newSelectedPassengerIds.concat(selectedPassengerIds, id);
-    } else if (selectedIndex === 0) {
-      newSelectedPassengerIds = newSelectedPassengerIds.concat(selectedPassengerIds.slice(1));
-    } else if (selectedIndex === selectedPassengerIds.length - 1) {
-      newSelectedPassengerIds = newSelectedPassengerIds.concat(selectedPassengerIds.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelectedPassengerIds = newSelectedPassengerIds.concat(
-        selectedPassengerIds.slice(0, selectedIndex),
-        selectedPassengerIds.slice(selectedIndex + 1)
-      ); 
-    }
+  //   if (selectedIndex === -1) {
+  //     newSelectedPassengerIds = newSelectedPassengerIds.concat(selectedPassengerIds, id);
+  //   } else if (selectedIndex === 0) {
+  //     newSelectedPassengerIds = newSelectedPassengerIds.concat(selectedPassengerIds.slice(1));
+  //   } else if (selectedIndex === selectedPassengerIds.length - 1) {
+  //     newSelectedPassengerIds = newSelectedPassengerIds.concat(selectedPassengerIds.slice(0, -1));
+  //   } else if (selectedIndex > 0) {
+  //     newSelectedPassengerIds = newSelectedPassengerIds.concat(
+  //       selectedPassengerIds.slice(0, selectedIndex),
+  //       selectedPassengerIds.slice(selectedIndex + 1)
+  //     ); 
+  //   }
 
-    setSelectedPassengerIds(newSelectedPassengerIds);
-  };
+  //   setSelectedPassengerIds(newSelectedPassengerIds);
+  // };
 
   const handleLimitChange = (event) => {
     setLimit(event.target.value);
@@ -111,7 +112,7 @@ export const PassengerListResults = ({...rest }) => {
                   selected={selectedPassengerIds.indexOf(passenger.id) !== -1}
                 >                
                   <TableCell>
-                    <Box
+                    {/* <Box
                       sx={{
                         alignItems: 'center',
                         display: 'flex'
@@ -124,49 +125,52 @@ export const PassengerListResults = ({...rest }) => {
                       >
                         {passenger.firstName}
                       </Typography>
-                    </Box>
+                    </Box> */}
+                    {passenger.firstName}
                   </TableCell>
                   <TableCell>
-                    <Box
+                    {/* <Box
                       sx={{
                         alignItems: 'center',
                         display: 'flex'
                       }}
                     >
-                      {/* <Avatar
+                      <Avatar
                         src={passenger.avatarUrl}
                         sx={{ mr: 2 }}
                       >
                         {getInitials(passenger.firstName)}
-                      </Avatar> */}
+                      </Avatar>
                       <Typography
                         color="textPrimary"
                         variant="body1"
                       >
                         {passenger.lastName}
                       </Typography>
-                    </Box>
+                    </Box> */}
+                    {passenger.lastName}
                   </TableCell>
                   <TableCell>
-                    <Box
+                    {/* <Box
                       sx={{
                         alignItems: 'center',
                         display: 'flex'
                       }}
                     >
-                      {/* <Avatar
+                      <Avatar
                         src={passenger.avatarUrl}
                         sx={{ mr: 2 }}
                       >
                         {getInitials(passenger.firstName)}
-                      </Avatar> */}
+                      </Avatar>
                       <Typography
                         color="textPrimary"
                         variant="body1"
                       >
                         {passenger.username}
                       </Typography>
-                    </Box>
+                    </Box> */}
+                    {passenger.username}
                   </TableCell>
                   <TableCell>
                     {passenger.email}
@@ -175,11 +179,20 @@ export const PassengerListResults = ({...rest }) => {
                     {/* {`${passenger.address}`} */}
                     {passenger.address}
                   </TableCell>
-                  <TableCell>
-                    {/* {passenger.phone} */}
+                  {/* <TableCell>
+                    {passenger.phone}
                   </TableCell>
                   <TableCell>
-                    {/* {format(passenger.createdAt, 'dd/MM/yyyy')} */}
+                    {format(passenger.createdAt, 'dd/MM/yyyy')}
+                  </TableCell> */}
+                  <TableCell>
+                  <Button
+                    color="secondary"
+                    variant="contained"
+                    // onclick={  }
+                  >
+                  View Profile
+                  </Button>
                   </TableCell>
                 </TableRow>
               ))}

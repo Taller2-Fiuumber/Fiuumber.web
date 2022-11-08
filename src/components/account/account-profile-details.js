@@ -172,7 +172,8 @@ export const AccountProfileDetails = (props) => {
           }}
         >
           <Button
-            color="primary"
+            //color="primary"
+            color="secondary"
             variant="contained"
           >
             Save details
