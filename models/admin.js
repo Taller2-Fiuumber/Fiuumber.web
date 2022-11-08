@@ -1,16 +1,19 @@
 import {User} from "./user";
 
 export class Admin extends User {
-  createdAt;
+  // createdAt;
+  adminId;
   constructor(
-    id,
+    adminId,
     email,
     firstName,
     lastName,  
     password,
-    createdAt
+    // createdAt
   ) {
-    super(id, email, firstName, lastName, password);       
-    this.createdAt = createdAt;
+    super(email, firstName, lastName, password);       
+    this.adminId = adminId;
+
+    // this.createdAt = createdAt;
   }
 }

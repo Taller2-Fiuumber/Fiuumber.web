@@ -5,6 +5,7 @@ import {User} from "./user";
 //No esta usando los objetos que importo...Los entenderá al levantarlos de la BD?
 
 export class Driver extends User {
+  userId;
   username;
   address;  
   wallet;
@@ -12,7 +13,7 @@ export class Driver extends User {
 
 
   constructor(
-    id,
+    userId,
     email,
     firstName,
     lastName,
@@ -22,7 +23,8 @@ export class Driver extends User {
     wallet,
     vehicle,
   ) {
-    super(id, email, firstName, lastName, password);    
+    super(email, firstName, lastName, password);    
+    this.userId = userId;
     this.username = username;  
     this.address = address;
     this.wallet = wallet;

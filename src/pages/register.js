@@ -1,5 +1,7 @@
 import axios from 'axios';// For API consuming
 import Head from 'next/head';
+import { UsersService } from '../../services/UsersServices';
+import { Admin } from '../../models/admin';
 import NextLink from 'next/link';
 import Router from 'next/router';
 import { useFormik } from 'formik';
@@ -23,7 +25,7 @@ const Register = () => {
       firstName: '',
       lastName: '',
       password: '',
-      policy: false
+      // policy: false
     },
     validationSchema: Yup.object({
       email: Yup
@@ -46,8 +48,11 @@ const Register = () => {
         .required('Password is required'),
     }),
     onSubmit: () => {
+      
+      // console.log(formik.values.email);
+      UsersService.postAdministrator(formik.values.email, formik.values.firstName, formik.values.lastName, formik.values.password);
       Router
-        .push('/metrics')
+        .push('/admins')
         .catch(console.error);
     }
   });

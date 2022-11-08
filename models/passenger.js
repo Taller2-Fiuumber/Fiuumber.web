@@ -3,12 +3,13 @@ import {User} from "./user";
 
 
 export class Passenger extends User {
+  userId;
   username;
   address;
   wallet;
 
   constructor(
-    id,
+    userId,
     email,
     firstName,
     lastName,
@@ -18,7 +19,8 @@ export class Passenger extends User {
     wallet,
   ) {
 
-    super(id, email, firstName, lastName, password);    
+    super(email, firstName, lastName, password);    
+    this.userId = userId;
     this.username = username;
     this.address = address;
     this.wallet = wallet;

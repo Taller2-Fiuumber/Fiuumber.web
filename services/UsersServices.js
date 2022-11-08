@@ -1,9 +1,9 @@
 import axios from 'axios';// For API consuming
 import { HEADERS, URL_USERS } from "./Constants";
-import { User } from '../models/user';
 import { Passenger } from '../models/passenger';
 import { Driver } from '../models/driver';
 import { Admin } from '../models/admin';
+
 
 
 
@@ -99,5 +99,39 @@ export const UsersService = {
             if (error && error.response && error.response.status == 401) return null;
             throw error;
         }
-    }
+    },
+
+    postAdministrator: async (email, firstName, lastName, password) => {
+        try { 
+            
+            //const admin = new Admin( 2, email, firstName, lastName, password);
+            //console.log(admin);
+
+            const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/administrator`
+            // await axios.post(url, {admin}, HEADERS);
+            await axios.post(url, {
+                "adminId": 123,
+                "email": email,
+                "firstName": firstName,
+                "lastName": lastName,
+                "password": password
+              }, HEADERS);
+            return true
+
+        }   
+        catch (error) {
+            console.log(`UsersService postAdmin: ${error}`);
+            if (error && error.response && error.response.status == 401) return null;
+            throw error;
+        }
+    },
+   
+      
+
+
+
+
+
+
+
 };
