@@ -3,6 +3,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import { UsersService } from '../../../services/UsersServices';
+import Router from 'next/router';
 import {
   Avatar,
   Button,
@@ -36,44 +37,11 @@ export const PassengerListResults = ({...rest }) => {
   }, [setPassengers]);
 
 
-  // const handleSelectAll = (event) => {
-  //   let newSelectedPassengerIds;
-
-  //   if (event.target.checked) {
-  //     newSelectedPassengerIds = passengers.map((passenger) => passenger.id);
-  //   } else {
-  //     newSelectedPassengerIds = [];
-  //   }
-
-  //   setSelectedPassengerIds(newSelectedPassengerIds);
-  // };
-
-  // const handleSelectOne = (event, id) => {
-  //   const selectedIndex = selectedPassengerIds.indexOf(id);
-  //   let newSelectedPassengerIds = [];
-
-  //   if (selectedIndex === -1) {
-  //     newSelectedPassengerIds = newSelectedPassengerIds.concat(selectedPassengerIds, id);
-  //   } else if (selectedIndex === 0) {
-  //     newSelectedPassengerIds = newSelectedPassengerIds.concat(selectedPassengerIds.slice(1));
-  //   } else if (selectedIndex === selectedPassengerIds.length - 1) {
-  //     newSelectedPassengerIds = newSelectedPassengerIds.concat(selectedPassengerIds.slice(0, -1));
-  //   } else if (selectedIndex > 0) {
-  //     newSelectedPassengerIds = newSelectedPassengerIds.concat(
-  //       selectedPassengerIds.slice(0, selectedIndex),
-  //       selectedPassengerIds.slice(selectedIndex + 1)
-  //     ); 
-  //   }
-
-  //   setSelectedPassengerIds(newSelectedPassengerIds);
-  // };
-
   const handleLimitChange = (event) => {
     setLimit(event.target.value);
   };
 
   const handlePageChange = (event, newPage) => {
-    //setPassengers(fetchUsers());
     setPage(newPage);
   };
 
@@ -112,84 +80,27 @@ export const PassengerListResults = ({...rest }) => {
                   selected={selectedPassengerIds.indexOf(passenger.id) !== -1}
                 >                
                   <TableCell>
-                    {/* <Box
-                      sx={{
-                        alignItems: 'center',
-                        display: 'flex'
-                      }}
-                    >
-                      
-                      <Typography
-                        color="textPrimary"
-                        variant="body1"
-                      >
-                        {passenger.firstName}
-                      </Typography>
-                    </Box> */}
                     {passenger.firstName}
                   </TableCell>
                   <TableCell>
-                    {/* <Box
-                      sx={{
-                        alignItems: 'center',
-                        display: 'flex'
-                      }}
-                    >
-                      <Avatar
-                        src={passenger.avatarUrl}
-                        sx={{ mr: 2 }}
-                      >
-                        {getInitials(passenger.firstName)}
-                      </Avatar>
-                      <Typography
-                        color="textPrimary"
-                        variant="body1"
-                      >
-                        {passenger.lastName}
-                      </Typography>
-                    </Box> */}
                     {passenger.lastName}
                   </TableCell>
                   <TableCell>
-                    {/* <Box
-                      sx={{
-                        alignItems: 'center',
-                        display: 'flex'
-                      }}
-                    >
-                      <Avatar
-                        src={passenger.avatarUrl}
-                        sx={{ mr: 2 }}
-                      >
-                        {getInitials(passenger.firstName)}
-                      </Avatar>
-                      <Typography
-                        color="textPrimary"
-                        variant="body1"
-                      >
-                        {passenger.username}
-                      </Typography>
-                    </Box> */}
                     {passenger.username}
                   </TableCell>
                   <TableCell>
                     {passenger.email}
                   </TableCell>
                   <TableCell>
-                    {/* {`${passenger.address}`} */}
                     {passenger.address}
                   </TableCell>
-                  {/* <TableCell>
-                    {passenger.phone}
-                  </TableCell>
-                  <TableCell>
-                    {format(passenger.createdAt, 'dd/MM/yyyy')}
-                  </TableCell> */}
                   <TableCell>
                   <Button
                     color="secondary"
                     variant="contained"
-                    // onclick={  }
+                    onClick={() => {
+                      Router.push('/account')
+                    }}
                   >
                   View Profile
                   </Button>
@@ -212,7 +123,3 @@ export const PassengerListResults = ({...rest }) => {
     </Card>
   );
 };
-
-// PassengerListResults.propTypes = {
-//   passengers: PropTypes.array.isRequired
-// };

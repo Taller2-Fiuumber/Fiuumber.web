@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Router from 'next/router';
 import {
   Box,
   Button,
@@ -42,6 +43,7 @@ export const AccountProfileDetails = (props) => {
     });
   };
 
+  //console.log('router path', Router.pathname);
   return (
     <form
       autoComplete="off"

@@ -46,7 +46,7 @@ const items = [
   //   title: 'Products'
   // },
   {
-    href: '/account',
+    href: '/account/[admin]',
     icon: (<UserIcon fontSize="small" />),
     title: 'Account'
   },
@@ -119,16 +119,7 @@ export const DashboardSidebar = (props) => {
               href="/"
               passHref
             >
-            
               <a>
-
-                          {/* <Typography
-            color="neutral.100"
-            align="right"
-            marginLeft="50"
-          >
-            fiuumber
-          </Typography> */}
               </a>
             </NextLink>
           </Box>
@@ -156,49 +147,6 @@ export const DashboardSidebar = (props) => {
             py: 3
           }}
         >
-          {/* <Typography
-            color="neutral.100"
-            variant="subtitle2"
-          >
-            Need more features?
-          </Typography>
-          <Typography
-            color="neutral.500"
-            variant="body2"
-          >
-            Check out our Pro solution template.
-          </Typography> */}
-          {/* <Box
-            sx={{
-              display: 'flex',
-              mt: 2,
-              mx: 'auto',
-              width: '160px',
-              '& img': {
-                width: '100%'
-              }
-            }}
-          >
-            <img
-              alt="Go to pro"
-              src="/static/images/sidebar_pro.png"
-            />
-          </Box> */}
-          {/* <NextLink
-            href="https://material-kit-pro-react.devias.io/"
-            passHref
-          >
-            <Button
-              color="secondary"
-              component="a"
-              endIcon={(<OpenInNewIcon />)}
-              fullWidth
-              sx={{ mt: 2 }}
-              variant="contained"
-            >
-              Pro Live Preview
-            </Button>
-          </NextLink> */}
         </Box>
       </Box>
       <AccountPopover

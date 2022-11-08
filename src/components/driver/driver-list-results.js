@@ -3,6 +3,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import { UsersService } from '../../../services/UsersServices';
+import Router from 'next/router';
 
 import {
   Avatar,
@@ -28,7 +29,7 @@ export const DriverListResults = ({...rest }) => {
 
 
   useEffect(() => {
-    UsersService.getDrivers().then((value) => { //aca surge el problema del doble print
+    UsersService.getDrivers().then((value) => { 
       console.log(value);
       setDrivers(value);
     }).catch((error) => {
@@ -36,39 +37,6 @@ export const DriverListResults = ({...rest }) => {
     });
     
   }, [setDrivers]);
-
-
-  // const handleSelectAll = (event) => {
-  //   let newSelectedDriverIds;
-
-  //   if (event.target.checked) {
-  //     newSelectedDriverIds = drivers.map((driver) => driver.id);
-  //   } else {
-  //     newSelectedDriverIds = [];
-  //   }
-
-  //   setSelectedDriverIds(newSelectedDriverIds);
-  // };
-
-  // const handleSelectOne = (event, id) => {
-  //   const selectedIndex = selectedDriverIds.indexOf(id);
-  //   let newSelectedDriverIds = [];
-
-  //   if (selectedIndex === -1) {
-  //     newSelectedDriverIds = newSelectedDriverIds.concat(selectedDriverIds, id);
-  //   } else if (selectedIndex === 0) {
-  //     newSelectedDriverIds = newSelectedDriverIds.concat(selectedDriverIds.slice(1));
-  //   } else if (selectedIndex === selectedDriverIds.length - 1) {
-  //     newSelectedDriverIds = newSelectedDriverIds.concat(selectedDriverIds.slice(0, -1));
-  //   } else if (selectedIndex > 0) {
-  //     newSelectedDriverIds = newSelectedDriverIds.concat(
-  //       selectedDriverIds.slice(0, selectedIndex),
-  //       selectedDriverIds.slice(selectedIndex + 1)
-  //     );
-  //   }
-
-  //   setSelectedDriverIds(newSelectedDriverIds);
-  // };
 
   const handleLimitChange = (event) => {
     setLimit(event.target.value);
@@ -116,89 +84,30 @@ export const DriverListResults = ({...rest }) => {
                   selected={selectedDriverIds.indexOf(driver.id) !== -1}
                 >
                   <TableCell>
-                      {/* <Box
-                        sx={{
-                          alignItems: 'center',
-                          display: 'flex'
-                        }}
-                      >
-                        <Avatar
-                          src={passenger.avatarUrl}
-                          sx={{ mr: 2 }}
-                        >
-                          {getInitials(passenger.firstName)}
-                        </Avatar>
-                        <Typography
-                          color="textPrimary"
-                          variant="body1"
-                        >
-                          
-                        </Typography>
-                      </Box> */}
                     {driver.firstName}
                   </TableCell>
                   <TableCell>
-                    {/* <Box
-                      sx={{
-                        alignItems: 'center',
-                        display: 'flex'
-                      }}
-                    >
-                      <Avatar
-                        src={passenger.avatarUrl}
-                        sx={{ mr: 2 }}
-                      >
-                        {getInitials(passenger.firstName)}
-                      </Avatar>
-                      <Typography
-                        color="textPrimary"
-                        variant="body1"
-                      >
-                        {driver.lastName}
-                      </Typography>
-                    </Box> */}
                     {driver.lastName}
                   </TableCell>
                   <TableCell>
-                    {/* <Box
-                      sx={{
-                        alignItems: 'center',
-                        display: 'flex'
-                      }}
-                    >
-                      <Avatar
-                        src={passenger.avatarUrl}
-                        sx={{ mr: 2 }}
-                      >
-                        {getInitials(passenger.firstName)}
-                      </Avatar>
-                      <Typography
-                        color="textPrimary"
-                        variant="body1"
-                      >
-                        {driver.username}
-                      </Typography>
-                    </Box> */}
                     {driver.username}
                   </TableCell>
                   <TableCell>
                     {driver.email}
                   </TableCell>
                   <TableCell>
-                    {/* {`${passenger.address}`} */}
                     {driver.address}
                   </TableCell>
                   <TableCell>
                     {driver.vehicle.domain}
                   </TableCell>
-                  {/* <TableCell>
-                    {format(passenger.createdAt, 'dd/MM/yyyy')}
-                  </TableCell> */}
                   <TableCell>
                   <Button
                     color="secondary"
                     variant="contained"
-                    // onclick={  }
+                    onClick={() => {
+                      Router.push('/account')
+                    }}
                   >
                   View Profile
                   </Button>
@@ -223,7 +132,3 @@ export const DriverListResults = ({...rest }) => {
     </Card>
   );
 };
-
-// DriverListResults.propTypes = {
-//   drivers: PropTypes.array.isRequired
-// };

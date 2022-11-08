@@ -3,6 +3,8 @@ import { Box, Container, Grid, Typography } from '@mui/material';
 import { AccountProfile } from '../components/account/account-profile';
 import { AccountProfileDetails } from '../components/account/account-profile-details';
 import { DashboardLayout } from '../components/dashboard-layout';
+import Router from 'next/router';
+
 
 const Page = () => (
   <>
@@ -24,14 +26,7 @@ const Page = () => (
         color="#10B981"
       > Fiuumber - Account
       </Typography>
-
       <Container maxWidth="lg">
-        {/* <Typography
-          sx={{ mb: 3 }}
-          variant="h4"
-        >
-          Account
-        </Typography> */}
         <Grid
           container
           spacing={3}
