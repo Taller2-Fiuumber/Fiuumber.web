@@ -7,12 +7,13 @@ import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Facebook as FacebookIcon } from '../icons/facebook';
 import { Google as GoogleIcon } from '../icons/google';
+import { UsersService } from '../../services/UsersServices';
 
 const Login = () => {
   const formik = useFormik({
     initialValues: {
-      email: 'demo@devias.io',
-      password: 'Password123'
+      email: '',
+      password: ''
     },
     validationSchema: Yup.object({
       email: Yup
@@ -26,9 +27,23 @@ const Login = () => {
         .required('Password is required')
     }),
     onSubmit: () => {
-      Router
-        .push('/metrics')
-        .catch(console.error);
+      //const login = UsersService.validateLogin(formik.values.email, formik.values.password);
+      UsersService.validateLogin(formik.values.email, formik.values.password).then((login) => { 
+        if(login==true){
+          Router
+          .push('/metrics')
+          .catch(console.error);
+        } else { // Ver que hacer en caso de error
+          console.log("Error"); 
+                Router
+          .push('/index')
+          .catch(console.error);
+        }
+      }).catch((error) => {
+        console.log(error);
+      });
+
+
     }
   });
 

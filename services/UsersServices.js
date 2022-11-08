@@ -104,19 +104,19 @@ export const UsersService = {
     postAdministrator: async (email, firstName, lastName, password) => {
         try { 
             
-            //const admin = new Admin( 2, email, firstName, lastName, password);
+            const admin = new Admin(-1, email, firstName, lastName, password);
             //console.log(admin);
 
             const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/administrator`
-            // await axios.post(url, {admin}, HEADERS);
-            await axios.post(url, {
-                "adminId": 123,
-                "email": email,
-                "firstName": firstName,
-                "lastName": lastName,
-                "password": password
-              }, HEADERS);
-            return true
+            await axios.post(url, admin, HEADERS);
+            // await axios.post(url, {
+            //     "adminId": 123,
+            //     "email": email,
+            //     "firstName": firstName,
+            //     "lastName": lastName,
+            //     "password": password
+            //   }, HEADERS);
+            return true;
 
         }   
         catch (error) {
@@ -125,7 +125,17 @@ export const UsersService = {
             throw error;
         }
     },
-   
+
+    validateLogin: async (email, password) => {
+        try { 
+            // validar mail y contrasenia - endpoint creado por ani maria caa
+            return true; 
+        }   
+        catch (error) {
+            if (error && error.response && error.response.status == 401) return false; //error
+            throw error;
+        }
+    },
       
 
 
