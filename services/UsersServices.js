@@ -127,13 +127,17 @@ export const UsersService = {
     },
 
     validateLogin: async (email, password) => {
-        try { 
-            // validar mail y contrasenia - endpoint creado por ani maria caa
+        try {             
+            email = email.replace("@", "%40");
+            // console.log(email);
+            const url = `https://fiuumber-gateway-1.herokuapp.com/api/auth/administrator/login?email=${email}&password=${password}`
+            await axios.get(url, HEADERS); 
             return true; 
         }   
         catch (error) {
-            if (error && error.response && error.response.status == 401) return false; //error
-            throw error;
+            // if (error && error.response && error.response.status == 401) return false; //error
+            // //throw error;
+            return false;
         }
     },
       

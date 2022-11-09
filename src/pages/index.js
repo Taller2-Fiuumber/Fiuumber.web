@@ -8,12 +8,14 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Facebook as FacebookIcon } from '../icons/facebook';
 import { Google as GoogleIcon } from '../icons/google';
 import { UsersService } from '../../services/UsersServices';
+import { useState } from 'react';
 
 const Login = () => {
+  const [signInError, setError] = useState("hidden");
   const formik = useFormik({
     initialValues: {
       email: '',
-      password: ''
+      password: '',
     },
     validationSchema: Yup.object({
       email: Yup
@@ -24,20 +26,21 @@ const Login = () => {
       password: Yup
         .string()
         .max(255)
-        .required('Password is required')
+        .required('Password is required'),
     }),
     onSubmit: () => {
-      //const login = UsersService.validateLogin(formik.values.email, formik.values.password);
       UsersService.validateLogin(formik.values.email, formik.values.password).then((login) => { 
         if(login==true){
+          setError("hidden");
           Router
           .push('/metrics')
           .catch(console.error);
-        } else { // Ver que hacer en caso de error
-          console.log("Error"); 
-                Router
-          .push('/index')
-          .catch(console.error);
+        } else { 
+            Router
+          .push('.')
+          formik.values.email = '';
+          formik.values.password = '';
+          setError("show");
         }
       }).catch((error) => {
         console.log(error);
@@ -163,7 +166,7 @@ const Login = () => {
             <Box sx={{ py: 2 }}>
               <Button
                 color="secondary"
-                disabled={formik.isSubmitting}
+                disabled={formik.isSubmitting && !formik.isValid}
                 fullWidth
                 size="large"
                 type="submit"
@@ -171,6 +174,14 @@ const Login = () => {
               >
                 Sign In Now
               </Button>
+              <Typography
+                align="center"
+                color="red"
+                variant="body1"
+                visibility={signInError}
+              >
+                Error! Wrong email or password
+              </Typography>
             </Box>
           </form>
         </Container>
