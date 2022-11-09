@@ -17,6 +17,7 @@ export const AccountPopover = (props) => {
 
     // Check if authentication with Zalter is enabled
     // If not enabled, then redirect is not required
+
     if (!ENABLE_AUTH) {
       return;
     }
@@ -39,8 +40,9 @@ export const AccountPopover = (props) => {
 
     try {
       // This can be call inside AuthProvider component, but we do it here for simplicity
+      console.log("ani dani");
       await auth.signOut();
-
+      console.log("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaanda");
       // Update Auth Context state
       authContext.signOut();
 

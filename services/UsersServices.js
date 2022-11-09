@@ -105,17 +105,8 @@ export const UsersService = {
         try { 
             
             const admin = new Admin(-1, email, firstName, lastName, password);
-            //console.log(admin);
-
             const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/administrator`
             await axios.post(url, admin, HEADERS);
-            // await axios.post(url, {
-            //     "adminId": 123,
-            //     "email": email,
-            //     "firstName": firstName,
-            //     "lastName": lastName,
-            //     "password": password
-            //   }, HEADERS);
             return true;
 
         }   
@@ -129,15 +120,18 @@ export const UsersService = {
     validateLogin: async (email, password) => {
         try {             
             email = email.replace("@", "%40");
-            // console.log(email);
             const url = `https://fiuumber-gateway-1.herokuapp.com/api/auth/administrator/login?email=${email}&password=${password}`
-            await axios.get(url, HEADERS); 
-            return true; 
+            const response = await axios.get(url, HEADERS); 
+            const token = response.data.token;
+            const admin = new Admin(response.data.user.id, response.data.user.email, response.data.user.firstName, response.data.user.lastName, response.data.user.password,  response.data.user.createdAt);
+
+            return {
+                'admin': admin,
+                'token': token
+            };
         }   
         catch (error) {
-            // if (error && error.response && error.response.status == 401) return false; //error
-            // //throw error;
-            return false;
+            return null;
         }
     },
       

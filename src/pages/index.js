@@ -9,6 +9,8 @@ import { Facebook as FacebookIcon } from '../icons/facebook';
 import { Google as GoogleIcon } from '../icons/google';
 import { UsersService } from '../../services/UsersServices';
 import { useState } from 'react';
+import { AuthContext } from '../contexts/auth-context';
+import { auth, ENABLE_AUTH } from '../lib/auth';
 
 const Login = () => {
   const [signInError, setError] = useState("hidden");
@@ -30,17 +32,20 @@ const Login = () => {
     }),
     onSubmit: () => {
       UsersService.validateLogin(formik.values.email, formik.values.password).then((login) => { 
-        if(login==true){
-          setError("hidden");
+        if(login == null){
           Router
-          .push('/metrics')
-          .catch(console.error);
-        } else { 
-            Router
           .push('.')
           formik.values.email = '';
           formik.values.password = '';
           setError("show");
+        } else {
+          const token = login.token;
+          const admin = login.admin;
+          setError("hidden");
+          
+          Router
+          .push('/metrics')
+          .catch(console.error);          
         }
       }).catch((error) => {
         console.log(error);
