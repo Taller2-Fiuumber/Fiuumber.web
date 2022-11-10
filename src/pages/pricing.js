@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { Box, BoxProps, Container, Grid, Input, Typography, TextField, InputAdornment } from '@mui/material';
+import { Box, BoxProps, Container, Grid, Input, Typography, TextField, InputAdornment, Button } from '@mui/material';
 import { AccountProfile } from '../components/account/account-profile';
 import { PriceRules } from '../components/price-rules';
 import { DashboardLayout } from '../components/dashboard-layout';
@@ -36,7 +36,7 @@ const Page = () => (
         
             <TextField
                 width="10%"                             
-                placeholder="$"
+                placeholder="$12(Esto está uuuultra hardcodeado xd)"
                 variant="outlined"
             />           
         </Box>
@@ -50,7 +50,7 @@ const Page = () => (
         
             <TextField
                 width="10%"                             
-                placeholder="$"
+                placeholder="$9000 Basicamente acá pondriamos las tarifas que estan seteadas actualmente"
                 variant="outlined"
             />           
         </Box>
@@ -126,8 +126,24 @@ const Page = () => (
             />           
         </Box>
 
+        <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'row', maxWidth: 500 }} >   
+            <Button
+                centering = 'centered'
+                color="info"
+                fullWidth
+                onClick={() => <PriceRules/>
+                //Sé que esto esta mal, no soy tan gilastrun
+            
+            }
+                size="medium"
+                variant="contained"
+                >Aplicar Regla
+
+
+            </Button> 
+        </Box>
+
       
-      <PriceRules/>
     </Box>
   </>
 );

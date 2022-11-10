@@ -135,6 +135,23 @@ export const UsersService = {
         }
     },
       
+    setPrices: async () => {
+        try { 
+
+            //Acá se cargarian las nuevas tarifas a Trips.
+            const url = `https://fiuumber-api-users.herokuapp.com/api/trips`
+            const response = await axios.post(url, HEADERS); 
+
+            
+            
+            
+        } 
+        catch (error) {
+            console.log(`UsersService setPrices: ${error}`);
+            if (error && error.response && error.response.status == 401) return null;
+            throw error;
+        }
+    },
 
 
 
