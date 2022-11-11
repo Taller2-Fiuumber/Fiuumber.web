@@ -28,7 +28,7 @@ export const PassengerListResults = ({...rest }) => {
 
   useEffect(() => {
     UsersService.getPassengers().then((value) => { 
-      console.log(value);
+      // console.log(value);
       setPassengers(value);
     }).catch((error) => {
       console.log(error);
@@ -76,8 +76,8 @@ export const PassengerListResults = ({...rest }) => {
               {passengers.slice(0, limit).map((passenger) => (
                 <TableRow
                   hover
-                  key={passenger.id}
-                  selected={selectedPassengerIds.indexOf(passenger.id) !== -1}
+                  key={passenger.userId}
+                  selected={selectedPassengerIds.indexOf(passenger.userId) !== -1}
                 >                
                   <TableCell>
                     {passenger.firstName}
@@ -99,7 +99,7 @@ export const PassengerListResults = ({...rest }) => {
                     color="secondary"
                     variant="contained"
                     onClick={() => {
-                      Router.push('/account')
+                      Router.push("/account?id=" + passenger.userId)
                     }}
                   >
                   View Profile

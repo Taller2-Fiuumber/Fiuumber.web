@@ -42,7 +42,6 @@ const Login = () => {
           const token = login.token;
           const admin = login.admin;
           setError("hidden");
-          
           Router
           .push('/metrics')
           .catch(console.error);          

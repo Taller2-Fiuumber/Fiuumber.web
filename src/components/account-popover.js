@@ -40,9 +40,7 @@ export const AccountPopover = (props) => {
 
     try {
       // This can be call inside AuthProvider component, but we do it here for simplicity
-      console.log("ani dani");
       await auth.signOut();
-      console.log("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaanda");
       // Update Auth Context state
       authContext.signOut();
 

@@ -45,11 +45,11 @@ const items = [
     icon: (<ShoppingBagIcon fontSize="small" />),
     title: 'Pricing'
   },
-  {
-    href: '/account/[admin]',
-    icon: (<UserIcon fontSize="small" />),
-    title: 'Account'
-  },
+  // {
+  //   href: '/account/[admin]',
+  //   icon: (<UserIcon fontSize="small" />),
+  //   title: 'Account'
+  // },
   {
     href: '/register',
     icon: (<UserAddIcon fontSize="small" />),
