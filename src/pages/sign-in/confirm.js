@@ -6,13 +6,6 @@ import { Logo } from '../../components/logo';
 import { useAuthContext } from '../../contexts/auth-context';
 import { auth, ENABLE_AUTH } from '../../lib/auth';
 
-const parseUrl = () => {
-  // Get the token from the page URL hash (without #)
-  const hash = window.location.hash.substring(1);
-  const token = hash.split('=')[1];
-
-  return { token };
-};
 
 const Page = () => {
   const authContext = useAuthContext();
@@ -28,18 +21,12 @@ const Page = () => {
 
     confirmed.current = true;
 
-    // Check if authentication with Zalter is enabled
-    if (!ENABLE_AUTH) {
-      setError('Zalter authentication not enabled');
-      setIsLoading(false);
-      return;
-    }
-
     // Extract the token from the page URL
     const { token } = parseUrl();
 
     // Token missing, redirect to home
     if (!token) {
+      confirmed.current = false;
       Router
         .push('/')
         .catch(console.error);

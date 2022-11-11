@@ -3,7 +3,7 @@ import NextLink from 'next/link';
 import Router from 'next/router';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
+import { Box, Button, Container, Grid, Link, TextField, Typography, Text } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Facebook as FacebookIcon } from '../icons/facebook';
 import { Google as GoogleIcon } from '../icons/google';
@@ -11,13 +11,16 @@ import { UsersService } from '../../services/UsersServices';
 import { useState } from 'react';
 import { AuthContext } from '../contexts/auth-context';
 import { auth, ENABLE_AUTH } from '../lib/auth';
+import axios from 'axios';// For API consuming
 
 const Login = () => {
   const [signInError, setError] = useState("hidden");
   const formik = useFormik({
     initialValues: {
-      email: '',
-      password: '',
+
+      email: 'demo@devias.io',
+      password: 'Password123',
+      error_message: ''
     },
     validationSchema: Yup.object({
       email: Yup
@@ -31,7 +34,7 @@ const Login = () => {
         .required('Password is required'),
     }),
     onSubmit: () => {
-      UsersService.validateLogin(formik.values.email, formik.values.password).then((login) => { 
+/*      UsersService.validateLogin(formik.values.email, formik.values.password).then((login) => {
         if(login == null){
           Router
           .push('.')
@@ -44,13 +47,29 @@ const Login = () => {
           setError("hidden");
           Router
           .push('/metrics')
-          .catch(console.error);          
+          .catch(console.error);
         }
       }).catch((error) => {
         console.log(error);
       });
+*/
+      const HEADERS = { headers: { Accept: 'application/json'}};
+      const url = `https://fiuumber-gateway-1.herokuapp.com/api/auth/administrator/login?email=${formik.values.email}&password=${formik.values.password}`;
+      axios.get(url, HEADERS)
+        .then(function (response) {
+          if (response.status === 200) {
 
-
+            const userToken = response.data;
+            console.log("userToken", userToken)
+            Router
+            .push('/metrics')
+          }
+        })
+        .catch(function (error) {
+          formik.values.error_message = "Incorrect email or password"
+          console.log(error);
+          if (error && error.response && error.response.status == 401) return null;
+        });
     }
   });
 
@@ -94,22 +113,6 @@ const Login = () => {
               container
               spacing={3}
             >
-              {/* <Grid
-                item
-                xs={12}
-                md={6}
-              > */}
-                {/* <Button
-                  color="info"
-                  fullWidth
-                  startIcon={<FacebookIcon />}
-                  onClick={() => formik.handleSubmit()}
-                  size="large"
-                  variant="contained"
-                >
-                  Login with Facebook
-                </Button> */}
-              {/* </Grid> */}
               <Grid
                 item
                 xs={12}
@@ -167,10 +170,18 @@ const Login = () => {
               value={formik.values.password}
               variant="outlined"
             />
+
+              <Typography
+                color="red"
+              >
+                {formik.values.error_message}
+              </Typography>
+
             <Box sx={{ py: 2 }}>
               <Button
                 color="secondary"
-                disabled={formik.isSubmitting && !formik.isValid}
+                disabled={!formik.isValid}
+                onClick={formik.Submit }
                 fullWidth
                 size="large"
                 type="submit"
