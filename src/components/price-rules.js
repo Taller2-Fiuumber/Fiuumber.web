@@ -19,14 +19,14 @@ import {
    
     const [prices, setPrices] = useState([]);
   
-    useEffect(() => {
-      UsersService.setPrices().then((value) => { 
+    // useEffect(() => {
+    //   UsersService.setPrices().then((value) => { 
         
-      }).catch((error) => {
-        console.log(error);
-      });
+    //   }).catch((error) => {
+    //     console.log(error);
+    //   });
       
-    }, [setPrices]);
+    // }, [setPrices]);
 
 
 

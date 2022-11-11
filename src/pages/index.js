@@ -10,10 +10,54 @@ import { Google as GoogleIcon } from '../icons/google';
 import { UsersService } from '../../services/UsersServices';
 import { useState } from 'react';
 import { AuthContext } from '../contexts/auth-context';
+import { CONFIG } from '../config';
+
+
+
 import { auth, ENABLE_AUTH } from '../lib/auth';
+
+import { authAction } from '../../models/authAction'
 import axios from 'axios';// For API consuming
 
 const Login = () => {
+
+  //_________________________________________________________________________________
+  const [state, dispatch] = React.useReducer(
+    (prevState, authAction) => {
+      switch (authAction.type) {
+        case 'RESTORE_TOKEN':
+          AuthService.setCurrentUserToken(authAction.userToken);
+          return {
+            ...prevState,
+            userToken: authAction.userToken,
+            isLoading: false,
+          };
+        case 'SIGN_IN':
+          AuthService.setCurrentUserToken(authAction.userToken);
+          return {
+            ...prevState,
+            isSignout: false,
+            userToken: authAction.userToken,
+          };
+        case 'SIGN_OUT':
+          AuthService.setCurrentUserToken(null);
+          return {
+            ...prevState,
+            isSignout: true,
+            userToken: null,
+          };
+      }
+    },
+    {
+      isLoading: true,
+      isSignout: false,
+      userToken: null,
+    }
+  );
+
+
+  //____________________________________________________________________________________________________________________________
+
   const [signInError, setError] = useState("hidden");
   const formik = useFormik({
     initialValues: {
@@ -34,16 +78,35 @@ const Login = () => {
         .required('Password is required'),
     }),
     onSubmit: () => {
-/*      UsersService.validateLogin(formik.values.email, formik.values.password).then((login) => {
-        if(login == null){
+
+      if (CONFIG.bypassLogin) {
+        admin = new Admin(420, "email", "firstName", "lastName", "address", "password"),
+        token = new userToken( admin, 'EL_TOKEN')
+        const authAction = new authAction(userToken, 'SIGN_IN');
+        dispatch(authAction);
+
+        return null;
+      }
+      
+      AuthService.login(formik.values.email, formik.values.password).then((userToken) => {
+        if(userToken == null){
           Router
           .push('.')
           formik.values.email = '';
           formik.values.password = '';
           setError("show");
         } else {
-          const token = login.token;
-          const admin = login.admin;
+
+          const authAction = new authAction(userToken, 'SIGN_IN');
+          dispatch(authAction);
+
+          return {
+            ...prevState,
+            isSignout: false,
+            userToken: action.userToken,
+          };
+
+
           setError("hidden");
           Router
           .push('/metrics')
@@ -52,24 +115,26 @@ const Login = () => {
       }).catch((error) => {
         console.log(error);
       });
-*/
-      const HEADERS = { headers: { Accept: 'application/json'}};
-      const url = `https://fiuumber-gateway-1.herokuapp.com/api/auth/administrator/login?email=${formik.values.email}&password=${formik.values.password}`;
-      axios.get(url, HEADERS)
-        .then(function (response) {
-          if (response.status === 200) {
 
-            const userToken = response.data;
-            console.log("userToken", userToken)
-            Router
-            .push('/metrics')
-          }
-        })
-        .catch(function (error) {
-          formik.values.error_message = "Incorrect email or password"
-          console.log(error);
-          if (error && error.response && error.response.status == 401) return null;
-        });
+
+      //Código de Ani hardcodeado para que loguee
+      // const HEADERS = { headers: { Accept: 'application/json'}};
+      // const url = `https://fiuumber-gateway-1.herokuapp.com/api/auth/administrator/login?email=${formik.values.email}&password=${formik.values.password}`;
+      // axios.get(url, HEADERS)
+      //   .then(function (response) {
+      //     if (response.status === 200) {
+
+      //       const userToken = response.data;
+      //       console.log("userToken", userToken)
+      //       Router
+      //       .push('/metrics')
+      //     }
+      //   })
+      //   .catch(function (error) {
+      //     formik.values.error_message = "Incorrect email or password"
+      //     console.log(error);
+      //     if (error && error.response && error.response.status == 401) return null;
+      //   });
     }
   });
 

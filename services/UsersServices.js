@@ -117,23 +117,25 @@ export const UsersService = {
         }
     },
 
-    validateLogin: async (email, password) => {
-        try {             
-            email = email.replace("@", "%40");
-            const url = `https://fiuumber-gateway-1.herokuapp.com/api/auth/administrator/login?email=${email}&password=${password}`
-            const response = await axios.get(url, HEADERS); 
-            const token = response.data.token;
-            const admin = new Admin(response.data.user.id, response.data.user.email, response.data.user.firstName, response.data.user.lastName, response.data.user.password,  response.data.user.createdAt);
+    // validateLogin: async (email, password) => {
+    //     try {             
+    //         //email = email.replace("@", "%40");
+    //         const url = `https://fiuumber-gateway-1.herokuapp.com/api/auth/administrator/login?email=${email}&password=${password}`
+    //         const response = await axios.get(url, HEADERS); 
+    //         const token = response.data.token;
+        
+    //         const admin = new Admin(response.data.user.id, response.data.user.email, response.data.user.firstName, response.data.user.lastName, response.data.user.password);
 
-            return {
-                'admin': admin,
-                'token': token
-            };
-        }   
-        catch (error) {
-            return null;
-        }
-    },
+    //         return {
+    //             'admin': admin,
+    //             'token': token
+    //         };
+    //     }   
+    //     catch (error) {           
+    //         if (error && error.response && error.response.status == 401) return null;
+    //         throw error;
+    //     }
+    // },
       
     setPrices: async () => {
         try { 
