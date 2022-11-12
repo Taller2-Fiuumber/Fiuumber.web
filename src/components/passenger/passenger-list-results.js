@@ -22,13 +22,12 @@ import { getInitials } from '../../utils/get-initials';
 
 export const PassengerListResults = ({...rest }) => {
   const [selectedPassengerIds, setSelectedPassengerIds] = useState([]);
-  const [limit, setLimit] = useState(10);
-  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [page, setPage] = useState(0); 
   const [passengers, setPassengers] = useState([]);
 
   useEffect(() => {
     UsersService.getPassengers().then((value) => { 
-      // console.log(value);
       setPassengers(value);
     }).catch((error) => {
       console.log(error);
@@ -37,12 +36,13 @@ export const PassengerListResults = ({...rest }) => {
   }, [setPassengers]);
 
 
-  const handleLimitChange = (event) => {
-    setLimit(event.target.value);
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value));
+    setPage(0);
   };
 
   const handlePageChange = (event, newPage) => {
-    setPage(newPage);
+    setPage(newPage);  
   };
 
   return (
@@ -73,7 +73,7 @@ export const PassengerListResults = ({...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {passengers.slice(0, limit).map((passenger) => (
+              {passengers.slice(rowsPerPage*page, rowsPerPage*(page+1)).map((passenger) => (
                 <TableRow
                   hover
                   key={passenger.userId}
@@ -99,7 +99,7 @@ export const PassengerListResults = ({...rest }) => {
                     color="secondary"
                     variant="contained"
                     onClick={() => {
-                      Router.push("/account?id=" + passenger.userId)
+                      Router.push("/account?id=" + passenger.userId + "&type=passenger")
                     }}
                   >
                   View Profile
@@ -115,9 +115,9 @@ export const PassengerListResults = ({...rest }) => {
         component="div"
         count={passengers.length}
         onPageChange={handlePageChange}
-        onRowsPerPageChange={handleLimitChange}
+        onRowsPerPageChange={handleChangeRowsPerPage}
         page={page}
-        rowsPerPage={limit}
+        rowsPerPage={rowsPerPage}
         rowsPerPageOptions={[5, 10, 25]}
       />
     </Card>

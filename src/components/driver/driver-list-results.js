@@ -23,7 +23,7 @@ import { getInitials } from '../../utils/get-initials';
 
 export const DriverListResults = ({...rest }) => {
   const [selectedDriverIds, setSelectedDriverIds] = useState([]);
-  const [limit, setLimit] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(0);
   const [drivers, setDrivers] = useState([]);
 
@@ -38,10 +38,13 @@ export const DriverListResults = ({...rest }) => {
     
   }, [setDrivers]);
 
-  const handleLimitChange = (event) => {
-    setLimit(event.target.value);
+  // const handleLimitChange = (event) => {
+  //   setLimit(event.target.value);
+  // };
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value));
+    setPage(0);
   };
-
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
   };
@@ -77,7 +80,7 @@ export const DriverListResults = ({...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {drivers.slice(0, limit).map((driver) => (
+              {drivers.slice(rowsPerPage*page, rowsPerPage*(page+1)).map((driver) => (
                 <TableRow
                   hover
                   key={driver.id}
@@ -106,7 +109,7 @@ export const DriverListResults = ({...rest }) => {
                     color="secondary"
                     variant="contained"
                     onClick={() => {
-                      Router.push('/account')
+                      Router.push("/account?id=" + driver.userId + "&type=driver")
                     }}
                   >
                   View Profile
@@ -124,10 +127,10 @@ export const DriverListResults = ({...rest }) => {
         component="div"
         count={drivers.length}
         onPageChange={handlePageChange}
-        onRowsPerPageChange={handleLimitChange}
+        onRowsPerPageChange={handleChangeRowsPerPage}
         page={page}
-        rowsPerPage={limit}
-        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPage={rowsPerPage}
+        rowsPerPageOptions={[2, 5, 10, 25]}
       />
     </Card>
   );

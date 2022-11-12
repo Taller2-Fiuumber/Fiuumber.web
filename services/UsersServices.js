@@ -176,6 +176,44 @@ export const UsersService = {
         }
     },
 
+    getDriver: async (id) => {
+        try { 
 
+            const url_user = `https://fiuumber-api-users.herokuapp.com/api/users-service/driver/${id}`;
+            const response_user = await axios.get(url_user, HEADERS); 
+            let vehicle = response_user.data.driverVehicle
+            const driver = new Driver(response_user.data.user.id,
+                    response_user.data.user.email,
+                    response_user.data.user.firstName,
+                    response_user.data.user.lastName,
+                    response_user.data.user.username,
+                    response_user.data.user.address,
+                    response_user.data.user.password,
+                    null,
+                    vehicle);
+            console.log("aca tomi aca:")
+            return driver;
+        } 
+        catch (error) {
+            console.log(`UsersService getDriver: ${error}`);
+            if (error && error.response && error.response.status == 401) return null;
+            throw error;
+        }
+    },
 
+    getAdmin: async (id) => {
+        try { 
+
+            const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/administrator/${id}`
+            const response = await axios.get(url, HEADERS); 
+
+            const admin = new Admin(response.data.id, response.data.email, response.data.firstName, response.data.lastName, response.data.password,  response.data.createdAt);
+            return admin;
+        } 
+        catch (error) {
+            console.log(`UsersService getAdmin: ${error}`);
+            if (error && error.response && error.response.status == 401) return null;
+            throw error;
+        }
+    },
 };

@@ -23,8 +23,8 @@ import { getInitials } from '../../utils/get-initials';
 
 export const AdminListResults = ({...rest }) => {
   const [selectedAdminIds, setSelectedAdminIds] = useState([]);
-  const [limit, setLimit] = useState(10);
-  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [page, setPage] = useState(0); //0
   const [admins, setAdmins] = useState([]);
 
   useEffect(() => {
@@ -37,10 +37,13 @@ export const AdminListResults = ({...rest }) => {
     
   }, [setAdmins]);
 
-  const handleLimitChange = (event) => {
-    setLimit(event.target.value);
+  // const handleLimitChange = (event) => {
+  //   setLimit(event.target.value);
+  // };
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value));
+    setPage(0);
   };
-
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
   };
@@ -70,7 +73,7 @@ export const AdminListResults = ({...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {admins.slice(0, limit).map((admin) => (
+              {admins.slice(rowsPerPage*page, rowsPerPage*(page+1)).map((admin) => (
                 <TableRow
                   hover
                   key={admin.id}
@@ -107,12 +110,7 @@ export const AdminListResults = ({...rest }) => {
                     color="secondary"
                     variant="contained"
                     onClick={() => {
-                      Router.push('/account'
-                      //   {
-                      //   pathname: '/account/[admin]',
-                      //   query: { admin: admin.id },
-                      // }
-                      )
+                      Router.push("/account?id=" + admin.adminId + "&type=admin")
                     }}
                   >
                   View Profile
@@ -130,10 +128,10 @@ export const AdminListResults = ({...rest }) => {
         component="div"
         count={admins.length}
         onPageChange={handlePageChange}
-        onRowsPerPageChange={handleLimitChange}
+        onRowsPerPageChange={handleChangeRowsPerPage}
         page={page}
-        rowsPerPage={limit}
-        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPage={rowsPerPage}
+        rowsPerPageOptions={[2, 5, 10, 25]}
       />
     </Card>
   );

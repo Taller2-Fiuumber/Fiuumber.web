@@ -52,6 +52,9 @@ export const AccountPopover = (props) => {
       console.error(err);
     }
   };
+  const handleMyProfile = () => {
+    Router.push("/account?id=" + 7 + "&type=admin") //DESHARDCODEARLO !!!
+  }
 
   return (
     <Popover
@@ -63,7 +66,7 @@ export const AccountPopover = (props) => {
       onClose={onClose}
       open={open}
       PaperProps={{
-        sx: { width: '300px' }
+        sx: { width: '150px' }
       }}
       {...other}
     >
@@ -96,6 +99,9 @@ export const AccountPopover = (props) => {
           }
         }}
       >
+        <MenuItem onClick={handleMyProfile}>
+          My profile
+        </MenuItem>
         <MenuItem onClick={handleSignOut}>
           Sign out
         </MenuItem>

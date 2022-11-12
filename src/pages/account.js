@@ -10,24 +10,6 @@ import { useEffect, useRef, useState } from 'react';
 
 
 const Page = () => {
-  // const queryString = window.location.search;
-  // const urlParams = new URLSearchParams(queryString);
-  // const id = urlParams.get('id');
-
-  // const [passenger, setPassenger] = useState(null);
- 
-  // useEffect(() => {
-  //   UsersService.getPassenger(id).then((value) => { 
-  //     // console.log(value);
-  //     setPassenger(value);
-  //   }).catch((error) => {
-  //     console.log(error);
-  //   });
-    
-  // }, [setPassenger]);
-
-  // console.log("Console log account:");
-  // console.log(passenger);
   return(
     <>
       <Head>

@@ -3,6 +3,8 @@ import Router from 'next/router';
 import { UsersService } from '../../../services/UsersServices';
 import { useEffect, useRef, useState } from 'react';
 import { Passenger } from '../../../models/passenger';
+import { Driver } from '../../../models/driver';
+import { Admin } from '../../../models/admin';
 import {
   Box,
   Button,
@@ -23,20 +25,36 @@ export const AccountProfileDetails = (props) => {
   const urlParams = new URLSearchParams(queryString);
   const id = urlParams.get('id');
   console.log(id)
-  const [passenger, setPassenger] = useState(new Passenger(-1, '','','','','','', null));
+  const [user, setUser] = useState(new Passenger(-1, '','','','','','', null));
 
- useEffect(() => {
-   UsersService.getPassenger(id).then((value) => { 
-     // console.log(value);
-     setPassenger(new Passenger(value.userId, value.email,value.firstName,value.lastName,value.username,value.address,value.password, value.wallet));
-     console.log('passe', passenger)
-   }).catch((error) => {
-     console.log(error);
-   });
-   
- }, [setPassenger]);
+  const type = urlParams.get('type');
+  console.log(type)
 
- console.log(passenger);
+ //useEffect(() => {
+  if(type=="passenger"){
+      UsersService.getPassenger(id).then((value) => { 
+        setUser(new Passenger(value.userId, value.email,value.firstName,value.lastName,value.username,value.address,value.password, value.wallet));
+      }).catch((error) => {
+        console.log(error);
+      });    
+    }
+  if(type=="driver"){
+      UsersService.getDriver(id).then((value) => { 
+        setUser(new Driver(value.userId, value.email,value.firstName,value.lastName,value.username,value.address,value.password, value.wallet, value.vehicle));
+      }).catch((error) => {
+        console.log(error);
+      });    
+    }
+  if(type=="admin"){
+      UsersService.getAdmin(id).then((value) => { 
+        setUser(new Admin(value.id, value.email, value.firstName, value.lastName, value.password,  value.createdAt));
+      }).catch((error) => {
+        console.log(error);
+      });    
+    }
+  //}, [setUser]);
+
+ console.log(user);
 
 
   const handleChange = (event) => {
@@ -77,7 +95,7 @@ export const AccountProfileDetails = (props) => {
                 name="firstName"
                 onChange={handleChange}
                 required
-                value={passenger.firstName}
+                value={user.firstName}
                 variant="outlined"
               />
             </Grid>
@@ -92,7 +110,7 @@ export const AccountProfileDetails = (props) => {
                 name="lastName"
                 onChange={handleChange}
                 required
-                value={passenger.lastName}
+                value={user.lastName}
                 variant="outlined"
               />
             </Grid>
@@ -107,7 +125,7 @@ export const AccountProfileDetails = (props) => {
                 name="email"
                 onChange={handleChange}
                 required
-                value={passenger.email}
+                value={user.email}
                 variant="outlined"
               />
             </Grid>
@@ -122,7 +140,7 @@ export const AccountProfileDetails = (props) => {
                 name="phone"
                 onChange={handleChange}
                 type="number"
-                value={passenger.phone}
+                value={user.phone}
                 variant="outlined"
               />
             </Grid>
