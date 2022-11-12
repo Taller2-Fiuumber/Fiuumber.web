@@ -9,6 +9,10 @@ import {
   Typography
 } from '@mui/material';
 
+import { UsersService } from '../../../services/UsersServices';
+import { useEffect, useRef, useState } from 'react';
+import { Passenger } from '../../../models/passenger';
+
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',
   city: 'Los Angeles',
@@ -18,8 +22,33 @@ const user = {
   timezone: 'GTM-7'
 };
 
-export const AccountProfile = (props) => (
-  <Card {...props}>
+
+  export const AccountProfile = (props) => {
+
+
+ const queryString = window.location.search;
+ const urlParams = new URLSearchParams(queryString);
+ const id = urlParams.get('id');
+
+  console.log(id)
+const [passenger, setPassenger] = useState(new Passenger(-1, '','','','','','', null));
+
+ useEffect(() => {
+   UsersService.getPassenger(id).then((value) => { 
+     // console.log(value);
+     setPassenger(new Passenger(value.userId, value.email,value.firstName,value.lastName,value.username,value.address,value.password, value.wallet));
+     console.log('passe', passenger)
+   }).catch((error) => {
+     console.log(error);
+   });
+   
+ }, [setPassenger]);
+
+ console.log(passenger);
+
+
+
+ <Card {...props}>
     <CardContent>
       <Box
         sx={{
@@ -41,7 +70,7 @@ export const AccountProfile = (props) => (
           gutterBottom
           variant="h5"
         >
-          {user.name}
+          {passenger==null ? '' : passenger.firstName}
         </Typography>
         <Typography
           color="textSecondary"
@@ -69,4 +98,4 @@ export const AccountProfile = (props) => (
       </Button>
     </CardActions>
   </Card>
-);
+};

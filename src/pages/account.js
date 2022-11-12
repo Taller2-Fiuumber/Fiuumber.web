@@ -10,21 +10,24 @@ import { useEffect, useRef, useState } from 'react';
 
 
 const Page = () => {
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  const id = urlParams.get('id');
-  const [passenger, setPassenger] = useState(null);
-  useEffect(() => {
-    UsersService.getPassenger(id).then((value) => { 
-      // console.log(value);
-      setPassenger(value);
-    }).catch((error) => {
-      console.log(error);
-    });
+  // const queryString = window.location.search;
+  // const urlParams = new URLSearchParams(queryString);
+  // const id = urlParams.get('id');
+
+  // const [passenger, setPassenger] = useState(null);
+ 
+  // useEffect(() => {
+  //   UsersService.getPassenger(id).then((value) => { 
+  //     // console.log(value);
+  //     setPassenger(value);
+  //   }).catch((error) => {
+  //     console.log(error);
+  //   });
     
-  }, [setPassenger]);
-  console.log("Console log account:");
-  console.log(passenger);
+  // }, [setPassenger]);
+
+  // console.log("Console log account:");
+  // console.log(passenger);
   return(
     <>
       <Head>
@@ -50,21 +53,21 @@ const Page = () => {
             container
             spacing={3}
           >
-            <Grid
+            {/* <Grid
               item
               lg={4}
               md={6}
               xs={12}
             >
               <AccountProfile />
-            </Grid>
+            </Grid> */}
             <Grid
               item
-              lg={8}
-              md={6}
+              lg={12}
+              md={12}
               xs={12}
             >
-              <AccountProfileDetails />
+              <AccountProfileDetails  />
             </Grid>
           </Grid>
         </Container>

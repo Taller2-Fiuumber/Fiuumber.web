@@ -29,7 +29,7 @@ export const UsersService = {
                     response_user.data.password,
                     wallet);
                 //passenger = response_user.data;
-                console.log(passenger);
+                //console.log(passenger);
                 passengers[index] = passenger;
             } 
             
@@ -65,7 +65,7 @@ export const UsersService = {
                     wallet,
                     vehicle);
                 // driver = response_user.data;
-                console.log(driver);
+                //console.log(driver);
                 drivers[index] = driver;
             } 
             

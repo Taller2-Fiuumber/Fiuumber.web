@@ -1,5 +1,8 @@
-import { useState } from 'react';
+
 import Router from 'next/router';
+import { UsersService } from '../../../services/UsersServices';
+import { useEffect, useRef, useState } from 'react';
+import { Passenger } from '../../../models/passenger';
 import {
   Box,
   Button,
@@ -11,30 +14,30 @@ import {
   TextField
 } from '@mui/material';
 
-const states = [
-  {
-    value: 'alabama',
-    label: 'Alabama'
-  },
-  {
-    value: 'new-york',
-    label: 'New York'
-  },
-  {
-    value: 'san-francisco',
-    label: 'San Francisco'
-  }
-];
+
 
 export const AccountProfileDetails = (props) => {
-  const [values, setValues] = useState({
-    firstName: 'Katarina',
-    lastName: 'Smith',
-    email: 'fmilhas@fi.uba.ar',
-    phone: '',
-    state: 'Alabama',
-    country: 'USA'
-  });
+
+ 
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const id = urlParams.get('id');
+  console.log(id)
+  const [passenger, setPassenger] = useState(new Passenger(-1, '','','','','','', null));
+
+ useEffect(() => {
+   UsersService.getPassenger(id).then((value) => { 
+     // console.log(value);
+     setPassenger(new Passenger(value.userId, value.email,value.firstName,value.lastName,value.username,value.address,value.password, value.wallet));
+     console.log('passe', passenger)
+   }).catch((error) => {
+     console.log(error);
+   });
+   
+ }, [setPassenger]);
+
+ console.log(passenger);
+
 
   const handleChange = (event) => {
     setValues({
@@ -48,6 +51,7 @@ export const AccountProfileDetails = (props) => {
     <form
       autoComplete="off"
       noValidate
+      
       {...props}
     >
       <Card>
@@ -73,7 +77,7 @@ export const AccountProfileDetails = (props) => {
                 name="firstName"
                 onChange={handleChange}
                 required
-                value={values.firstName}
+                value={passenger.firstName}
                 variant="outlined"
               />
             </Grid>
@@ -88,7 +92,7 @@ export const AccountProfileDetails = (props) => {
                 name="lastName"
                 onChange={handleChange}
                 required
-                value={values.lastName}
+                value={passenger.lastName}
                 variant="outlined"
               />
             </Grid>
@@ -103,7 +107,7 @@ export const AccountProfileDetails = (props) => {
                 name="email"
                 onChange={handleChange}
                 required
-                value={values.email}
+                value={passenger.email}
                 variant="outlined"
               />
             </Grid>
@@ -118,50 +122,9 @@ export const AccountProfileDetails = (props) => {
                 name="phone"
                 onChange={handleChange}
                 type="number"
-                value={values.phone}
+                value={passenger.phone}
                 variant="outlined"
               />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Country"
-                name="country"
-                onChange={handleChange}
-                required
-                value={values.country}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Select State"
-                name="state"
-                onChange={handleChange}
-                required
-                select
-                SelectProps={{ native: true }}
-                value={values.state}
-                variant="outlined"
-              >
-                {states.map((option) => (
-                  <option
-                    key={option.value}
-                    value={option.value}
-                  >
-                    {option.label}
-                  </option>
-                ))}
-              </TextField>
             </Grid>
           </Grid>
         </CardContent>
