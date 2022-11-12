@@ -10,10 +10,10 @@ import { admin } from '../models/admin';
 
 let _userToken = null;
 export const AuthService = {
-    getCurrentuserToken: () => _userToken,
-    setCurrentuserToken: (userToken) => {_userToken = userToken},
+    getCurrentUserToken: () => _userToken,
+    setCurrentUserToken: (userToken) => {_userToken = userToken},
     //getHeaders: () => { return { headers: {...RAW_HEADERS, 'auth-token': _userToken?.token}}},
-    login: async (email, password) => {
+    validateLogin: async (email, password) => {
         try {             
             //email = email.replace("@", "%40");
             const url = `https://fiuumber-gateway-1.herokuapp.com/api/auth/administrator/login?email=${email}&password=${password}`
