@@ -30,13 +30,12 @@ export const DriverListResults = ({...rest }) => {
 
   useEffect(() => {
     UsersService.getDrivers().then((value) => { 
-      console.log(value);
       setDrivers(value);
     }).catch((error) => {
       console.log(error);
     });
     
-  }, [setDrivers]);
+  }, []);
 
   // const handleLimitChange = (event) => {
   //   setLimit(event.target.value);
@@ -80,10 +79,10 @@ export const DriverListResults = ({...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {drivers.slice(rowsPerPage*page, rowsPerPage*(page+1)).map((driver) => (
+              {drivers.slice(rowsPerPage*page, rowsPerPage*(page+1)).map((driver,index) => (
                 <TableRow
                   hover
-                  key={driver.id}
+                  key={index}
                   selected={selectedDriverIds.indexOf(driver.id) !== -1}
                 >
                   <TableCell>

@@ -28,8 +28,6 @@ export const UsersService = {
                     response_user.data.address,
                     response_user.data.password,
                     wallet);
-                //passenger = response_user.data;
-                //console.log(passenger);
                 passengers[index] = passenger;
             } 
             
@@ -191,7 +189,6 @@ export const UsersService = {
                     response_user.data.user.password,
                     null,
                     vehicle);
-            console.log("aca tomi aca:")
             return driver;
         } 
         catch (error) {

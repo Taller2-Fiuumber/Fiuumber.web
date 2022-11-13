@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { AuthGuard } from './auth-guard';
-// import { DashboardNavbar } from './dashboard-navbar';
 import { DashboardSidebar } from './dashboard-sidebar';
 
 const DashboardLayoutRoot = styled('div')(({ theme }) => ({
@@ -30,16 +29,9 @@ export const DashboardLayout = (props) => {
             width: '100%'
           }}
         >
-      {/* <Typography
-        sx={{ m: 1 }}
-        variant="h2"
-        color="#10B981"
-      >
-      </Typography> */}
           {children}
         </Box>
       </DashboardLayoutRoot>
-      {/* <DashboardNavbar onSidebarOpen={() => setSidebarOpen(true)} /> */}
       <DashboardSidebar
         onClose={() => setSidebarOpen(false)}
         open={isSidebarOpen}

@@ -3,7 +3,7 @@ import { Box, Container, Typography} from '@mui/material';
 import { PassengerListResults } from '../components/passenger/passenger-list-results';
 import { PassengerListToolbar } from '../components/passenger/passenger-list-toolbar';
 import { DashboardLayout } from '../components/dashboard-layout';
-import { passengers } from '../__mocks__/passenger';
+
 import { UsersService } from '../../services/UsersServices';
 
 

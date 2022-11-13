@@ -33,7 +33,7 @@ export const PassengerListResults = ({...rest }) => {
       console.log(error);
     });
     
-  }, [setPassengers]);
+  }, []);
 
 
   const handleChangeRowsPerPage = (event) => {
@@ -73,10 +73,10 @@ export const PassengerListResults = ({...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {passengers.slice(rowsPerPage*page, rowsPerPage*(page+1)).map((passenger) => (
+              {passengers.slice(rowsPerPage*page, rowsPerPage*(page+1)).map((passenger, index) => (
                 <TableRow
                   hover
-                  key={passenger.userId}
+                  key={index}
                   selected={selectedPassengerIds.indexOf(passenger.userId) !== -1}
                 >                
                   <TableCell>

@@ -3,7 +3,7 @@ import { Box, Container , Typography} from '@mui/material';
 import { AdminListResults } from '../components/admin/admin-list-results';
 import { AdminListToolbar } from '../components/admin/admin-list-toolbar';
 import { DashboardLayout } from '../components/dashboard-layout';
-import { admins } from '../__mocks__/admins';
+
 
 const Page = () => (
   <>
@@ -31,7 +31,7 @@ const Page = () => (
       <Container maxWidth={false}>
         <AdminListToolbar />
         <Box sx={{ mt: 3 }}>
-          <AdminListResults admins={admins} />
+          <AdminListResults />
         </Box>
       </Container>
     </Box>

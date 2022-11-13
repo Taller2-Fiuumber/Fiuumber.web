@@ -1,7 +1,5 @@
 import { useState, useEffect, Text} from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import PropTypes from 'prop-types';
-import { format } from 'date-fns';
 import { UsersService } from '../../../services/UsersServices';
 import Router from 'next/router';
 
@@ -19,7 +17,7 @@ import {
   TableRow,
   Typography
 } from '@mui/material';
-import { getInitials } from '../../utils/get-initials';
+
 
 export const AdminListResults = ({...rest }) => {
   const [selectedAdminIds, setSelectedAdminIds] = useState([]);
@@ -29,17 +27,14 @@ export const AdminListResults = ({...rest }) => {
 
   useEffect(() => {
     UsersService.getAdmins().then((value) => {
-      console.log(value);
       setAdmins(value);
     }).catch((error) => {
       console.log(error);
     });
     
-  }, [setAdmins]);
+  }, []);
 
-  // const handleLimitChange = (event) => {
-  //   setLimit(event.target.value);
-  // };
+ 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value));
     setPage(0);
@@ -73,10 +68,10 @@ export const AdminListResults = ({...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {admins.slice(rowsPerPage*page, rowsPerPage*(page+1)).map((admin) => (
+              {admins.slice(rowsPerPage*page, rowsPerPage*(page+1)).map((admin, index) => (
                 <TableRow
                   hover
-                  key={admin.id}
+                  key={index}
                   selected={selectedAdminIds.indexOf(admin.id) !== -1}
                 >
                  
@@ -87,7 +82,7 @@ export const AdminListResults = ({...rest }) => {
                         display: 'flex'
                       }}
                     >
-                      
+                    
                       <Typography
                         color="textPrimary"
                         variant="body1"
@@ -117,8 +112,6 @@ export const AdminListResults = ({...rest }) => {
                   </Button>
                   </TableCell>
                 </TableRow>
-
-            
               ))}
             </TableBody>
           </Table>

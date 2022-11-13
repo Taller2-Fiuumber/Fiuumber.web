@@ -19,12 +19,10 @@ import {
 
 
 export const AccountProfileDetails = (props) => {
-
  
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const id = urlParams.get('id');
-  console.log(id);
   const [user, setUser] = useState(new Passenger(-1, '','','','','','', null));
   const [userType, setUserType] = useState(true);
 
@@ -63,10 +61,8 @@ export const AccountProfileDetails = (props) => {
       });    
       setUserType(true);
     }
-  }, [setUser, setUserType]);
-
- console.log(user);
-
+  },//[setUser, setUserType] 
+  []);
 
   const handleChange = (event) => {
     setValues({
