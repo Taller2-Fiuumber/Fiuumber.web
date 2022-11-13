@@ -107,11 +107,13 @@ export const AccountProfileDetails = (props) => {
             >
               <TextField
                 fullWidth
-                helperText="Please specify the first name"
+                // helperText="Please specify the first name"
                 label="First name"
                 name="firstName"
-                onChange={handleChange}
+                // onChange={handleChange}
                 required
+                disabled={true}
+                // color="FFFFFFF"
                 value={user.firstName}
                 variant="outlined"
               />
@@ -125,7 +127,8 @@ export const AccountProfileDetails = (props) => {
                 fullWidth
                 label="Last name"
                 name="lastName"
-                onChange={handleChange}
+                disabled={true}
+                // onChange={handleChange}
                 required
                 value={user.lastName}
                 variant="outlined"
@@ -140,7 +143,8 @@ export const AccountProfileDetails = (props) => {
                 fullWidth
                 label="Email Address"
                 name="email"
-                onChange={handleChange}
+                disabled={true}
+                // onChange={handleChange}
                 required
                 value={user.email}
                 variant="outlined"
@@ -155,7 +159,8 @@ export const AccountProfileDetails = (props) => {
                 fullWidth
                 label="Id"
                 name="id"
-                onChange={handleChange}
+                disabled={true}
+                // onChange={handleChange}
                 required
                 value={id}
                 variant="outlined"
@@ -171,7 +176,8 @@ export const AccountProfileDetails = (props) => {
                 fullWidth
                 label="Username"
                 name="Username"
-                onChange={handleChange}
+                disabled={true}
+                // onChange={handleChange}
                 required
                 value={user.username}
                 variant="outlined"
@@ -188,7 +194,8 @@ export const AccountProfileDetails = (props) => {
               fullWidth
               label="Address"
               name="Address"
-              onChange={handleChange}
+              disabled={true}
+              // onChange={handleChange}
               required
               value={user.address}
               variant="outlined"
@@ -205,7 +212,8 @@ export const AccountProfileDetails = (props) => {
               fullWidth
               label="Domain"
               name="Domain"
-              onChange={handleChange}
+              disabled={true}
+              // onChange={handleChange}
               required
               value={user.vehicle.domain}
               variant="outlined"
@@ -222,7 +230,8 @@ export const AccountProfileDetails = (props) => {
               fullWidth
               label="Model"
               name="Model"
-              onChange={handleChange}
+              disabled={true}
+              // onChange={handleChange}
               required
               value={user.vehicle.model}
               variant="outlined"
@@ -239,7 +248,8 @@ export const AccountProfileDetails = (props) => {
               fullWidth
               label="ModelYear"
               name="ModelYear"
-              onChange={handleChange}
+              disabled={true}
+              // onChange={handleChange}
               required
               value={user.vehicle.modelYear}
               variant="outlined"
@@ -256,7 +266,8 @@ export const AccountProfileDetails = (props) => {
               fullWidth
               label="Color"
               name="Color"
-              onChange={handleChange}
+              disabled={true}
+              // onChange={handleChange}
               required
               value={user.vehicle.colorName}
               variant="outlined"
@@ -273,7 +284,8 @@ export const AccountProfileDetails = (props) => {
               fullWidth
               label="Brand"
               name="Brand"
-              onChange={handleChange}
+              disabled={true}
+              // onChange={handleChange}
               required
               value={user.vehicle.brand}
               variant="outlined"
