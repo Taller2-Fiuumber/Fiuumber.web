@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import { Box, BoxProps, Container, Grid, Input, Typography, TextField, InputAdornment, Button } from '@mui/material';
-import { AccountProfile } from '../components/account/account-profile';
 import { PriceRules } from '../components/price-rules';
 import { DashboardLayout } from '../components/dashboard-layout';
 

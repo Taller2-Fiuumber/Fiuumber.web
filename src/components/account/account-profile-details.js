@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Passenger } from '../../../models/passenger';
 import { Driver } from '../../../models/driver';
 import { Admin } from '../../../models/admin';
+import { Vehicle } from '../../../models/vehicle';
 import {
   Box,
   Button,
@@ -18,36 +19,42 @@ import {
 
 
 
+
 export const AccountProfileDetails = (props) => {
 
  
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const id = urlParams.get('id');
-  const [user, setUser] = useState(new Passenger(-1, '','','','','','', null));
+  const [user, setUser] = useState(new Driver(-1, '','','','','','', false,null,new Vehicle('','','','','')));
   const [userType, setUserType] = useState(true);
+  const [userBlocked, setUserBlock] = useState(false);
 
   const type = urlParams.get('type');
 
   const blockUser = () => {
-    console.log("te bloquee wachin");
+    setUserBlock(true)
   };
 
   const unblockUser = () => {
-    console.log("ya te desbloquee rey");
+    setUserBlock(false)
   };
+
  useEffect(() => {
   if(type=="passenger"){
       UsersService.getPassenger(id).then((value) => { 
-        setUser(new Passenger(value.userId, value.email,value.firstName,value.lastName,value.username,value.address,value.password, value.wallet));
+        setUser(new Passenger(value.userId, value.email,value.firstName,value.lastName,value.username,value.address,value.password, value.blocked,value.wallet));
       }).catch((error) => {
         console.log(error);
       });
-      setUserType(false);   
+      setUserType(false);
   }
   if(type=="driver"){
       UsersService.getDriver(id).then((value) => { 
-        setUser(new Driver(value.userId, value.email,value.firstName,value.lastName,value.username,value.address,value.password, value.wallet, value.driverVehicle.vehicle));
+        console.log("valor",value);
+        const driverVehicle= new Vehicle(value.vehicle.domain,value.vehicle.modelYear,value.vehicle.colorName,value.vehicle.vehicle.brand,value.vehicle.vehicle.model)
+        setUser(new Driver(value.userId, value.email,value.firstName,value.lastName,value.username,value.address,value.password, value.blocked,value.wallet, driverVehicle));
+      
       }).catch((error) => {
         console.log(error);
       });
@@ -61,11 +68,12 @@ export const AccountProfileDetails = (props) => {
       });    
       setUserType(true);
     }
-  }, []);
+  }, [setUser]);
 
+  console.log(user.vehicle);
   console.log(user);
 
-  // console.log(user);
+
   const handleChange = (event) => {
     setValues({
       ...values,
@@ -73,7 +81,7 @@ export const AccountProfileDetails = (props) => {
     });
   };
 
-  //console.log('router path', Router.pathname);
+
   return (
     <form
       autoComplete="off"
@@ -145,21 +153,6 @@ export const AccountProfileDetails = (props) => {
             >
               <TextField
                 fullWidth
-                label="Phone Number"
-                name="phone"
-                onChange={handleChange}
-                type="number"
-                value={user.phone}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
                 label="Id"
                 name="id"
                 onChange={handleChange}
@@ -219,7 +212,7 @@ export const AccountProfileDetails = (props) => {
             />
           </Grid>
         }
-          {/* {(type=="driver") && 
+          {(type=="driver") && 
           <Grid
             item
             md={6}
@@ -227,15 +220,66 @@ export const AccountProfileDetails = (props) => {
           >
             <TextField
               fullWidth
-              label="Domain"
-              name="Domain"
+              label="Model"
+              name="Model"
               onChange={handleChange}
               required
               value={user.vehicle.model}
               variant="outlined"
             />
           </Grid>
-        } */}
+        }
+        {(type=="driver") && 
+          <Grid
+            item
+            md={6}
+            xs={12}
+          >
+            <TextField
+              fullWidth
+              label="ModelYear"
+              name="ModelYear"
+              onChange={handleChange}
+              required
+              value={user.vehicle.modelYear}
+              variant="outlined"
+            />
+          </Grid>
+        }
+        {(type=="driver") && 
+          <Grid
+            item
+            md={6}
+            xs={12}
+          >
+            <TextField
+              fullWidth
+              label="Color"
+              name="Color"
+              onChange={handleChange}
+              required
+              value={user.vehicle.colorName}
+              variant="outlined"
+            />
+          </Grid>
+        }
+        {(type=="driver") && 
+          <Grid
+            item
+            md={6}
+            xs={12}
+          >
+            <TextField
+              fullWidth
+              label="Brand"
+              name="Brand"
+              onChange={handleChange}
+              required
+              value={user.vehicle.brand}
+              variant="outlined"
+            />
+          </Grid>
+        }
           </Grid>
         </CardContent>
         <Divider />
@@ -254,8 +298,8 @@ export const AccountProfileDetails = (props) => {
             {(type!="admin") && 
             <Button
               color="error"
-              variant="contained"
-              disabled={userType}
+              variant="contained" //si block = false => tenbgo que poder apretar => queda blocked user
+              disabled={userBlocked}  //si esta desblockeado el user, el boton debe poder apetarse
               onClick={blockUser}
             >
               Block User
@@ -273,8 +317,8 @@ export const AccountProfileDetails = (props) => {
             {(type!="admin") && 
             <Button
               color="primary"
-              variant="contained"
-              disabled={userType}
+              variant="contained" //si block = false => no tenbgo que poder apretar => niego block user
+              disabled={!userBlocked} //si esta blockeado el user, el boton debe poder apetarse
               onClick={unblockUser}
             >
               Unblock User
@@ -282,7 +326,7 @@ export const AccountProfileDetails = (props) => {
             }
 
           </Box>
-          <Box
+          {/* <Box
             sx={{
               display: 'flex',
               justifyContent: 'flex-end',
@@ -296,7 +340,7 @@ export const AccountProfileDetails = (props) => {
             >
               Save details
             </Button>
-          </Box>
+          </Box> */}
         </Box>
       </Card>
     </form>

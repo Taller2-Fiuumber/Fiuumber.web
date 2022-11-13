@@ -20,7 +20,7 @@ export class Driver extends User {
     username,
     address,
     password,
-    //blocked,
+    blocked,
     wallet,
     vehicle,
   ) {
@@ -28,7 +28,7 @@ export class Driver extends User {
     this.userId = userId;
     this.username = username;  
     this.address = address;
-    //this.blocked = blocked;
+    this.blocked = blocked;
     this.wallet = wallet;
     this.vehicle = vehicle;
   }

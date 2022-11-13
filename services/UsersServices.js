@@ -27,6 +27,7 @@ export const UsersService = {
                     response_user.data.username,
                     response_user.data.address,
                     response_user.data.password,
+                    response_user.data.blocked,
                     wallet);
                 passengers[index] = passenger;
             } 
@@ -60,6 +61,7 @@ export const UsersService = {
                     response_user.data.username,
                     response_user.data.address,
                     response_user.data.password,
+                    response_user.data.blocked,
                     wallet,
                     vehicle);
                 // driver = response_user.data;
@@ -164,6 +166,7 @@ export const UsersService = {
                 response_user.data.username,
                 response_user.data.address,
                 response_user.data.password,
+                response_user.data.blocked,
                 null);
             return passenger;
         } 
@@ -179,16 +182,18 @@ export const UsersService = {
 
             const url_user = `https://fiuumber-api-users.herokuapp.com/api/users-service/driver/${id}`;
             const response_user = await axios.get(url_user, HEADERS); 
-            let vehicle = response_user.data.driverVehicle
-            const driver = new Driver(response_user.data.user.id,
+            let driverVehicle = response_user.data.driverVehicle;
+            const driver = new Driver(
+                    response_user.data.user.id,
                     response_user.data.user.email,
                     response_user.data.user.firstName,
                     response_user.data.user.lastName,
                     response_user.data.user.username,
                     response_user.data.user.address,
                     response_user.data.user.password,
+                    response_user.data.user.blocked,
                     null,
-                    vehicle);
+                    driverVehicle);
             return driver;
         } 
         catch (error) {

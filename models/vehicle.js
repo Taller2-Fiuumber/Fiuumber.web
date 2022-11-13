@@ -1,12 +1,18 @@
 
 export class Vehicle{
   domain;
-  brandModel;
-  license;
+  modelYear;
+  colorName;
+  //license;
+  brand;
+  model;
 
-  constructor(domain, brandModel, license){
+  constructor(domain,modelYear,colorName,brand, model){
     this.domain = domain;
-    this.brandModel = brandModel;
-    this.license = license;
+    this.modelYear = modelYear;
+    this.colorName = colorName;
+    //this.license = license;
+    this.brand = brand;
+    this.model = model;
   }
 }
