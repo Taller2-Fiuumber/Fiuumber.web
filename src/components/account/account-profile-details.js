@@ -24,12 +24,11 @@ export const AccountProfileDetails = (props) => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const id = urlParams.get('id');
-  console.log(id)
+  console.log(id);
   const [user, setUser] = useState(new Passenger(-1, '','','','','','', null));
-  const [userType, setUserType] = useState('hide')
+  const [userType, setUserType] = useState(true);
 
   const type = urlParams.get('type');
-  console.log(type)
 
   const blockUser = () => {
     console.log("te bloquee wachin");
@@ -46,24 +45,25 @@ export const AccountProfileDetails = (props) => {
       }).catch((error) => {
         console.log(error);
       });
-      setUserType('show');    
+      setUserType(false);    
     }
-  else if(type=="driver"){
+  if(type=="driver"){
       UsersService.getDriver(id).then((value) => { 
         setUser(new Driver(value.userId, value.email,value.firstName,value.lastName,value.username,value.address,value.password, value.wallet, value.vehicle));
       }).catch((error) => {
         console.log(error);
       });
-      setUserType('show');
+      setUserType(false);
     }
-  else if(type=="admin"){
+  if(type=="admin"){
       UsersService.getAdmin(id).then((value) => { 
         setUser(new Admin(value.id, value.email, value.firstName, value.lastName, value.password,  value.createdAt));
       }).catch((error) => {
         console.log(error);
       });    
+      setUserType(true);
     }
-  }, [setUserType]);
+  }, [setUser, setUserType]);
 
  console.log(user);
 
@@ -170,15 +170,17 @@ export const AccountProfileDetails = (props) => {
               p: 2
             }}
           > 
+            {(type!="admin") && 
             <Button
-              //color="primary"
               color="error"
               variant="contained"
-              visibility={userType}
+              disabled={userType}
               onClick={blockUser}
             >
               Block User
-            </Button>
+            </Button>            
+            }
+
           </Box>
           <Box
             sx={{
@@ -187,14 +189,17 @@ export const AccountProfileDetails = (props) => {
               p: 2
             }}
           > 
+            {(type!="admin") && 
             <Button
               color="primary"
               variant="contained"
-              visibility={userType}
+              disabled={userType}
               onClick={unblockUser}
             >
               Unblock User
-            </Button>
+            </Button>            
+            }
+
           </Box>
           <Box
             sx={{
