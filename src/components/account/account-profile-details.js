@@ -33,32 +33,44 @@ export const AccountProfileDetails = (props) => {
   const type = urlParams.get('type');
 
   const blockUser = () => {
-    setUserBlock(true)
+    UsersService.blockUser(id).then((value) => { 
+      console.log("jajajajajajaja");
+      setUserBlock(true);     
+    }).catch((error) => {
+      console.log(error);
+    });
   };
 
   const unblockUser = () => {
-    setUserBlock(false)
+    UsersService.unblockUser(id).then((value) => { 
+      setUserBlock(false);     
+    }).catch((error) => {
+      console.log(error);
+    });
   };
 
  useEffect(() => {
   if(type=="passenger"){
       UsersService.getPassenger(id).then((value) => { 
         setUser(new Passenger(value.userId, value.email,value.firstName,value.lastName,value.username,value.address,value.password, value.blocked,value.wallet));
+        setUserBlock(value.blocked);     
       }).catch((error) => {
         console.log(error);
       });
       setUserType(false);
+
   }
   if(type=="driver"){
       UsersService.getDriver(id).then((value) => { 
         console.log("valor",value);
         const driverVehicle= new Vehicle(value.vehicle.domain,value.vehicle.modelYear,value.vehicle.colorName,value.vehicle.vehicle.brand,value.vehicle.vehicle.model)
         setUser(new Driver(value.userId, value.email,value.firstName,value.lastName,value.username,value.address,value.password, value.blocked,value.wallet, driverVehicle));
-      
+        setUserBlock(value.blocked);      
       }).catch((error) => {
         console.log(error);
       });
       setUserType(false);
+
     }
   if(type=="admin"){
       UsersService.getAdmin(id).then((value) => { 
@@ -91,8 +103,8 @@ export const AccountProfileDetails = (props) => {
     >
       <Card>
         <CardHeader
-          subheader="The information can be edited"
-          title="Profile"
+          subheader={type.toLocaleUpperCase()}
+          title="PROFILE"
         />
         <Divider />
         <CardContent>
@@ -112,7 +124,7 @@ export const AccountProfileDetails = (props) => {
                 name="firstName"
                 // onChange={handleChange}
                 required
-                disabled={true}
+                readOnly={true}
                 // color="FFFFFFF"
                 value={user.firstName}
                 variant="outlined"
@@ -127,7 +139,7 @@ export const AccountProfileDetails = (props) => {
                 fullWidth
                 label="Last name"
                 name="lastName"
-                disabled={true}
+                readOnly={true}
                 // onChange={handleChange}
                 required
                 value={user.lastName}
@@ -143,7 +155,7 @@ export const AccountProfileDetails = (props) => {
                 fullWidth
                 label="Email Address"
                 name="email"
-                disabled={true}
+                readOnly={true}
                 // onChange={handleChange}
                 required
                 value={user.email}
@@ -159,7 +171,7 @@ export const AccountProfileDetails = (props) => {
                 fullWidth
                 label="Id"
                 name="id"
-                disabled={true}
+                readOnly={true}
                 // onChange={handleChange}
                 required
                 value={id}
@@ -176,7 +188,7 @@ export const AccountProfileDetails = (props) => {
                 fullWidth
                 label="Username"
                 name="Username"
-                disabled={true}
+                readOnly={true}
                 // onChange={handleChange}
                 required
                 value={user.username}
@@ -194,7 +206,7 @@ export const AccountProfileDetails = (props) => {
               fullWidth
               label="Address"
               name="Address"
-              disabled={true}
+              readOnly={true}
               // onChange={handleChange}
               required
               value={user.address}
@@ -212,7 +224,7 @@ export const AccountProfileDetails = (props) => {
               fullWidth
               label="Domain"
               name="Domain"
-              disabled={true}
+              readOnly={true}
               // onChange={handleChange}
               required
               value={user.vehicle.domain}
@@ -230,7 +242,7 @@ export const AccountProfileDetails = (props) => {
               fullWidth
               label="Model"
               name="Model"
-              disabled={true}
+              readOnly={true}
               // onChange={handleChange}
               required
               value={user.vehicle.model}
@@ -248,7 +260,7 @@ export const AccountProfileDetails = (props) => {
               fullWidth
               label="ModelYear"
               name="ModelYear"
-              disabled={true}
+              readOnly={true}
               // onChange={handleChange}
               required
               value={user.vehicle.modelYear}
@@ -266,7 +278,7 @@ export const AccountProfileDetails = (props) => {
               fullWidth
               label="Color"
               name="Color"
-              disabled={true}
+              readOnly={true}
               // onChange={handleChange}
               required
               value={user.vehicle.colorName}
@@ -284,7 +296,7 @@ export const AccountProfileDetails = (props) => {
               fullWidth
               label="Brand"
               name="Brand"
-              disabled={true}
+              readOnly={true}
               // onChange={handleChange}
               required
               value={user.vehicle.brand}

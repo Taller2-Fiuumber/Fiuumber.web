@@ -218,4 +218,29 @@ export const UsersService = {
             throw error;
         }
     },
+    blockUser: async (id) => {
+        try { 
+
+            const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/user/${id}/blocked`
+            const response = await axios.post(url, HEADERS); 
+            return response;
+        } 
+        catch (error) {
+            console.log(`UsersService getAdmin: ${error}`);
+            if (error && error.response && error.response.status == 401) return null;
+            throw error;
+        }
+    },
+    unblockUser: async (id) => {
+        try { 
+            const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/user/${id}/blocked`
+            const response = await axios.delete(url, HEADERS); 
+            return response;
+        } 
+        catch (error) {
+            console.log(`UsersService getAdmin: ${error}`);
+            if (error && error.response && error.response.status == 401) return null;
+            throw error;
+        }
+    },
 };
