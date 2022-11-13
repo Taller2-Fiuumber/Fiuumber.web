@@ -19,6 +19,7 @@ import {
 
 
 export const AccountProfileDetails = (props) => {
+
  
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -35,7 +36,6 @@ export const AccountProfileDetails = (props) => {
   const unblockUser = () => {
     console.log("ya te desbloquee rey");
   };
-
  useEffect(() => {
   if(type=="passenger"){
       UsersService.getPassenger(id).then((value) => { 
@@ -43,11 +43,11 @@ export const AccountProfileDetails = (props) => {
       }).catch((error) => {
         console.log(error);
       });
-      setUserType(false);    
-    }
+      setUserType(false);   
+  }
   if(type=="driver"){
       UsersService.getDriver(id).then((value) => { 
-        setUser(new Driver(value.userId, value.email,value.firstName,value.lastName,value.username,value.address,value.password, value.wallet, value.vehicle));
+        setUser(new Driver(value.userId, value.email,value.firstName,value.lastName,value.username,value.address,value.password, value.wallet, value.driverVehicle.vehicle));
       }).catch((error) => {
         console.log(error);
       });
@@ -61,9 +61,11 @@ export const AccountProfileDetails = (props) => {
       });    
       setUserType(true);
     }
-  },//[setUser, setUserType] 
-  []);
+  }, []);
 
+  console.log(user);
+
+  // console.log(user);
   const handleChange = (event) => {
     setValues({
       ...values,
@@ -151,6 +153,89 @@ export const AccountProfileDetails = (props) => {
                 variant="outlined"
               />
             </Grid>
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="Id"
+                name="id"
+                onChange={handleChange}
+                required
+                value={id}
+                variant="outlined"
+              />
+            </Grid>
+            {(type!="admin") && 
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="Username"
+                name="Username"
+                onChange={handleChange}
+                required
+                value={user.username}
+                variant="outlined"
+              />
+            </Grid>
+         }
+          {(type!="admin") && 
+          <Grid
+            item
+            md={6}
+            xs={12}
+          >
+            <TextField
+              fullWidth
+              label="Address"
+              name="Address"
+              onChange={handleChange}
+              required
+              value={user.address}
+              variant="outlined"
+            />
+          </Grid>
+        }
+          {(type=="driver") &&
+          <Grid
+            item
+            md={6}
+            xs={12}
+          >
+            <TextField
+              fullWidth
+              label="Domain"
+              name="Domain"
+              onChange={handleChange}
+              required
+              value={user.vehicle.domain}
+              variant="outlined"
+            />
+          </Grid>
+        }
+          {/* {(type=="driver") && 
+          <Grid
+            item
+            md={6}
+            xs={12}
+          >
+            <TextField
+              fullWidth
+              label="Domain"
+              name="Domain"
+              onChange={handleChange}
+              required
+              value={user.vehicle.model}
+              variant="outlined"
+            />
+          </Grid>
+        } */}
           </Grid>
         </CardContent>
         <Divider />
