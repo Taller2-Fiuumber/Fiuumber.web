@@ -3,8 +3,6 @@ export class User {
   firstName;
   lastName;  
   password;
-  // blocked;
-
 
   constructor(
    email,
@@ -16,7 +14,6 @@ export class User {
     this.email = email;
     this.firstName = firstName;
     this.lastName = lastName;
-    // this.blocked = false;
     this.password = password;
   }
 }

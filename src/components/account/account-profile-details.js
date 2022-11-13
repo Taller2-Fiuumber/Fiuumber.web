@@ -26,33 +26,44 @@ export const AccountProfileDetails = (props) => {
   const id = urlParams.get('id');
   console.log(id)
   const [user, setUser] = useState(new Passenger(-1, '','','','','','', null));
+  const [userType, setUserType] = useState('hide')
 
   const type = urlParams.get('type');
   console.log(type)
 
- //useEffect(() => {
+  const blockUser = () => {
+    console.log("te bloquee wachin");
+  };
+
+  const unblockUser = () => {
+    console.log("ya te desbloquee rey");
+  };
+
+ useEffect(() => {
   if(type=="passenger"){
       UsersService.getPassenger(id).then((value) => { 
         setUser(new Passenger(value.userId, value.email,value.firstName,value.lastName,value.username,value.address,value.password, value.wallet));
       }).catch((error) => {
         console.log(error);
-      });    
+      });
+      setUserType('show');    
     }
-  if(type=="driver"){
+  else if(type=="driver"){
       UsersService.getDriver(id).then((value) => { 
         setUser(new Driver(value.userId, value.email,value.firstName,value.lastName,value.username,value.address,value.password, value.wallet, value.vehicle));
       }).catch((error) => {
         console.log(error);
-      });    
+      });
+      setUserType('show');
     }
-  if(type=="admin"){
+  else if(type=="admin"){
       UsersService.getAdmin(id).then((value) => { 
         setUser(new Admin(value.id, value.email, value.firstName, value.lastName, value.password,  value.createdAt));
       }).catch((error) => {
         console.log(error);
       });    
     }
-  //}, [setUser]);
+  }, [setUserType]);
 
  console.log(user);
 
@@ -147,20 +158,59 @@ export const AccountProfileDetails = (props) => {
           </Grid>
         </CardContent>
         <Divider />
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            p: 2
-          }}
-        >
-          <Button
-            //color="primary"
-            color="secondary"
-            variant="contained"
-          >
-            Save details
-          </Button>
+        <Box sx={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              p: 2
+            }}>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              p: 2
+            }}
+          > 
+            <Button
+              //color="primary"
+              color="error"
+              variant="contained"
+              visibility={userType}
+              onClick={blockUser}
+            >
+              Block User
+            </Button>
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              p: 2
+            }}
+          > 
+            <Button
+              color="primary"
+              variant="contained"
+              visibility={userType}
+              onClick={unblockUser}
+            >
+              Unblock User
+            </Button>
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              p: 2
+            }}
+          > 
+            <Button
+              //color="primary"
+              color="secondary"
+              variant="contained"
+            >
+              Save details
+            </Button>
+          </Box>
         </Box>
       </Card>
     </form>
