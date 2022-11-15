@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import { Box, Container, Typography } from '@mui/material';
 import { DriverListResults } from '../components/driver/driver-list-results';
-import { DriverListToolbar } from '../components/driver/driver-list-toolbar';
 import { DashboardLayout } from '../components/dashboard-layout';
 
 
@@ -28,7 +27,6 @@ const Page = () => (
 
 
       <Container maxWidth={false}>
-        <DriverListToolbar />
         <Box sx={{ mt: 3 }}>
           <DriverListResults/>         
         </Box>

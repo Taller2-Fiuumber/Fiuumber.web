@@ -34,7 +34,6 @@ export const AccountProfileDetails = (props) => {
 
   const blockUser = () => {
     UsersService.blockUser(id).then((value) => { 
-      console.log("jajajajajajaja");
       setUserBlock(true);     
     }).catch((error) => {
       console.log(error);

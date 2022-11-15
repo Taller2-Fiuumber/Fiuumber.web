@@ -4,24 +4,30 @@ import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import { UsersService } from '../../../services/UsersServices';
 import Router from 'next/router';
+import { Search as SearchIcon } from '../../icons/search';
 
 import {
-  Avatar,
   Button,
   Box,
   Card,
-  Checkbox,
+  CardContent,
+  TextField,
+  InputAdornment,
   Table,
   TableBody,
   TableCell,
+  SvgIcon, 
+  Typography, 
+  List,
   TableHead,
   TablePagination,
   TableRow,
-  Typography
 } from '@mui/material';
+
 import { getInitials } from '../../utils/get-initials';
 
 export const DriverListResults = ({...rest }) => {
+  const [searchInput, setSearchInput] = useState("");
   const [selectedDriverIds, setSelectedDriverIds] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(0);
@@ -37,9 +43,7 @@ export const DriverListResults = ({...rest }) => {
     
   }, []);
 
-  // const handleLimitChange = (event) => {
-  //   setLimit(event.target.value);
-  // };
+
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value));
     setPage(0);
@@ -50,6 +54,34 @@ export const DriverListResults = ({...rest }) => {
 
   return (
     <Card {...rest}>
+       <Box>
+        <Box sx={{ mt: 3 }}>
+          <Card>
+            <CardContent>
+              <Box sx={{ maxWidth: 500 }}>
+                <TextField
+                  fullWidth
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <SvgIcon
+                          color="action"
+                          fontSize="small"
+                        >
+                          <SearchIcon />
+                        </SvgIcon>
+                      </InputAdornment>
+                    )
+                  }}
+                  placeholder="Search driver by email"
+                  variant="outlined"
+                  onChange={event=> setSearchInput(event.target.value)}
+                />
+              </Box>
+            </CardContent>
+          </Card>
+        </Box>
+      </Box>
       <PerfectScrollbar>
         <Box sx={{ minWidth: 1000 }}>
           <Table>
@@ -65,7 +97,7 @@ export const DriverListResults = ({...rest }) => {
                   Username
                 </TableCell>
                 <TableCell>
-                  Contact
+                  Email
                 </TableCell>
                 <TableCell>
                   Address
@@ -79,7 +111,12 @@ export const DriverListResults = ({...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {drivers.slice(rowsPerPage*page, rowsPerPage*(page+1)).map((driver,index) => (
+              {drivers.filter(driver=> {
+                if(searchInput === ''){
+                  return driver;
+                } else if (driver.email.includes(searchInput.toLowerCase())){
+                  return driver;
+                }}).slice(rowsPerPage*page, rowsPerPage*(page+1)).map((driver,index) => (
                 <TableRow
                   hover
                   key={index}
