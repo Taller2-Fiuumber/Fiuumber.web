@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import { Box, Container , Typography} from '@mui/material';
 import { AdminListResults } from '../components/admin/admin-list-results';
-import { AdminListToolbar } from '../components/admin/admin-list-toolbar';
 import { DashboardLayout } from '../components/dashboard-layout';
 
 
@@ -29,7 +28,6 @@ const Page = () => (
       </Typography>
 
       <Container maxWidth={false}>
-        <AdminListToolbar />
         <Box sx={{ mt: 3 }}>
           <AdminListResults />
         </Box>

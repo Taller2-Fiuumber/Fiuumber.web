@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import { Box, Container, Typography} from '@mui/material';
 import { PassengerListResults } from '../components/passenger/passenger-list-results';
-import { PassengerListToolbar } from '../components/passenger/passenger-list-toolbar';
 import { DashboardLayout } from '../components/dashboard-layout';
 
 import { UsersService } from '../../services/UsersServices';
@@ -29,12 +28,8 @@ const Page = () => (
       </Typography>
 
       <Container maxWidth={false}>
-        <PassengerListToolbar />
         <Box sx={{ mt: 3 }}>
           <PassengerListResults/>
-         
-          {/* <PassengerListResults passengers={fetchUsers()}/> */}
-
         </Box>
       </Container>
     </Box>

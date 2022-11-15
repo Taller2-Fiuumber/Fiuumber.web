@@ -2,21 +2,26 @@ import { useState, useEffect, Text} from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { UsersService } from '../../../services/UsersServices';
 import Router from 'next/router';
+import { Search as SearchIcon } from '../../icons/search';
 
 import {
-  Avatar,
   Button,
   Box,
   Card,
-  Checkbox,
+  CardContent,
+  TextField,
+  InputAdornment,
   Table,
   TableBody,
   TableCell,
+  SvgIcon, 
+  Typography, 
+  List,
   TableHead,
-  TablePagination, 
+  TablePagination,
   TableRow,
-  Typography
 } from '@mui/material';
+
 
 
 export const AdminListResults = ({...rest }) => {
@@ -24,6 +29,7 @@ export const AdminListResults = ({...rest }) => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(0); //0
   const [admins, setAdmins] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
 
   useEffect(() => {
     UsersService.getAdmins().then((value) => {
@@ -45,6 +51,34 @@ export const AdminListResults = ({...rest }) => {
 
   return (
     <Card {...rest}>
+     <Box>
+        <Box sx={{ mt: 3 }}>
+          <Card>
+            <CardContent>
+              <Box sx={{ maxWidth: 500 }}>
+                <TextField
+                  fullWidth
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <SvgIcon
+                          color="action"
+                          fontSize="small"
+                        >
+                          <SearchIcon />
+                        </SvgIcon>
+                      </InputAdornment>
+                    )
+                  }}
+                  placeholder="Search admin by first name"
+                  variant="outlined"
+                  onChange={event=> setSearchInput(event.target.value)}
+                />
+              </Box>
+            </CardContent>
+          </Card>
+        </Box>
+      </Box>
       <PerfectScrollbar>
         <Box sx={{ minWidth: 1000 }}>
           <Table>
@@ -68,7 +102,12 @@ export const AdminListResults = ({...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {admins.slice(rowsPerPage*page, rowsPerPage*(page+1)).map((admin, index) => (
+              {admins.filter(admin=> {
+                if(searchInput === ''){
+                  return admin;
+                } else if (admin.firstName.toLowerCase().includes(searchInput.toLowerCase())){
+                  return admin;
+                }}).slice(rowsPerPage*page, rowsPerPage*(page+1)).map((admin, index) => (
                 <TableRow
                   hover
                   key={index}
