@@ -9,7 +9,7 @@ RUN mkdir /app
 WORKDIR /app
 COPY . /app
 
-RUN apk update && apk add bash
-RUN apk add curl
+#RUN apk update && apk add bash
+#RUN apk add curl
 
 EXPOSE 3000

@@ -10,10 +10,14 @@ export const AccountPopover = (props) => {
   const authContext = useContext(AuthContext);
 
   const handleSignOut = async () => {
+    Router
+    .push('/')
+    .catch(console.error);
     onClose?.();
 
     // Check if authentication with Zalter is enabled
     // If not enabled, then redirect is not required
+
     if (!ENABLE_AUTH) {
       return;
     }
@@ -29,7 +33,7 @@ export const AccountPopover = (props) => {
 
       // Redirect to sign-in page
       Router
-        .push('/sign-in')
+        .push('/')
         .catch(console.error);
       return;
     }
@@ -37,18 +41,20 @@ export const AccountPopover = (props) => {
     try {
       // This can be call inside AuthProvider component, but we do it here for simplicity
       await auth.signOut();
-
       // Update Auth Context state
       authContext.signOut();
 
       // Redirect to sign-in page
       Router
-        .push('/sign-in')
+        .push('/')
         .catch(console.error);
     } catch (err) {
       console.error(err);
     }
   };
+  const handleMyProfile = () => {
+    Router.push("/account?id=" + 7 + "&type=admin") //DESHARDCODEARLO !!!
+  }
 
   return (
     <Popover
@@ -60,7 +66,7 @@ export const AccountPopover = (props) => {
       onClose={onClose}
       open={open}
       PaperProps={{
-        sx: { width: '300px' }
+        sx: { width: '150px' }
       }}
       {...other}
     >
@@ -93,6 +99,9 @@ export const AccountPopover = (props) => {
           }
         }}
       >
+        <MenuItem onClick={handleMyProfile}>
+          My profile
+        </MenuItem>
         <MenuItem onClick={handleSignOut}>
           Sign out
         </MenuItem>

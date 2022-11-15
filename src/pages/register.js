@@ -1,4 +1,7 @@
+import axios from 'axios';// For API consuming
 import Head from 'next/head';
+import { UsersService } from '../../services/UsersServices';
+import { Admin } from '../../models/admin';
 import NextLink from 'next/link';
 import Router from 'next/router';
 import { useFormik } from 'formik';
@@ -22,7 +25,7 @@ const Register = () => {
       firstName: '',
       lastName: '',
       password: '',
-      policy: false
+      // policy: false
     },
     validationSchema: Yup.object({
       email: Yup
@@ -43,16 +46,13 @@ const Register = () => {
         .string()
         .max(255)
         .required('Password is required'),
-      policy: Yup
-        .boolean()
-        .oneOf(
-          [true],
-          'This field must be checked'
-        )
     }),
     onSubmit: () => {
+      
+      // console.log(formik.values.email);
+      UsersService.postAdministrator(formik.values.email, formik.values.firstName, formik.values.lastName, formik.values.password);
       Router
-        .push('/')
+        .push('/admins')
         .catch(console.error);
     }
   });
@@ -61,7 +61,7 @@ const Register = () => {
     <>
       <Head>
         <title>
-          Register | Material Kit
+          Register | Fiuumber
         </title>
       </Head>
       <Box
@@ -75,14 +75,15 @@ const Register = () => {
       >
         <Container maxWidth="sm">
           <NextLink
-            href="/"
+            href="/metrics"
             passHref
           >
             <Button
               component="a"
+              color="secondary"
               startIcon={<ArrowBackIcon fontSize="small" />}
             >
-              Dashboard
+              Metrics
             </Button>
           </NextLink>
           <form onSubmit={formik.handleSubmit}>
@@ -91,14 +92,14 @@ const Register = () => {
                 color="textPrimary"
                 variant="h4"
               >
-                Create a new account
+                Create a new admin account
               </Typography>
               <Typography
                 color="textSecondary"
                 gutterBottom
                 variant="body2"
               >
-                Use your email to create a new account
+                Use an email to create the account
               </Typography>
             </Box>
             <TextField
@@ -158,12 +159,12 @@ const Register = () => {
                 ml: -1
               }}
             >
-              <Checkbox
+              {/* <Checkbox
                 checked={formik.values.policy}
                 name="policy"
                 onChange={formik.handleChange}
-              />
-              <Typography
+              /> */}
+              {/* <Typography
                 color="textSecondary"
                 variant="body2"
               >
@@ -181,7 +182,7 @@ const Register = () => {
                     Terms and Conditions
                   </Link>
                 </NextLink>
-              </Typography>
+              </Typography> */}
             </Box>
             {Boolean(formik.touched.policy && formik.errors.policy) && (
               <FormHelperText error>
@@ -190,7 +191,7 @@ const Register = () => {
             )}
             <Box sx={{ py: 2 }}>
               <Button
-                color="primary"
+                color="secondary"
                 disabled={formik.isSubmitting}
                 fullWidth
                 size="large"
@@ -200,7 +201,7 @@ const Register = () => {
                 Sign Up Now
               </Button>
             </Box>
-            <Typography
+            {/* <Typography
               color="textSecondary"
               variant="body2"
             >
@@ -217,7 +218,7 @@ const Register = () => {
                   Sign In
                 </Link>
               </NextLink>
-            </Typography>
+            </Typography> */}
           </form>
         </Container>
       </Box>

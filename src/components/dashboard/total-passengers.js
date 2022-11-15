@@ -2,7 +2,8 @@ import { Avatar, Box, Card, CardContent, Grid, Typography } from '@mui/material'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import PeopleIcon from '@mui/icons-material/PeopleOutlined';
 
-export const TotalCustomers = (props) => (
+
+export const TotalPassengers = (props) => (
   <Card {...props}>
     <CardContent>
       <Grid
@@ -16,7 +17,7 @@ export const TotalCustomers = (props) => (
             gutterBottom
             variant="overline"
           >
-            TOTAL CUSTOMERS
+            TOTAL PASSENGERS
           </Typography>
           <Typography
             color="textPrimary"

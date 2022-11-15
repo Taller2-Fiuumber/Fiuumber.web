@@ -9,9 +9,9 @@ const HANDLERS = {
 };
 
 const initialState = {
-  isAuthenticated: false,
-  isLoading: true,
-  user: null
+  isAuthenticated: false, //token, cuando deja d ser null es el token
+  isLoading: true, // nadie nunca 
+  user: null // admin
 };
 
 const handlers = {
@@ -31,6 +31,7 @@ const handlers = {
           : ({
             isLoading: false
           })
+          
       )
     };
   },
@@ -39,20 +40,20 @@ const handlers = {
 
     return {
       ...state,
-      isAuthenticated: true,
-      user
+      isAuthenticated: true, //pongo token
+      user // admin
     };
   },
   [HANDLERS.SIGN_OUT]: (state) => {
     return {
       ...state,
-      isAuthenticated: false,
-      user: null
+      isAuthenticated: false, //null
+      user: null // se nulifica el admin :P
     };
   }
 };
 
-const reducer = (state, action) => (
+const reducer = (state, action) => ( // reducir algo q no sabemos
   handlers[action.type] ? handlers[action.type](state, action) : state
 );
 

@@ -1,28 +1,36 @@
 import Head from 'next/head';
-import { Box, Container } from '@mui/material';
-import { CustomerListResults } from '../components/customer/customer-list-results';
-import { CustomerListToolbar } from '../components/customer/customer-list-toolbar';
+import { Box, Container, Typography } from '@mui/material';
+import { DriverListResults } from '../components/driver/driver-list-results';
+import { DriverListToolbar } from '../components/driver/driver-list-toolbar';
 import { DashboardLayout } from '../components/dashboard-layout';
-import { customers } from '../__mocks__/customers';
+
 
 const Page = () => (
   <>
     <Head>
       <title>
-        Customers | Material Kit
+        Drivers | Fiuumber
       </title>
     </Head>
     <Box
       component="main"
       sx={{
         flexGrow: 1,
-        py: 8
+        py: 2
       }}
     >
+      <Typography
+        sx={{ m: 1 }}
+        variant="h2"
+        color="#10B981"
+      > Fiuumber - Drivers
+      </Typography>
+
+
       <Container maxWidth={false}>
-        <CustomerListToolbar />
+        <DriverListToolbar />
         <Box sx={{ mt: 3 }}>
-          <CustomerListResults customers={customers} />
+          <DriverListResults/>         
         </Box>
       </Container>
     </Box>

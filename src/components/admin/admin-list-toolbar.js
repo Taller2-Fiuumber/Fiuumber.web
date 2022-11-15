@@ -5,16 +5,15 @@ import {
   CardContent,
   TextField,
   InputAdornment,
-  SvgIcon,
-  Typography
+  SvgIcon, Typography
 } from '@mui/material';
-import { Download as DownloadIcon } from '../../icons/download';
 import { Search as SearchIcon } from '../../icons/search';
 import { Upload as UploadIcon } from '../../icons/upload';
+import { Download as DownloadIcon } from '../../icons/download';
 
-export const ProductListToolbar = (props) => (
+export const AdminListToolbar = (props) => (
   <Box {...props}>
-    <Box
+    {/* <Box
       sx={{
         alignItems: 'center',
         display: 'flex',
@@ -27,30 +26,13 @@ export const ProductListToolbar = (props) => (
         sx={{ m: 1 }}
         variant="h4"
       >
-        Products
+        Admins
       </Typography>
       <Box sx={{ m: 1 }}>
-        {/* <Button
-          startIcon={(<UploadIcon fontSize="small" />)}
-          sx={{ mr: 1 }}
-        >
-          Import
-        </Button>
-        <Button
-          startIcon={(<DownloadIcon fontSize="small" />)}
-          sx={{ mr: 1 }}
-        >
-          Export
-        </Button> */}
-        <Button
-          color="primary"
-          variant="contained"
-        >
-          Add products
-        </Button>
+    
       </Box>
-    </Box>
-    <Box sx={{ mt: 3 }}>
+    </Box> */}
+    <Box sx={{ mt: 3 }}> 
       <Card>
         <CardContent>
           <Box sx={{ maxWidth: 500 }}>
@@ -60,15 +42,15 @@ export const ProductListToolbar = (props) => (
                 startAdornment: (
                   <InputAdornment position="start">
                     <SvgIcon
-                      fontSize="small"
                       color="action"
+                      fontSize="small"
                     >
                       <SearchIcon />
                     </SvgIcon>
                   </InputAdornment>
                 )
               }}
-              placeholder="Search product"
+              placeholder="Search Admin"
               variant="outlined"
             />
           </Box>
