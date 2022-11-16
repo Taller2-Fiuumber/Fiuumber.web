@@ -1,197 +1,112 @@
-import Head from 'next/head';
-import NextLink from 'next/link';
-import Router from 'next/router';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Facebook as FacebookIcon } from '../icons/facebook';
-import { Google as GoogleIcon } from '../icons/google';
-import { UsersService } from '../../services/UsersServices';
-import { useState } from 'react';
+
+import * as React from 'react';
 import { AuthContext } from '../contexts/auth-context';
-import { auth, ENABLE_AUTH } from '../lib/auth';
+import { userToken } from '../../models/userToken';
+import { authAction } from '../../models/authAction';
+import { AuthService } from '../../services/AuthServices';
+import { CONFIG } from '../../config';
 
-const Login = () => {
-  const [signInError, setError] = useState("hidden");
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
+import Router from 'next/router';
+
+export default function Navigation() {
+
+  React.useEffect(() => {
+    // Fetch the token from storage then navigate to our appropriate place
+    const bootstrapAsync = async () => {
+      let userToken = null;
+
+      try {
+        // Restore token stored in `SecureStore` or any other encrypted storage
+        userToken = await SecureStore.getItemAsync('userToken');
+      } catch (e) {
+        // Restoring token failed
+      }
+
+      // After restoring token, we may need to validate it in production apps
+
+      // This will switch to the App screen or Auth screen and this loading
+      // screen will be unmounted and thrown away.
+      dispatch({ type: 'RESTORE_TOKEN', userToken: userToken });
+    };
+
+    bootstrapAsync();
+  }, []);
+
+
+  const [state, dispatch] = React.useReducer(
+    (prevState, authAction) => {
+      switch (authAction.type) {
+        case 'RESTORE_TOKEN':
+          AuthService.setCurrentUserToken(authAction.userToken);
+          return {
+            ...prevState,
+            userToken: authAction.userToken,
+            isLoading: false,
+          };
+        case 'SIGN_IN':
+          AuthService.setCurrentUserToken(authAction.userToken);
+          return {
+            ...prevState,
+            isSignout: false,
+            userToken: authAction.userToken,
+          };
+        case 'SIGN_OUT':
+          AuthService.setCurrentUserToken(null);
+          return {
+            ...prevState,
+            isSignout: true,
+            userToken: null,
+          };
+      }
     },
-    validationSchema: Yup.object({
-      email: Yup
-        .string()
-        .email('Must be a valid email')
-        .max(255)
-        .required('Email is required'),
-      password: Yup
-        .string()
-        .max(255)
-        .required('Password is required'),
-    }),
-    onSubmit: () => {
-      UsersService.validateLogin(formik.values.email, formik.values.password).then((login) => { 
-        if(login == null){
-          Router
-          .push('.')
-          formik.values.email = '';
-          formik.values.password = '';
-          setError("show");
-        } else {
-          const token = login.token;
-          const admin = login.admin;
-          setError("hidden");
-          Router
-          .push('/metrics')
-          .catch(console.error);          
-        }
-      }).catch((error) => {
-        console.log(error);
-      });
-
-
+    {
+      isLoading: true,
+      isSignout: false,
+      userToken: null,
     }
-  });
+  );
+
+
+
+  const authContext = React.useMemo(
+    () => ({
+      logIn: async (email, password) => {
+
+        if (CONFIG.bypassLogin) {
+          admin = new Admin(420, "email", "firstName", "lastName", "address", "password"),
+          token = new userToken( admin, 'EL_TOKEN')
+          const authAction = new authAction(userToken, 'SIGN_IN');
+          dispatch(authAction);
+          return null;
+        }
+
+        const userToken = AuthService.validateLogin(email, password);
+        if(userToken == null){
+          //Si son incorrectos a donde los mandamos??
+          Router.push('.')
+          email = '';
+          password = '';
+          setError("show");
+        }       
+        const authAction = new authAction(userToken, 'SIGN_IN');
+        dispatch(authAction);
+        return null;           
+      },
+      signOut: () => dispatch({ type: 'SIGN_OUT', userToken: null }),
+      
+    }),
+    []
+  );
+
+  const handleMetrics = () => (Router.push('/metrics'));
+  const handleRedirection = () => (Router.push('/logIn'));
 
   return (
-    <>
-      <Head>
-        <title>Login | Fiuumber</title>
-      </Head>
-      <Box
-        component="main"
-        sx={{
-          alignItems: 'center',
-          display: 'flex',
-          flexGrow: 1,
-          minHeight: '100%'
-        }}
-      >
-        <Container maxWidth="sm">
-          <form onSubmit={formik.handleSubmit}>
-            <Box sx={{ my: 3 }}>
-            <Typography
-                color="textSecondary"
-                variant="h2"
-              >
-                Fiuumber admins
-              </Typography>
-              <Typography
-                color="textSecondary"
-                variant="h4"
-              >
-                Login
-              </Typography>
-              <Typography
-                color="textSecondary"
-                gutterBottom
-                variant="body2"
-              >
-              </Typography>
-            </Box>
-            <Grid
-              container
-              spacing={3}
-            >
-              {/* <Grid
-                item
-                xs={12}
-                md={6}
-              > */}
-                {/* <Button
-                  color="info"
-                  fullWidth
-                  startIcon={<FacebookIcon />}
-                  onClick={() => formik.handleSubmit()}
-                  size="large"
-                  variant="contained"
-                >
-                  Login with Facebook
-                </Button> */}
-              {/* </Grid> */}
-              <Grid
-                item
-                xs={12}
-                // md={6}
-              >
-                <Button
-                  color="error"
-                  fullWidth
-                  onClick={() => formik.handleSubmit()}
-                  size="large"
-                  startIcon={<GoogleIcon />}
-                  variant="contained"
-                >
-                  Login with Google
-                </Button>
-              </Grid>
-            </Grid>
-            <Box
-              sx={{
-                pb: 1,
-                pt: 3
-              }}
-            >
-              <Typography
-                align="center"
-                color="textSecondary"
-                variant="body1"
-              >
-                or login with an admin email address
-              </Typography>
-            </Box>
-            <TextField
-              error={Boolean(formik.touched.email && formik.errors.email)}
-              fullWidth
-              helperText={formik.touched.email && formik.errors.email}
-              label="Admin Email Address"
-              margin="normal"
-              name="email"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              type="email"
-              value={formik.values.email}
-              variant="outlined"
-            />
-            <TextField
-              error={Boolean(formik.touched.password && formik.errors.password)}
-              fullWidth
-              helperText={formik.touched.password && formik.errors.password}
-              label="Password"
-              margin="normal"
-              name="password"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              type="password"
-              value={formik.values.password}
-              variant="outlined"
-            />
-            <Box sx={{ py: 2 }}>
-              <Button
-                color="secondary"
-                disabled={formik.isSubmitting && !formik.isValid}
-                fullWidth
-                size="large"
-                type="submit"
-                variant="contained"
-              >
-                Sign In Now
-              </Button>
-              <Typography
-                align="center"
-                color="red"
-                variant="body1"
-                visibility={signInError}
-              >
-                Error! Wrong email or password
-              </Typography>
-            </Box>
-          </form>
-        </Container>
-      </Box>
-    </>
+    <AuthContext.Provider value={authContext}>
+      { 
+            state.userToken !== null ? (handleMetrics()) : (handleRedirection())
+      } 
+        
+    </AuthContext.Provider>
   );
-};
-
-export default Login;
+}
