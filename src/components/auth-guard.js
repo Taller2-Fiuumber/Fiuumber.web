@@ -27,11 +27,12 @@ export const AuthGuard = (props) => {
 
       ignore.current = true;
 
-      if (!isAuthenticated) {
+      //Cambié este 'isAuthenticated', antes decia '!isAuthenticated', osea lo contrario
+      if (isAuthenticated) {
         console.log('Not authenticated, redirecting');
         router
           .replace({
-            pathname: '/sign-in',
+            pathname: '/metrics',
             query: router.asPath !== '/' ? { continueUrl: router.asPath } : undefined
           })
           .catch(console.error);

@@ -1,4 +1,4 @@
-export class authAction {
+export class AuthAction {
     userToken;
     type;
 

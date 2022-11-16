@@ -1,4 +1,4 @@
-export class userToken {
+export class UserToken {
     user;
     token;
 

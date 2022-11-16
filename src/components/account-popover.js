@@ -4,15 +4,18 @@ import PropTypes from 'prop-types';
 import { Box, MenuItem, MenuList, Popover, Typography } from '@mui/material';
 import { AuthContext } from '../contexts/auth-context';
 import { auth, ENABLE_AUTH } from '../lib/auth';
+import { UserToken } from '../../models/userToken';
 
-export const AccountPopover = (props) => {
+
+export const AccountPopover = (props) => { 
   const { anchorEl, onClose, open, ...other } = props;
   const authContext = useContext(AuthContext);
 
-  const handleSignOut = async () => {
-    Router
-    .push('/')
-    .catch(console.error);
+  const handleSignOut = async (userToken) => {
+
+    // localStorage.setItem('userToken', JSON.stringify(userToken));
+
+    Router.push('/logIn').catch(console.error);
     onClose?.();
 
     // Check if authentication with Zalter is enabled
