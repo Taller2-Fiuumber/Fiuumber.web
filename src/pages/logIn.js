@@ -11,15 +11,18 @@ import { UsersService } from '../../services/UsersServices';
 import { useState } from 'react';
 import { AuthContext } from '../contexts/auth-context';
 import { CONFIG } from '../../config';
+import * as React from 'react';
 
-const Page = () => {
 
+const LogIn = () => {
+
+  const { logIn } = React.useContext(AuthContext);
   const [signInError, setError] = useState("hidden");
   const formik = useFormik({
     initialValues: {
 
-      email: 'demo@devias.io',
-      password: 'Password123',
+      email: '',
+      password: '',
       error_message: ''
     },
     validationSchema: Yup.object({
@@ -33,28 +36,24 @@ const Page = () => {
         .max(255)
         .required('Password is required'),
     }),
-    onSubmit: () => {      
-        const { logIn } = React.useContext(AuthContext);
-        logIn(formik.values.email, formik.values.password);
-        
-      //Código de Ani hardcodeado para que loguee
-      // const HEADERS = { headers: { Accept: 'application/json'}};
-      // const url = `https://fiuumber-gateway-1.herokuapp.com/api/auth/administrator/login?email=${formik.values.email}&password=${formik.values.password}`;
-      // axios.get(url, HEADERS)
-      //   .then(function (response) {
-      //     if (response.status === 200) {
+    onSubmit: async () => {    
+      const userToken = await logIn(formik.values.email, formik.values.password);
+      
+      // .catch(function (error) {
+      //       formik.values.error_message = "Incorrect email or password"
+      //       console.log(error);
+      //       if (error && error.response && error.response.status == 401) return null;
+      //     });
+      if(userToken == null){      
+        formik.values.email = '';
+        formik.values.password = '';
+        setError("show");
+      }       
 
-      //       const userToken = response.data;
-      //       console.log("userToken", userToken)
-      //       Router
-      //       .push('/metrics')
-      //     }
-      //   })
-      //   .catch(function (error) {
-      //     formik.values.error_message = "Incorrect email or password"
-      //     console.log(error);
-      //     if (error && error.response && error.response.status == 401) return null;
-      //   });
+      
+          
+      //Estaria bueno acá, al pushear metrics, pasarle el usuario.
+      //Router.push('/metrics');    
     }
   });
 
@@ -190,11 +189,4 @@ const Page = () => {
   )
 };
 
-Page.getLayout = (page) => (
-  <DashboardLayout>
-    {page}
-  </DashboardLayout>
-);
-
-
-export default Page;
+export default LogIn;

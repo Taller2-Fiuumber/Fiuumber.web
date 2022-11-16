@@ -1,152 +1,69 @@
-import { createContext, useContext, useEffect, useReducer, useRef } from 'react';
+import { createContext, useContext, useState, useEffect, useReducer, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { auth, ENABLE_AUTH } from '../lib/auth';
 
-const HANDLERS = {
-  INITIALIZE: 'INITIALIZE',
-  SIGN_IN: 'SIGN_IN',
-  SIGN_OUT: 'SIGN_OUT'
-};
+import { UserToken } from '../../models/userToken';
+import { AuthAction } from '../../models/authAction';
+import { AuthService } from '../../services/AuthServices';
+import * as React from 'react';
+import { CONFIG } from '../../config';
+import Router from 'next/router';
 
-const initialState = {
-  isAuthenticated: false, //token, cuando deja d ser null es el token
-  isLoading: true, // nadie nunca 
-  user: null // admin
-};
 
-const handlers = {
-  [HANDLERS.INITIALIZE]: (state, action) => {
-    const user = action.payload;
 
-    return {
-      ...state,
-      ...(
-        // if payload (user) is provided, then is authenticated
-        user
-          ? ({
-            isAuthenticated: true,
-            isLoading: false,
-            user
-          })
-          : ({
-            isLoading: false
-          })
-          
-      )
-    };
-  },
-  [HANDLERS.SIGN_IN]: (state, action) => {
-    const user = action.payload;
 
-    return {
-      ...state,
-      isAuthenticated: true, //pongo token
-      user // admin
-    };
-  },
-  [HANDLERS.SIGN_OUT]: (state) => {
-    return {
-      ...state,
-      isAuthenticated: false, //null
-      user: null // se nulifica el admin :P
-    };
+const dispatch = (authAction) => {
+  switch (authAction.type) {
+    case 'RESTORE_TOKEN':
+      AuthService.setCurrentUserToken(authAction.userToken); 
+    case 'SIGN_IN':
+      AuthService.setCurrentUserToken(authAction.userToken);          
+    case 'SIGN_OUT':
+      AuthService.setCurrentUserToken(null);     
   }
-};
 
-const reducer = (state, action) => ( // reducir algo q no sabemos
-  handlers[action.type] ? handlers[action.type](state, action) : state
-);
+};
 
 // The role of this context is to propagate authentication state through the App tree.
-
 export const AuthContext = createContext({ undefined });
 
-export const AuthProvider = (props) => {
+
+
+export const AuthProvider = (props) => { 
+
+  const [error, setError] = useState("hidden");
   const { children } = props;
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const initialized = useRef(false);
 
-  const initialize = async () => {
-    // Prevent from calling twice in development mode with React.StrictMode enabled
-    if (initialized.current) {
-      return;
-    }
+  const logIn = async (email, password) => {
+    if (CONFIG.bypassLogin) {
+      admin = new Admin(420, "email", "firstName", "lastName", "address", "password"),
+      token = new UserToken( admin, 'EL_TOKEN')
+      const authAction = new AuthAction(userToken, 'SIGN_IN');
+      dispatch(authAction);
+      return null;
+    }    
 
-    initialized.current = true;
-
-    // Check if auth has been skipped
-    // From sign-in page we may have set "skip-auth" to "true"
-    const authSkipped = globalThis.sessionStorage.getItem('skip-auth') === 'true';
-
-    if (authSkipped) {
-      const user = {};
-
-      dispatch({
-        type: HANDLERS.INITIALIZE,
-        payload: user
-      });
-      return;
-    }
-
-    // Check if authentication with Zalter is enabled
-    // If not, then set user as authenticated
-    if (!ENABLE_AUTH) {
-      const user = {};
-
-      dispatch({
-        type: HANDLERS.INITIALIZE,
-        payload: user
-      });
-      return;
-    }
-
-    try {
-      // Check if user is authenticated
-      const isAuthenticated = await auth.isAuthenticated();
-
-      if (isAuthenticated) {
-        // Get user from your database
-        const user = {};
-
-        dispatch({
-          type: HANDLERS.INITIALIZE,
-          payload: user
-        });
-      } else {
-        dispatch({
-          type: HANDLERS.INITIALIZE
-        });
-      }
-    } catch (err) {
-      console.error(err);
-      dispatch({
-        type: HANDLERS.INITIALIZE
-      });
-    }
+    const userToken = await AuthService.validateLogin(email, password);
+    if(userToken == null){
+      return null;
+    }       
+    const authAction = new AuthAction(userToken, 'SIGN_IN');
+    
+    dispatch(authAction);
+    //Estaria bueno acá, al pushear metrics, pasarle el usuario.
+    Router.push('/metrics');
+    return true;      
   };
-
-  useEffect(() => {
-    initialize().catch(console.error);
-  }, []);
-
-  const signIn = (user) => {
-    dispatch({
-      type: HANDLERS.SIGN_IN,
-      payload: user
-    });
-  };
-
-  const signOut = () => {
-    dispatch({
-      type: HANDLERS.SIGN_OUT
-    });
+  
+  const signOut = (userToken) => {
+    const authAction = new AuthAction(userToken, 'SIGN_OUT');
+    dispatch(authAction);
   };
 
   return (
     <AuthContext.Provider
       value={{
-        ...state,
-        signIn,
+        logIn,
         signOut
       }}
     >
@@ -162,3 +79,46 @@ AuthProvider.propTypes = {
 export const AuthConsumer = AuthContext.Consumer;
 
 export const useAuthContext = () => useContext(AuthContext);
+
+
+
+
+//-------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
