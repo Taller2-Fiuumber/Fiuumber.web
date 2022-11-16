@@ -49,11 +49,6 @@ const LogIn = () => {
         formik.values.password = '';
         setError("show");
       }       
-
-      
-          
-      //Estaria bueno acá, al pushear metrics, pasarle el usuario.
-      //Router.push('/metrics');    
     }
   });
 

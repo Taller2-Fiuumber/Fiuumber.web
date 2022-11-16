@@ -1,6 +1,9 @@
 import axios from 'axios';// For API consuming
 import { UserToken } from '../models/userToken';
 import { Admin } from '../models/admin';
+import { currentAdmin } from '../src/contexts/currentAdmin';
+
+
 
 import { HEADERS, RAW_HEADERS, URL_AUTH, URL_USERS } from "./Constants";
 
@@ -20,6 +23,7 @@ export const AuthService = {
             const response = await axios.get(url, HEADERS); 
             const token = response.data.token;        
             const admin = new Admin(response.data.user.id, response.data.user.email, response.data.user.firstName, response.data.user.lastName, response.data.user.password);
+            currentAdmin.setAdmin(admin.adminId, admin.email, admin.firstName, admin.lastName, admin.password);
             const userToken = new UserToken(admin, token);
             return userToken;
         }   
