@@ -12,7 +12,7 @@ export const AuthService = {
     getCurrentUserToken: () => _userToken,
     setCurrentUserToken: (userToken) => {
         //pasa dos veces??
-        console.log('raviol');
+        // console.log('raviol');
         _userToken = userToken;
     },
     //getHeaders: () => { return { headers: {...RAW_HEADERS, 'auth-token': _userToken?.token}}},

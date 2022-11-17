@@ -13,13 +13,19 @@ import Router from 'next/router';
 
 
 const dispatch = (authAction) => {
+  console.log(authAction.type);
   switch (authAction.type) {
     case 'RESTORE_TOKEN':
+      console.log("Case RT");
       AuthService.setCurrentUserToken(authAction.userToken); 
+      return;
     case 'SIGN_IN':
-      AuthService.setCurrentUserToken(authAction.userToken);          
+      console.log("Case SI");
+      AuthService.setCurrentUserToken(authAction.userToken);    
+      return;      
     case 'SIGN_OUT':
-      AuthService.setCurrentUserToken(null);     
+      console.log("Case SO");
+      AuthService.setCurrentUserToken(null);  
   }
 
 };
