@@ -79,18 +79,18 @@ export const AccountProfileDetails = (props) => {
       });    
       setUserType(true);
     }
-  }, [setUser]);
+  }, [setUser, id]);
 
   console.log(user.vehicle);
   console.log(user);
 
 
-  const handleChange = (event) => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value
-    });
-  };
+  // const handleChange = (event) => {
+  //   setValues({
+  //     ...values,
+  //     [event.target.name]: event.target.value
+  //   });
+  // };
 
 
   return (
@@ -118,13 +118,10 @@ export const AccountProfileDetails = (props) => {
             >
               <TextField
                 fullWidth
-                // helperText="Please specify the first name"
                 label="First name"
                 name="firstName"
-                // onChange={handleChange}
                 required
                 readOnly={true}
-                // color="FFFFFFF"
                 value={user.firstName}
                 variant="outlined"
               />
@@ -139,7 +136,6 @@ export const AccountProfileDetails = (props) => {
                 label="Last name"
                 name="lastName"
                 readOnly={true}
-                // onChange={handleChange}
                 required
                 value={user.lastName}
                 variant="outlined"
