@@ -9,7 +9,7 @@ const DashboardLayoutRoot = styled('div')(({ theme }) => ({
   flex: '1 1 auto',
   maxWidth: '100%',
   [theme.breakpoints.up('lg')]: {
-    paddingLeft: 280 
+    paddingLeft: 280
   }
 }));
 
@@ -18,8 +18,8 @@ export const DashboardLayout = (props) => {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
 
   return (
-    
-    <AuthGuard>
+
+    <>
       <DashboardLayoutRoot>
         <Box
           sx={{
@@ -36,6 +36,6 @@ export const DashboardLayout = (props) => {
         onClose={() => setSidebarOpen(false)}
         open={isSidebarOpen}
       />
-    </AuthGuard>
+    </>
   );
 };
