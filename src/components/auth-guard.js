@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { useAuthContext } from '../contexts/auth-context';
+import { currentAdmin, currentUserToken } from '../contexts/currentAdmin';
+
 
 export const AuthGuard = (props) => {
   const { children } = props;
@@ -28,14 +30,15 @@ export const AuthGuard = (props) => {
       ignore.current = true;
 
       //Cambié este 'isAuthenticated', antes decia '!isAuthenticated', osea lo contrario
-      if (isAuthenticated) {
+      if (currentUserToken == null) {
         console.log('Not authenticated, redirecting');
-        router
-          .replace({
-            pathname: '/metrics',
-            query: router.asPath !== '/' ? { continueUrl: router.asPath } : undefined
-          })
-          .catch(console.error);
+        // router
+        //   .replace({
+        //     pathname: '/metrics',
+        //     query: router.asPath !== '/' ? { continueUrl: router.asPath } : undefined
+        //   })
+        //   .catch(console.error);
+        Router.push('/logIn');
       } else {
         setChecked(true);
       }

@@ -10,29 +10,36 @@ import { AuthService } from '../../services/AuthServices';
 import { CONFIG } from '../../config';
 
 import { Admin } from '../../models/admin';
+import { currentAdmin, currentUserToken } from '../contexts/currentAdmin';
+
 
 
 
 
 const Page = () => {
   //const [error, setError] = useState('');
-  useEffect(() => {
-    //Seria clave hacer global a esta 
-    const logged = false;
-  
+  useEffect(() => {     
+    //Nuestro primer test unitario!!!
+    // const adminTest = new Admin( 42, 'xd', 'xdxd', 'xdxdxd', 'xdxdxdxdxdxd');
+    // const userToken = new UserToken(adminTest, '563ytvtfvhewrqwevuriu');
+    // localStorage.setItem('userToken', JSON.stringify(userToken));
+    // localStorage.setItem('userToken', null);   
     
-    const userToken = new UserToken('');
-    userToken = localStorage.getItem('userToken');
     
-    console.log(userToken);
+
+
+    const aux  = JSON.parse(localStorage.getItem('userToken'));
+
+   
 
     
-    if (userToken  == null) {
-      logged = false;
+    if (aux  == null) {
       Router.push('/logIn').catch(console.error);
     }
-    else{
-      logged = true;        
+    else{      
+      currentUserToken.setUserToken(aux.user, aux.token);
+      const admin = currentUserToken.user;
+      currentAdmin.setAdmin(admin.adminId, admin.email, admin.firstName, admin.lastName, admin.password);      
       Router.push('/metrics').catch(console.error);
 
     }

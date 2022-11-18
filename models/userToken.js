@@ -6,4 +6,9 @@ export class UserToken {
          this.user = user;
          this.token = token;
     }
+    
+    setUserToken(user, token) {
+        this.user = user;
+        this.token = token;
+  }
 }

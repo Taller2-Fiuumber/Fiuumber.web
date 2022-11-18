@@ -5,7 +5,7 @@ import { Box, MenuItem, MenuList, Popover, Typography } from '@mui/material';
 import { AuthContext } from '../contexts/auth-context';
 import { auth, ENABLE_AUTH } from '../lib/auth';
 import { UserToken } from '../../models/userToken';
-import { currentAdmin } from '../contexts/currentAdmin';
+import { currentAdmin, currentUserToken } from '../contexts/currentAdmin';
 import { useRouter } from 'next/router';
 
 export const AccountPopover = (props) => { 
@@ -13,10 +13,9 @@ export const AccountPopover = (props) => {
   const { anchorEl, onClose, open, ...other } = props;
   const authContext = useContext(AuthContext);
 
-  const handleSignOut = async (userToken) => {
-
-    // localStorage.setItem('userToken', JSON.stringify(userToken));
-
+  const handleSignOut = async () => {
+    localStorage.setItem('userToken', null);
+    currentUserToken = null;
     Router.push('/logIn').catch(console.error);
     onClose?.();
 

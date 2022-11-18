@@ -12,6 +12,8 @@ import { useState } from 'react';
 import { AuthContext } from '../contexts/auth-context';
 import { CONFIG } from '../../config';
 import * as React from 'react';
+import { currentUserToken } from '../contexts/currentAdmin';
+
 
 
 const LogIn = () => {
@@ -37,14 +39,14 @@ const LogIn = () => {
         .required('Password is required'),
     }),
     onSubmit: async () => {    
-      const userToken = await logIn(formik.values.email, formik.values.password);
+      currentUserToken = await logIn(formik.values.email, formik.values.password);
       
       // .catch(function (error) {
       //       formik.values.error_message = "Incorrect email or password"
       //       console.log(error);
       //       if (error && error.response && error.response.status == 401) return null;
       //     });
-      if(userToken == null){      
+      if(currentUserToken == null){      
         formik.values.email = '';
         formik.values.password = '';
         setError("show");

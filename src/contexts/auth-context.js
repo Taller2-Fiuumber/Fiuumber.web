@@ -8,6 +8,8 @@ import { AuthService } from '../../services/AuthServices';
 import * as React from 'react';
 import { CONFIG } from '../../config';
 import Router from 'next/router';
+import { currentUserToken } from './currentAdmin';
+
 
 
 
@@ -42,27 +44,29 @@ export const AuthProvider = (props) => {
 
   const logIn = async (email, password) => {
     if (CONFIG.bypassLogin) {
-      admin = new Admin(420, "email", "firstName", "lastName", "address", "password"),
-      token = new UserToken( admin, 'EL_TOKEN')
-      const authAction = new AuthAction(userToken, 'SIGN_IN');
+      admin = new Admin(420, "email", "firstName", "lastName", "address", "password");
+      currentUserToken.setUserToken( admin, 'EL_TOKEN');
+      const authAction = new AuthAction(currentUserToken, 'SIGN_IN');
       dispatch(authAction);
       return null;
     }    
 
-    const userToken = await AuthService.validateLogin(email, password);
-    if(userToken == null){
+    await AuthService.validateLogin(email, password);
+    if(currentUserToken == null){
       return null;
     }       
     const authAction = new AuthAction(userToken, 'SIGN_IN');
     
     dispatch(authAction);
+
+    localStorage.setItem('userToken', JSON.stringify(currentUserToken));
     //Estaria bueno acá, al pushear metrics, pasarle el usuario.
     Router.push('/metrics');
-    return true;      
+    return currentUserToken;      
   };
   
-  const signOut = (userToken) => {
-    const authAction = new AuthAction(userToken, 'SIGN_OUT');
+  const signOut = (currentUserToken) => {
+    const authAction = new AuthAction(currentUserToken, 'SIGN_OUT');
     dispatch(authAction);
   };
 
