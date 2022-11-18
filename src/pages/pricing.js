@@ -30,7 +30,21 @@ const Page = () => (
                        
             <Typography
                 width="45%"  
-                > Precio x distancia a recorrer:
+                > Initial Price:
+            </Typography>   
+        
+            <TextField
+                width="10%"                             
+                placeholder="$"
+                variant="outlined"
+            />           
+        </Box>
+
+        <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'row', maxWidth: 1000 }} >            
+                       
+            <Typography
+                width="45%"  
+                > Precio por distancia a recorrer:
             </Typography>   
         
             <TextField
