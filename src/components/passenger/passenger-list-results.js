@@ -15,8 +15,8 @@ import {
   Table,
   TableBody,
   TableCell,
-  SvgIcon, 
-  Typography, 
+  SvgIcon,
+  Typography,
   List,
   TableHead,
   TablePagination,
@@ -27,30 +27,30 @@ import {
 export const PassengerListResults = ({...rest }) => {
   const [searchInput, setSearchInput] = useState("");
   const [selectedPassengerIds, setSelectedPassengerIds] = useState([]);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [page, setPage] = useState(0); 
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [page, setPage] = useState(0);
   const [passengers, setPassengers] = useState([]);
 
   useEffect(() => {
-    UsersService.getPassengers().then((value) => { 
+    UsersService.getPassengers(page * rowsPerPage, rowsPerPage).then((value) => {
       setPassengers(value);
     }).catch((error) => {
       console.log(error);
     });
-    
-  }, []);
+
+  }, [page, rowsPerPage]);
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value));
-    setPage(0);
+    //setPage(0);
   };
 
   const handlePageChange = (event, newPage) => {
-    setPage(newPage);  
+    setPage(newPage);
   };
 
   return (
-    
+
     <Card {...rest}>
       <Box>
         <Box sx={{ mt: 3 }}>
@@ -84,7 +84,7 @@ export const PassengerListResults = ({...rest }) => {
         <Box sx={{ minWidth: 1000 }}>
           <Table>
             <TableHead>
-              <TableRow>               
+              <TableRow>
                 <TableCell>
                   Name
                 </TableCell>
@@ -99,7 +99,7 @@ export const PassengerListResults = ({...rest }) => {
                 </TableCell>
                 <TableCell>
                   Address
-                </TableCell>              
+                </TableCell>
                 <TableCell>
                   Profile
                 </TableCell>
@@ -111,12 +111,12 @@ export const PassengerListResults = ({...rest }) => {
                   return passenger;
                 } else if (passenger.email.includes(searchInput.toLowerCase())){
                   return passenger;
-                }}).slice(rowsPerPage*page, rowsPerPage*(page+1)).map((passenger, index) => (
+                }}).map((passenger, index) => (
                 <TableRow
                   hover
                   key={index}
                   selected={selectedPassengerIds.indexOf(passenger.userId) !== -1}
-                >                
+                >
                   <TableCell>
                     {passenger.firstName}
                   </TableCell>
@@ -151,7 +151,7 @@ export const PassengerListResults = ({...rest }) => {
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={passengers.length}
+        count={22}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleChangeRowsPerPage}
         page={page}
