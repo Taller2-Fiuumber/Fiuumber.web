@@ -36,6 +36,19 @@ export const UsersService = {
         }
     },
 
+    getAmountOfPassenger: async () => {
+      try {
+
+          const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/passengers/count`
+          const response = await axios.get(url, HEADERS);
+          return response.data.amount;
+      }
+      catch (error) {
+          console.log(`UsersService getAmountOfPassenger: ${error}`);
+          throw error;
+      }
+    },
+
     getDrivers: async (skip, take) => {
         try {
 
@@ -68,6 +81,19 @@ export const UsersService = {
         }
     },
 
+    getAmountOfDriver: async () => {
+      try {
+
+          const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/drivers/count`
+          const response = await axios.get(url, HEADERS);
+          return response.data.amount;
+      }
+      catch (error) {
+          console.log(`UsersService getAmountOfDriver: ${error}`);
+          throw error;
+      }
+    },
+
     getAdmins: async (skip, take) => {
         try {
 
@@ -87,6 +113,19 @@ export const UsersService = {
         catch (error) {
             console.log(`UsersService getAdmins: ${error}`);
             if (error && error.response && error.response.status == 401) return null;
+            throw error;
+        }
+    },
+
+    getAmountOfAdmins: async () => {
+        try {
+
+            const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/administrators/count`
+            const response = await axios.get(url, HEADERS);
+            return response.data.amount;
+        }
+        catch (error) {
+            console.log(`UsersService getAmountOfAdmins: ${error}`);
             throw error;
         }
     },

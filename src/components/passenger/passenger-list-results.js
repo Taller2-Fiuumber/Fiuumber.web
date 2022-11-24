@@ -30,6 +30,15 @@ export const PassengerListResults = ({...rest }) => {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [page, setPage] = useState(0);
   const [passengers, setPassengers] = useState([]);
+  const [amountOfPassenger, setAmountOfPassenger] = useState(0);
+
+  useEffect(() => {
+    UsersService.getAmountOfPassenger().then((value) => {
+      setAmountOfPassenger(value);
+    }).catch((error) => {
+      console.log(error);
+    });
+  }, []);
 
   useEffect(() => {
     UsersService.getPassengers(page * rowsPerPage, rowsPerPage).then((value) => {
@@ -42,7 +51,7 @@ export const PassengerListResults = ({...rest }) => {
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value));
-    //setPage(0);
+    // setPage(0);
   };
 
   const handlePageChange = (event, newPage) => {
@@ -151,7 +160,7 @@ export const PassengerListResults = ({...rest }) => {
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={22}
+        count={amountOfPassenger}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleChangeRowsPerPage}
         page={page}

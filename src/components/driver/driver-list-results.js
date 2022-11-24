@@ -32,7 +32,15 @@ export const DriverListResults = ({...rest }) => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(0);
   const [drivers, setDrivers] = useState([]);
+  const [amountOfDrivers, setAmountOfDrivers] = useState(0);
 
+  useEffect(() => {
+    UsersService.getAmountOfDriver().then((value) => {
+      setAmountOfDrivers(value);
+    }).catch((error) => {
+      console.log(error);
+    });
+  }, []);
 
   useEffect(() => {
     UsersService.getDrivers(page * rowsPerPage, rowsPerPage).then((value) => {
@@ -161,7 +169,7 @@ export const DriverListResults = ({...rest }) => {
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={22}
+        count={amountOfDrivers}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleChangeRowsPerPage}
         page={page}

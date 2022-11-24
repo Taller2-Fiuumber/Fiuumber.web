@@ -30,6 +30,15 @@ export const AdminListResults = ({...rest }) => {
   const [page, setPage] = useState(0); //0
   const [admins, setAdmins] = useState([]);
   const [searchInput, setSearchInput] = useState("");
+  const [amountOfAdmins, setAmountOfAdmins] = useState(0);
+
+  useEffect(() => {
+    UsersService.getAmountOfAdmins().then((value) => {
+      setAmountOfAdmins(value);
+    }).catch((error) => {
+      console.log(error);
+    });
+  }, []);
 
   useEffect(() => {
     UsersService.getAdmins(page * rowsPerPage, rowsPerPage).then((value) => {
@@ -158,7 +167,7 @@ export const AdminListResults = ({...rest }) => {
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={22}
+        count={amountOfAdmins}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleChangeRowsPerPage}
         page={page}
