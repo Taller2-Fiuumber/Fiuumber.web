@@ -4,9 +4,6 @@ import { Passenger } from '../models/passenger';
 import { Driver } from '../models/driver';
 import { Admin } from '../models/admin';
 
-
-
-
 export const UsersService = {
     getPassengers: async (skip, take) => {
         try {
@@ -39,31 +36,26 @@ export const UsersService = {
         }
     },
 
-    getDrivers: async () => {
+    getDrivers: async (skip, take) => {
         try {
 
-            const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/driver`
+            const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/driver/page/${skip}&${take}`
             const response = await axios.get(url, HEADERS);
 
             const drivers = [];
             for (let index = 0; index < response.data.length; index++) {
-                let userId = response.data[index].userId
-                let wallet = response.data[index].wallet
-                let vehicle = response.data[index].driverVehicle
-                const url_user = `https://fiuumber-api-users.herokuapp.com/api/users-service/user/${userId}`;
-                const response_user = await axios.get(url_user, HEADERS);
-                const driver = new Driver(response_user.data.id,
-                    response_user.data.email,
-                    response_user.data.firstName,
-                    response_user.data.lastName,
-                    response_user.data.username,
-                    response_user.data.address,
-                    response_user.data.password,
-                    response_user.data.blocked,
-                    wallet,
-                    vehicle);
-                // driver = response_user.data;
-                //console.log(driver);
+                const driver = new Driver(
+                    response.data[index].userId,
+                    response.data[index].user.email,
+                    response.data[index].user.firstName,
+                    response.data[index].user.lastName,
+                    response.data[index].user.username,
+                    response.data[index].user.address,
+                    response.data[index].user.password,
+                    response.data[index].user.blocked,
+                    response.data[index].wallet,
+                    response.data[index].driverVehicle,
+                  );
                 drivers[index] = driver;
             }
 
@@ -76,10 +68,10 @@ export const UsersService = {
         }
     },
 
-    getAdmins: async () => {
+    getAdmins: async (skip, take) => {
         try {
 
-            const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/administrator`
+            const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/administrator/page/${skip}&${take}`
             const response = await axios.get(url, HEADERS);
 
             const admins = [];

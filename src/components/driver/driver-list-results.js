@@ -16,8 +16,8 @@ import {
   Table,
   TableBody,
   TableCell,
-  SvgIcon, 
-  Typography, 
+  SvgIcon,
+  Typography,
   List,
   TableHead,
   TablePagination,
@@ -35,19 +35,19 @@ export const DriverListResults = ({...rest }) => {
 
 
   useEffect(() => {
-    UsersService.getDrivers().then((value) => { 
+    UsersService.getDrivers(page * rowsPerPage, rowsPerPage).then((value) => {
       setDrivers(value);
     }).catch((error) => {
       console.log(error);
     });
-    
-  }, []);
+
+  }, [rowsPerPage, page]);
 
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value));
-    setPage(0);
   };
+
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
   };
@@ -101,7 +101,7 @@ export const DriverListResults = ({...rest }) => {
                 </TableCell>
                 <TableCell>
                   Address
-                </TableCell>   
+                </TableCell>
                 <TableCell>
                   Vehicle Domain
                 </TableCell>
@@ -116,7 +116,7 @@ export const DriverListResults = ({...rest }) => {
                   return driver;
                 } else if (driver.email.includes(searchInput.toLowerCase())){
                   return driver;
-                }}).slice(rowsPerPage*page, rowsPerPage*(page+1)).map((driver,index) => (
+                }}).map((driver,index) => (
                 <TableRow
                   hover
                   key={index}
@@ -151,7 +151,7 @@ export const DriverListResults = ({...rest }) => {
                   View Profile
                   </Button>
                   </TableCell>
-                  
+
 
                 </TableRow>
               ))}
@@ -161,7 +161,7 @@ export const DriverListResults = ({...rest }) => {
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={drivers.length}
+        count={22}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleChangeRowsPerPage}
         page={page}
