@@ -1,23 +1,49 @@
 import { Doughnut } from 'react-chartjs-2';
 import { Box, Card, CardContent, CardHeader, Divider, Typography, useTheme } from '@mui/material';
 import LaptopMacIcon from '@mui/icons-material/LaptopMac';
-import PhoneIcon from '@mui/icons-material/Phone';
-import TabletIcon from '@mui/icons-material/Tablet';
+import Person from '@mui/icons-material/Person';
+import CarRental from '@mui/icons-material/CarRental';
+import { UsersService } from '../../../services/UsersServices';
+import { useState, useEffect, Text} from 'react';
 
-export const TrafficByDevice = (props) => {
+
+export const UsersDistribution = (props) => {
   const theme = useTheme();
+  const [amountOfAdmins, setAmountOfAdmins] = useState(0);
+  const [amountOfDrivers, setAmountOfDrivers] = useState(0);
+  const [amountOfPassengers, setAmountOfPassengers] = useState(0);
+  const [totalAmount, setTotalAmount] = useState(0);
+
+  useEffect(() => {
+    UsersService.getAmountOfAdmins().then((value) => {
+      setAmountOfAdmins(value);
+    }).catch((error) => {
+      console.log(error);
+    });
+    UsersService.getAmountOfPassenger().then((value) => {
+      setAmountOfPassengers(value);
+    }).catch((error) => {
+      console.log(error);
+    });
+    UsersService.getAmountOfDriver().then((value) => {
+      setAmountOfDrivers(value);
+    }).catch((error) => {
+      console.log(error);
+    });
+    setTotalAmount(amountOfAdmins+amountOfDrivers+amountOfPassengers);
+  }, []);
 
   const data = {
     datasets: [
       {
-        data: [63, 15, 22],
-        backgroundColor: ['#3F51B5', '#e53935', '#FB8C00'],
+        data: [amountOfAdmins, amountOfPassengers, amountOfDrivers],
+        backgroundColor: ['#D4ECDD', '#395B64', '#A5C9CA'],
         borderWidth: 8,
         borderColor: '#FFFFFF',
         hoverBorderColor: '#FFFFFF'
       }
     ],
-    labels: ['Desktop', 'Tablet', 'Mobile']
+    labels: ['Admins', 'Passengers', 'Drivers']
   };
 
   const options = {
@@ -42,30 +68,30 @@ export const TrafficByDevice = (props) => {
     }
   };
 
-  const devices = [
+  const userTypes = [
     {
-      title: 'Desktop',
-      value: 63,
+      title: 'Admins',
+      value: Math.round((amountOfAdmins/totalAmount)*100),
       icon: LaptopMacIcon,
-      color: '#3F51B5'
+      color: '#D4ECDD'
     },
     {
-      title: 'Tablet',
-      value: 15,
-      icon: TabletIcon,
-      color: '#E53935'
+      title: 'Passengers',
+      value: Math.round((amountOfPassengers/totalAmount)*100),
+      icon: Person,
+      color: '#395B64'
     },
     {
-      title: 'Mobile',
-      value: 23,
-      icon: PhoneIcon,
-      color: '#FB8C00'
+      title: 'Drivers',
+      value: Math.round((amountOfDrivers/totalAmount)*100),
+      icon: CarRental,
+      color: '#A5C9CA'
     }
   ];
 
   return (
     <Card {...props}>
-      <CardHeader title="Traffic by Device" />
+      <CardHeader title="Users distribution" />
       <Divider />
       <CardContent>
         <Box
@@ -86,7 +112,7 @@ export const TrafficByDevice = (props) => {
             pt: 2
           }}
         >
-          {devices.map(({
+          {userTypes.map(({
             color,
             icon: Icon,
             title,

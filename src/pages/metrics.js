@@ -3,13 +3,21 @@ import { Box, Container, Grid, Typography } from '@mui/material';
 import { Budget } from '../components/dashboard/budget';
 import { LatestOrders } from '../components/dashboard/latest-orders';
 import { LatestProducts } from '../components/dashboard/latest-products';
-import { Sales } from '../components/dashboard/sales';
+import { SignUpMetrics } from '../components/dashboard/signup-metrics';
+import { LoginMetrics } from '../components/dashboard/login-metrics';
+
 import { TasksProgress } from '../components/dashboard/tasks-progress';
 import { TotalPassengers } from '../components/dashboard/total-passengers';
 import { TotalDrivers } from '../components/dashboard/total-drivers';
 import { TotalAdmins } from '../components/dashboard/total-admins';
 import { TotalProfit } from '../components/dashboard/total-profit';
-import { TrafficByDevice } from '../components/dashboard/traffic-by-device';
+import { UsersDistribution } from '../components/dashboard/users-distribution';
+import { UsersBlockStatus } from '../components/dashboard/users-block-status';
+import { NewTripsMetrics } from '../components/dashboard/new-trips';
+import { TripDurationMetrics } from '../components/dashboard/trip-duration';
+
+
+
 import { DashboardLayout } from '../components/dashboard-layout';
 
 const Page = () => (
@@ -47,7 +55,7 @@ const Page = () => (
           >
             <Budget />
           </Grid> */}
-          <Grid
+          {/* <Grid
             item
             xl={4}
             lg={4}
@@ -55,8 +63,8 @@ const Page = () => (
             xs={12}
           >
             <TotalPassengers />
-          </Grid>
-          <Grid
+          </Grid> */}
+          {/* <Grid
             item
             xl={4}
             lg={4}
@@ -64,8 +72,8 @@ const Page = () => (
             xs={12}
           >
             <TotalDrivers />
-          </Grid>
-          <Grid
+          </Grid> */}
+          {/* <Grid
             item
             xl={4}
             lg={4}
@@ -73,16 +81,16 @@ const Page = () => (
             xs={12}
           >
             <TotalAdmins />
-          </Grid>
-          <Grid
+          </Grid> */}
+          {/* <Grid
             item
             lg={8}
             md={12}
             xl={9}
             xs={12}
           >
-            {/* <TasksProgress /> */}
-          </Grid>
+            <TasksProgress />
+          </Grid> */}
           <Grid
             item
             xl={3}
@@ -99,25 +107,7 @@ const Page = () => (
             xl={9}
             xs={12}
           >
-            <Sales />
-          </Grid>
-          <Grid
-            item
-            lg={4}
-            md={6}
-            xl={3}
-            xs={12}
-          >
-            <TrafficByDevice sx={{ height: '100%' }} />
-          </Grid>
-          <Grid
-            item
-            lg={4}
-            md={6}
-            xl={3}
-            xs={12}
-          >
-            {/* <LatestProducts sx={{ height: '100%' }} /> */}
+            <LoginMetrics />
           </Grid>
           <Grid
             item
@@ -126,7 +116,61 @@ const Page = () => (
             xl={9}
             xs={12}
           >
-            {/* <LatestOrders /> */}
+            <SignUpMetrics />
+          </Grid>
+          <Grid
+            item
+            lg={4}
+            md={6}
+            xl={3}
+            xs={12}
+          >
+            <UsersDistribution sx={{ height: '100%' }} />
+          </Grid>
+          <Grid
+            item
+            lg={4}
+            md={6}
+            xl={3}
+            xs={12}
+          >
+            <UsersBlockStatus sx={{ height: '100%' }} />
+          </Grid>
+          {/* <Grid
+            item
+            lg={4}
+            md={6}
+            xl={3}
+            xs={12}
+          >
+            <LatestProducts sx={{ height: '100%' }} />
+          </Grid> */}
+          {/* <Grid
+            item
+            lg={8}
+            md={12}
+            xl={9}
+            xs={12}
+          >
+            <LatestOrders />
+          </Grid> */}
+          <Grid
+            item
+            lg={8}
+            md={12}
+            xl={9}
+            xs={12}
+          >
+            <NewTripsMetrics />
+          </Grid>
+          <Grid
+            item
+            lg={8}
+            md={12}
+            xl={9}
+            xs={12}
+          >
+            <TripDurationMetrics />
           </Grid>
         </Grid>
       </Container>
