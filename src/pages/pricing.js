@@ -65,53 +65,55 @@ const Page = () => {
             </Typography>
 
             <Stack direction ="column" justifyContent = "space-evenly" spacing={2}>
-                <Typography
-                    sx={{ ml: 4 }}
-                    variant="h6"
-                    color="#000000"
-                > Trip Info:
-                </Typography> 
-
-                <Stack 
-                    direction="row" 
-                    justifyContent="space-evenly"
-                    spacing={4}>
-                
-                    <TextField
-                        value={time} 
-                        onChange={(e) => setTime(e.target.value)}
-                        height="1"
-                        width="10%"                             
-                        placeholder=""
-                        label="Night Time"
-                        variant="outlined"/>
-
-                    <TextField
-                        value={duration}  
-                        onChange={(e) => setduration(e.target.value)}
-                        height="1"
-                        width="10%"                             
-                        placeholder=""
-                        label="Duration"
-                        variant="outlined"/>    
-
-                    <TextField
-                        value={distance} 
-                        onChange={(e) => setdistance(e.target.value)}
-                        height="1"
-                        width="10%"                             
-                        placeholder=""
-                        label="Distance"
-                        variant="outlined"/>            
+                <Stack>
+                    <Typography
+                        sx={{ ml: 4 }}
+                        variant="h6"
+                        color="#000000"
+                    > Trip Info:
+                    </Typography> 
                 </Stack>
-                
+                    <Stack 
+                        direction="row" 
+                        justifyContent="space-evenly"
+                        spacing={4}>
+                    
+                        <TextField
+                            value={time} 
+                            onChange={(e) => setTime(e.target.value)}
+                            height="1"
+                            width="10%"                             
+                            placeholder=""
+                            label="Night Time"
+                            variant="outlined"/>
 
-                <Typography
-                    sx={{ ml: 4 }}
-                    variant="h6"
-                    color="#000000"
-                > Amount of trips in the day:
-                </Typography>
+                        <TextField
+                            value={duration}  
+                            onChange={(e) => setduration(e.target.value)}
+                            height="1"
+                            width="10%"                             
+                            placeholder=""
+                            label="Duration"
+                            variant="outlined"/>    
+
+                        <TextField
+                            value={distance} 
+                            onChange={(e) => setdistance(e.target.value)}
+                            height="1"
+                            width="10%"                             
+                            placeholder=""
+                            label="Distance"
+                            variant="outlined"/>                         
+                    </Stack>
+                
+                <Stack>
+                    <Typography
+                        sx={{ ml: 4 }}
+                        variant="h6"
+                        color="#000000"
+                    > Amount of trips in the day:
+                    </Typography>
+                </Stack>
 
                     <Stack 
                         direction="row" 
@@ -136,13 +138,14 @@ const Page = () => {
                             label="Passenger's"
                             variant="outlined"/>      
                     </Stack>
-                
-                <Typography                
-                    sx={{ ml: 4 }}
-                    variant="h6"
-                    color="#000000"
-                > Amount of trips in the month:
-                </Typography>
+                <Stack>
+                    <Typography                
+                        sx={{ ml: 4 }}
+                        variant="h6"
+                        color="#000000"
+                    > Amount of trips in the month:
+                    </Typography>
+                </Stack>
                     <Stack 
                         direction="row" 
                         justifyContent="space-evenly"
@@ -167,14 +170,14 @@ const Page = () => {
                             variant="outlined"/>
                     </Stack>
                 
-
-                <Typography                
-                    sx={{ ml: 4 }}
-                    variant="h6"
-                    color="#000000"
-                > Seniority:
-                </Typography>
-
+                <Stack>
+                    <Typography                
+                        sx={{ ml: 4 }}
+                        variant="h6"
+                        color="#000000"
+                    > Seniority:
+                    </Typography>
+                </Stack>
                     <Stack 
                         direction="row" 
                         justifyContent="space-evenly"
@@ -199,14 +202,14 @@ const Page = () => {
                             variant="outlined"/>
 
                     </Stack>
-
-                <Typography
-                    sx={{ ml: 4 }}
-                    variant="h6"
-                    color="#000000"
-                > Extra Info:
-                </Typography>
-
+                <Stack>
+                    <Typography
+                        sx={{ ml: 4 }}
+                        variant="h6"
+                        color="#000000"
+                    > Extra Info:
+                    </Typography>
+                </Stack>
                     <Stack 
                         direction="row" 
                         justifyContent="space-evenly"
@@ -232,14 +235,13 @@ const Page = () => {
 
                 </Stack>
             
-                {/* <Box textAlign='center'> */}
+                
                 <Stack 
                         direction="row" 
                         justifyContent="center  "
                         spacing={4}>
                     <Button
-                        startIcon={<DeleteIcon />}            
-                        color="info"            
+                        color="success"            
                         onClick={() => {submitRules("prod")}                
                     }
                         size="large"
@@ -248,7 +250,6 @@ const Page = () => {
                     </Button> 
 
                     <Button
-                        startIcon={<DeleteIcon />}            
                         color="info"            
                         onClick={() => {submitRules("demo")}                
                     }

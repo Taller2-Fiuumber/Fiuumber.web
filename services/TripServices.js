@@ -3,6 +3,8 @@ import { HEADERS, URL_USERS } from "./Constants";
 import { Passenger } from '../models/passenger';
 import { Driver } from '../models/driver';
 import { Admin } from '../models/admin';
+import Router from 'next/router';
+
 
 
 export const TripServices = {
@@ -245,6 +247,7 @@ export const TripServices = {
 
         if (type=="demo"){
             console.log ("demo")
+            Router.push('/pricingDemo').catch(console.error);     
         }else if (type=="prod"){
             console.log ("prod")
         } else(console.log("invalid type"));
