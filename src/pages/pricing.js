@@ -4,44 +4,38 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { DashboardLayout } from '../components/dashboard-layout';
 import { PricesRules } from '../../models/prices';
 import {useState} from 'react';
+import { TripServices} from '../../services/TripServices';
 
 
 
 const Page = () => {
 
     const[time, setTime] = useState("");
-    const[duration, setduration] = useState(0);
-    const[distance, setdistance] = useState(0);
-    const[dailyTripAmountDriver, setDailyTripAmountDriver] = useState(0);
-    const[dailyTripAmountPassenger, setDailyTripAmountPassenger] = useState(0);
-    const[monthlyTripAmountDriver, setMonthlyTripAmountDriver] = useState(0);
-    const[monthlyTripAmountPassenger, setMonthlyTripAmountPassenger] = useState(0);
-    const[seniorityDriver, setSeniorityDriver] = useState(0);
-    const[seniorityPassenger, setSeniorityPassenger] = useState(0);
-    const[recentTripAmount, setRecentTripAmount] = useState(0);
-    const[confirmationWaitingTime, setConfirmationWaitingTime] = useState(0);
-    const[arrivingWaitingTime, setArrivingWaitingTime] = useState(0);
+    const[duration, setduration] = useState("");
+    const[distance, setdistance] = useState("");
+    const[dailyTripAmountDriver, setDailyTripAmountDriver] = useState("");
+    const[dailyTripAmountPassenger, setDailyTripAmountPassenger] = useState("");
+    const[monthlyTripAmountDriver, setMonthlyTripAmountDriver] = useState("");
+    const[monthlyTripAmountPassenger, setMonthlyTripAmountPassenger] = useState("");
+    const[seniorityDriver, setSeniorityDriver] = useState("");
+    const[seniorityPassenger, setSeniorityPassenger] = useState("");
+    const[recentTripAmount, setRecentTripAmount] = useState("");
     
     const submitRules = () => { 
-
-        console.log(time);
     
-        // const newRules = new PricesRules( 
-        //     time,
-        //     duration, 
-        //     distance,
-        //     dailyTripAmountDriver,
-        //     dailyTripAmountPassenger, 
-        //     monthlyTripAmountDriver,
-        //     monthlyTripAmountPassenger, 
-        //     seniorityDriver,
-        //     seniorityPassenger, 
-        //     recentTripAmount,
-        //     confirmationWaitingTime,
-        //     arrivingWaitingTime);
-    
-    
-        // applyPricingRules(newRules);
+        const newRules = new PricesRules( 
+            time,
+            duration, 
+            distance,
+            dailyTripAmountDriver,
+            dailyTripAmountPassenger, 
+            monthlyTripAmountDriver,
+            monthlyTripAmountPassenger, 
+            seniorityDriver,
+            seniorityPassenger, 
+            recentTripAmount);
+            
+        TripServices.applyPricingRules(newRules);
     };
     
 
@@ -92,6 +86,8 @@ const Page = () => {
                         variant="outlined"/>
 
                     <TextField
+                        value={duration}  
+                        onChange={(e) => setduration(e.target.value)}
                         height="1"
                         width="10%"                             
                         placeholder=""
@@ -99,6 +95,8 @@ const Page = () => {
                         variant="outlined"/>    
 
                     <TextField
+                        value={distance} 
+                        onChange={(e) => setdistance(e.target.value)}
                         height="1"
                         width="10%"                             
                         placeholder=""
@@ -120,6 +118,8 @@ const Page = () => {
                         spacing={2}>
 
                         <TextField
+                            value={dailyTripAmountDriver}
+                            onChange={(e) => setDailyTripAmountDriver(e.target.value)}
                             height="1"
                             width="10%"                             
                             placeholder=""
@@ -127,6 +127,8 @@ const Page = () => {
                             variant="outlined"/>
 
                         <TextField
+                            value={dailyTripAmountPassenger} 
+                            onChange={(e) => setDailyTripAmountPassenger(e.target.value)}
                             height="1"
                             width="10%"                             
                             placeholder=""
@@ -146,6 +148,8 @@ const Page = () => {
                         spacing={2}>
 
                         <TextField
+                            value={monthlyTripAmountDriver} 
+                            onChange={(e) => setMonthlyTripAmountDriver(e.target.value)}
                             height="1"
                             width="10%"                             
                             placeholder=""
@@ -153,6 +157,8 @@ const Page = () => {
                             variant="outlined"/>
 
                         <TextField
+                            value={monthlyTripAmountPassenger} 
+                            onChange={(e) => setMonthlyTripAmountPassenger(e.target.value)}
                             height="1"
                             width="10%"                             
                             placeholder=""
@@ -174,6 +180,8 @@ const Page = () => {
                         spacing={2}>
 
                         <TextField
+                            value={seniorityDriver} 
+                            onChange={(e) => setSeniorityDriver(e.target.value)}
                             height="1"
                             width="10%"                             
                             placeholder=""
@@ -181,6 +189,8 @@ const Page = () => {
                             variant="outlined"/>
 
                         <TextField
+                            value={seniorityPassenger} 
+                            onChange={(e) => setSeniorityPassenger(e.target.value)}
                             height="1"
                             width="10%"                             
                             placeholder=""
@@ -202,24 +212,12 @@ const Page = () => {
                         spacing={4}>
 
                         <TextField
+                            value={recentTripAmount} 
+                            onChange={(e) => setRecentTripAmount(e.target.value)}
                             height="1"
                             width="10%"                             
                             placeholder=""
                             label="Recent Trip Amount"
-                            variant="outlined"/>
-
-                        <TextField
-                            height="1"
-                            width="10%"                             
-                            placeholder=""
-                            label="Confirmation Waiting Time"
-                            variant="outlined"/>
-
-                        <TextField
-                            height="1"
-                            width="10%"                             
-                            placeholder=""
-                            label="Arriving Waiting Time"
                             variant="outlined"/>
 
                 </Stack>

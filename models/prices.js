@@ -10,9 +10,7 @@ export class PricesRules{
     seniorityDriver; //Antiguedad en la app del chofer
     seniorityPassenger; //Antiguedad en la app del pasajero
     recentTripAmount; //Cantidad de viajes en la ultima ventana temporal
-    confirmationWaitingTime; //Tiempo de espera de confirmacion del viaje para el pasajero
-    arrivingWaitingTime; //Tiempo de espera del pasajero
-    //Ahre que tendria que cobrar mas si el pasajero hace esperar al chofer
+    
 
     constructor(
         time,
@@ -25,8 +23,7 @@ export class PricesRules{
         seniorityDriver,
         seniorityPassenger, 
         recentTripAmount,
-        confirmationWaitingTime,
-        arrivingWaitingTime,
+
 
     ) {        
         this.time = time;
@@ -39,8 +36,6 @@ export class PricesRules{
         this.seniorityDriver = seniorityDriver;
         this.seniorityPassenger = seniorityPassenger;
         this.recentTripAmount = recentTripAmount;
-        this.confirmationWaitingTime = confirmationWaitingTime;
-        this.arrivingWaitingTime = arrivingWaitingTime;
-
+    
     }
 }
