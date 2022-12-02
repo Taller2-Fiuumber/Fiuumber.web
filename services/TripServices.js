@@ -240,4 +240,19 @@ export const UsersService = {
             throw error;
         }
     },
+
+    applyPricingRules: async (price) => {
+        try { 
+            // const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/user/${id}/blocked`
+            // const response = await axios.delete(url, HEADERS); 
+            // return response;
+        } 
+        catch (error) {
+            console.log(`TripService applyPricingRules: ${error}`);
+            if (error && error.response && error.response.status == 401) return null;
+            throw error;
+        }
+    },
+
+
 };
