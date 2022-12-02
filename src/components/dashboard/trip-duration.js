@@ -1,12 +1,12 @@
 import { Bar } from 'react-chartjs-2';
 import { Line } from 'react-chartjs-2';
-
-import { Box, Button, Card, CardContent, CardHeader, Divider, useTheme } from '@mui/material';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import { Box, Button, Card, CardContent, CardHeader, Divider, useTheme, Select, MenuItem, InputLabel, FormControl} from '@mui/material';
+import {useState} from 'react';
 
 export const TripDurationMetrics = (props) => {
   const theme = useTheme();
+
+  const[time, setTime] = useState("Week");
 
   const data = {
     datasets: [
@@ -87,12 +87,18 @@ export const TripDurationMetrics = (props) => {
     <Card {...props}>
       <CardHeader
         action={(
-          <Button
-            endIcon={<ArrowDropDownIcon fontSize="small" />}
-            size="small"
+          <FormControl sx={{ m: 1, minWidth: 120 }}>
+          <InputLabel >Period</InputLabel>
+          <Select
+            value={time} 
+            onChange={(e) => setTime(e.target.value)}
+            label="Period"
           >
-            Last 7 days
-          </Button>
+            <MenuItem value={"Day"}>Day</MenuItem>
+            <MenuItem value={"Week"}>Week</MenuItem>
+            <MenuItem value={"Month"}>Month</MenuItem>
+          </Select>
+      </FormControl>
         )}
         title="Trip duration metrics"
       />
@@ -110,22 +116,7 @@ export const TripDurationMetrics = (props) => {
           />
         </Box>
       </CardContent>
-      <Divider />
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          p: 2
-        }}
-      >
-        <Button
-          color="primary"
-          endIcon={<ArrowRightIcon fontSize="small" />}
-          size="small"
-        >
-          Overview
-        </Button>
-      </Box>
+   
     </Card>
   );
 };

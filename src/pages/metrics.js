@@ -4,6 +4,7 @@ import { Budget } from '../components/dashboard/budget';
 import { LatestOrders } from '../components/dashboard/latest-orders';
 import { LatestProducts } from '../components/dashboard/latest-products';
 import { SignUpMetrics } from '../components/dashboard/signup-metrics';
+import { PasswordRecoveryMetrics } from '../components/dashboard/password-recovery-metrics';
 import { LoginMetrics } from '../components/dashboard/login-metrics';
 
 import { TasksProgress } from '../components/dashboard/tasks-progress';
@@ -44,121 +45,58 @@ const Page = () => (
       <Container maxWidth={false}>
         <Grid
           container
-          spacing={5}
+          spacing={4}
         >
-          {/* <Grid
-            item
-            lg={3}
-            sm={6}
-            xl={3}
-            xs={12}
-          >
-            <Budget />
-          </Grid> */}
-          {/* <Grid
-            item
-            xl={4}
-            lg={4}
-            sm={6}
-            xs={12}
-          >
-            <TotalPassengers />
-          </Grid> */}
-          {/* <Grid
-            item
-            xl={4}
-            lg={4}
-            sm={6}
-            xs={12}
-          >
-            <TotalDrivers />
-          </Grid> */}
-          {/* <Grid
-            item
-            xl={4}
-            lg={4}
-            sm={6}
-            xs={12}
-          >
-            <TotalAdmins />
-          </Grid> */}
-          {/* <Grid
-            item
-            lg={8}
-            md={12}
-            xl={9}
-            xs={12}
-          >
-            <TasksProgress />
-          </Grid> */}
           <Grid
             item
-            xl={3}
-            lg={3}
-            sm={6}
-            xs={12}
-          >
-            {/* <TotalProfit sx={{ height: '100%' }} /> */}
-          </Grid>
-          <Grid
-            item
-            lg={8}
-            md={12}
-            xl={9}
+            lg={6}
+            md={6}
+            xl={6}
             xs={12}
           >
             <LoginMetrics />
           </Grid>
           <Grid
             item
-            lg={8}
-            md={12}
-            xl={9}
+            lg={6}
+            md={6}
+            xl={6}
             xs={12}
           >
             <SignUpMetrics />
           </Grid>
           <Grid
             item
-            lg={4}
+            lg={7}
+            md={12}
+            xl={8}
+            xs={12}
+          >
+            <PasswordRecoveryMetrics />
+          </Grid>
+          <Grid
+            item
+            lg={5}
             md={6}
-            xl={3}
+            xl={4}
+            xs={12}
+          >
+            <UsersBlockStatus sx={{ height: '100%' }} />
+          </Grid>
+          <Grid
+            item
+            lg={5}
+            md={6}
+            xl={4}
             xs={12}
           >
             <UsersDistribution sx={{ height: '100%' }} />
           </Grid>
           <Grid
             item
-            lg={4}
-            md={6}
-            xl={3}
-            xs={12}
-          >
-            <UsersBlockStatus sx={{ height: '100%' }} />
-          </Grid>
-          {/* <Grid
-            item
-            lg={4}
-            md={6}
-            xl={3}
-            xs={12}
-          >
-            <LatestProducts sx={{ height: '100%' }} />
-          </Grid> */}
-          {/* <Grid
-            item
-            lg={8}
+            lg={7}
             md={12}
-            xl={9}
-            xs={12}
-          >
-            <LatestOrders />
-          </Grid> */}
-          <Grid
-            item
-            lg={8}
-            md={12}
-            xl={9}
+            xl={8}
             xs={12}
           >
             <NewTripsMetrics />

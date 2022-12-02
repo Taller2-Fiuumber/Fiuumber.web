@@ -2,33 +2,23 @@ import { Bar } from 'react-chartjs-2';
 import { Box, Button, Card, CardContent, CardHeader, Divider, useTheme, Select, MenuItem, InputLabel, FormControl} from '@mui/material';
 import {useState} from 'react';
 
-export const NewTripsMetrics = (props) => {
+export const PasswordRecoveryMetrics = (props) => {
   const theme = useTheme();
 
   const[time, setTime] = useState("Week");
 
   const data = {
     datasets: [
-      {
-        backgroundColor: '#A5C9CA',
-        barPercentage: 0.5,
+     {
+        backgroundColor: '#395B64',
+        barPercentage: 1,
         barThickness: 12,
         borderRadius: 4,
-        categoryPercentage: 0.5,
-        data: [18, 5, 19, 27, 29, 19, 20],
-        label: 'Number of trips',
+        categoryPercentage: 1,
+        data: [11, 20, 12, 29, 30, 25, 13],
+        label: 'User & password',
         maxBarThickness: 10
-      },
-    //   {
-    //     backgroundColor: '#EEEEEE',
-    //     barPercentage: 0.5,
-    //     barThickness: 12,
-    //     borderRadius: 4,
-    //     categoryPercentage: 0.5,
-    //     data: [11, 20, 12, 29, 30, 25, 13],
-    //     label: 'Federated Identity',
-    //     maxBarThickness: 10
-    //   }
+      }
     ],
     labels: ['1 Aug', '2 Aug', '3 Aug', '4 Aug', '5 Aug', '6 Aug', '7 aug']
   };
@@ -99,7 +89,7 @@ export const NewTripsMetrics = (props) => {
           </Select>
       </FormControl>
         )}
-        title="New trips metrics"
+        title="Password Recovery Metrics"
       />
       <Divider />
       <CardContent>
@@ -115,7 +105,7 @@ export const NewTripsMetrics = (props) => {
           />
         </Box>
       </CardContent>
-   
+  
     </Card>
   );
 };

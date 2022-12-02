@@ -1,15 +1,16 @@
 import { Bar } from 'react-chartjs-2';
-import { Box, Button, Card, CardContent, CardHeader, Divider, useTheme } from '@mui/material';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import { Box, Button, Card, CardContent, CardHeader, Divider, useTheme, Select, MenuItem, InputLabel, FormControl} from '@mui/material';
+import {useState} from 'react';
 
 export const LoginMetrics = (props) => {
   const theme = useTheme();
 
+  const[time, setTime] = useState("Week");
+
   const data = {
     datasets: [
       {
-        backgroundColor: '#3F51B5',
+        backgroundColor: '#A5C9CA',
         barPercentage: 0.5,
         barThickness: 12,
         borderRadius: 4,
@@ -19,7 +20,7 @@ export const LoginMetrics = (props) => {
         maxBarThickness: 10
       },
       {
-        backgroundColor: '#EEEEEE',
+        backgroundColor: '#395B64',
         barPercentage: 0.5,
         barThickness: 12,
         borderRadius: 4,
@@ -85,12 +86,19 @@ export const LoginMetrics = (props) => {
     <Card {...props}>
       <CardHeader
         action={(
-          <Button
-            endIcon={<ArrowDropDownIcon fontSize="small" />}
-            size="small"
+          
+        <FormControl sx={{ m: 1, minWidth: 120 }}>
+          <InputLabel >Period</InputLabel>
+          <Select
+            value={time} 
+            onChange={(e) => setTime(e.target.value)}
+            label="Period"
           >
-            Last 7 days
-          </Button>
+            <MenuItem value={"Day"}>Day</MenuItem>
+            <MenuItem value={"Week"}>Week</MenuItem>
+            <MenuItem value={"Month"}>Month</MenuItem>
+          </Select>
+      </FormControl>
         )}
         title="LogIn Metrics"
       />
@@ -108,22 +116,7 @@ export const LoginMetrics = (props) => {
           />
         </Box>
       </CardContent>
-      <Divider />
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          p: 2
-        }}
-      >
-        <Button
-          color="primary"
-          endIcon={<ArrowRightIcon fontSize="small" />}
-          size="small"
-        >
-          Overview
-        </Button>
-      </Box>
+     
     </Card>
   );
 };
