@@ -241,21 +241,26 @@ export const TripServices = {
     //     }
     // },
 
-    applyPricingRules: async (rules) => {
+    applyPricingRules: async (rules,type) => {
+
+        if (type=="demo"){
+            console.log ("demo")
+        }else if (type=="prod"){
+            console.log ("prod")
+        } else(console.log("invalid type"));
+        
         // try { 
-        //     // const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/user/${id}/blocked`
-        //     // const response = await axios.delete(url, HEADERS); 
-        //     // return response;
+        //     const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/user/${id}/blocked`
+        //     const response = await axios.delete(url, HEADERS); 
+        //     return response;
         // } 
         // catch (error) {
         //     console.log(`TripService applyPricingRules: ${error}`);
         //     if (error && error.response && error.response.status == 401) return null;
         //     throw error;
         // }
-      
 
         console.log(rules);
-        //habria que hacer un put a la base? y ahi le reducimos el numero?
     },
 
 

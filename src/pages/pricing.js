@@ -20,8 +20,9 @@ const Page = () => {
     const[seniorityDriver, setSeniorityDriver] = useState("");
     const[seniorityPassenger, setSeniorityPassenger] = useState("");
     const[recentTripAmount, setRecentTripAmount] = useState("");
+    const[basePrice, setBasePrice] = useState("");
     
-    const submitRules = () => { 
+    const submitRules = (type) => { 
     
         const newRules = new PricesRules( 
             time,
@@ -35,7 +36,7 @@ const Page = () => {
             seniorityPassenger, 
             recentTripAmount);
             
-        TripServices.applyPricingRules(newRules);
+        TripServices.applyPricingRules(newRules, type);
     };
     
 
@@ -82,7 +83,7 @@ const Page = () => {
                         height="1"
                         width="10%"                             
                         placeholder=""
-                        label="Time"
+                        label="Night Time"
                         variant="outlined"/>
 
                     <TextField
@@ -220,20 +221,43 @@ const Page = () => {
                             label="Recent Trip Amount"
                             variant="outlined"/>
 
+                        <TextField
+                            value={basePrice} 
+                            onChange={(e) => setBasePrice(e.target.value)}
+                            height="1"
+                            width="10%"                             
+                            placeholder=""
+                            label="Base Price"
+                            variant="outlined"/>
+
                 </Stack>
             
-                <Box textAlign='center'>
-                
+                {/* <Box textAlign='center'> */}
+                <Stack 
+                        direction="row" 
+                        justifyContent="center  "
+                        spacing={4}>
                     <Button
                         startIcon={<DeleteIcon />}            
                         color="info"            
-                        onClick={() => {submitRules()}                
+                        onClick={() => {submitRules("prod")}                
                     }
                         size="large"
                         variant="contained"
                         >Apply new pricing rules
                     </Button> 
-                </Box>
+
+                    <Button
+                        startIcon={<DeleteIcon />}            
+                        color="info"            
+                        onClick={() => {submitRules("demo")}                
+                    }
+                        size="large"
+                        variant="contained"
+                        > Try Out Rules
+                    </Button> 
+                    </Stack>
+                {/* </Box> */}
             </Stack>
 
         

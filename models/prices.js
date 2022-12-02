@@ -23,6 +23,7 @@ export class PricesRules{
         seniorityDriver,
         seniorityPassenger, 
         recentTripAmount,
+        basePrice,
 
 
     ) {        
@@ -36,6 +37,7 @@ export class PricesRules{
         this.seniorityDriver = seniorityDriver;
         this.seniorityPassenger = seniorityPassenger;
         this.recentTripAmount = recentTripAmount;
+        this.basePrice = basePrice;
     
     }
 }
