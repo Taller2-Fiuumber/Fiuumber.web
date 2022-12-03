@@ -71,13 +71,14 @@ jobs:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: docker tag ${{ env.IMAGE_TAG }} registry.heroku.com/${{ env.HEROKU_APP}}/web
 
+
       - name: Push container to Heroku Container Registry
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:push web --app ${{ env.HEROKU_APP}}
+          DD_API_KEY: ${{ secrets.DD_API_KEY }}
+        run: heroku container:push web --arg dd_api_key=${{ env.DD_API_KEY}} --app ${{ env.HEROKU_APP}}
 
       - name: Release container to Heroku Container Registry
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-          DD_API_KEY: ${{ secrets.DD_API_KEY }}
-        run: heroku container:release web --arg dd_api_key="$DD_API_KEY" --app ${{ env.HEROKU_APP}}
+        run: heroku container:release web --app ${{ env.HEROKU_APP}}
