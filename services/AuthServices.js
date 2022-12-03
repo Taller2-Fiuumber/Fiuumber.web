@@ -23,7 +23,7 @@ export const AuthService = {
             const token = response.data.token;        
             const admin = new Admin(response.data.user.id, response.data.user.email, response.data.user.firstName, response.data.user.lastName, response.data.user.password);
             currentAdmin.setAdmin(admin.adminId, admin.email, admin.firstName, admin.lastName, admin.password);
-            currentUserToken.setCurrentUserToken(currentAdmin, token);
+            currentUserToken.setUserToken(currentAdmin, token);
         }   
         catch (error) {           
             if (error && error.response && error.response.status == 401) return null;

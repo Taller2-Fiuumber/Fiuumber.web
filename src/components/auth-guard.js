@@ -30,7 +30,7 @@ export const AuthGuard = (props) => {
       ignore.current = true;
 
       //Cambié este 'isAuthenticated', antes decia '!isAuthenticated', osea lo contrario
-      if (currentUserToken == null) {
+      if (currentUserToken.token == '') {
         console.log('Not authenticated, redirecting');
         // router
         //   .replace({

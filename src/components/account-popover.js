@@ -7,6 +7,7 @@ import { auth, ENABLE_AUTH } from '../lib/auth';
 import { UserToken } from '../../models/userToken';
 import { currentAdmin, currentUserToken } from '../contexts/currentAdmin';
 import { useRouter } from 'next/router';
+import { Admin } from '../../models/admin'
 
 export const AccountPopover = (props) => { 
   const router = useRouter();
@@ -15,7 +16,8 @@ export const AccountPopover = (props) => {
 
   const handleSignOut = async () => {
     localStorage.setItem('userToken', null);
-    currentUserToken = null;
+    const newAdmin = new Admin( 42, '', '', '', '')
+    currentUserToken.setUserToken(newAdmin, '');
     Router.push('/logIn').catch(console.error);
     onClose?.();
 
@@ -63,6 +65,7 @@ export const AccountPopover = (props) => {
     //         pathname: '/account',
     //         query: "id="  + currentAdminId + "&type=admin",
     //       })
+    onClose?.();
          
     
     Router.push("/account?id=" + currentAdmin.adminId + "&type=admin") //DESHARDCODEARLO !!!

@@ -35,6 +35,7 @@ const App = (props) => {
           <CssBaseline />
           <AuthProvider>
             <AuthConsumer>
+              
               {
                 (auth) => auth.isLoading
                   ? <Fragment />

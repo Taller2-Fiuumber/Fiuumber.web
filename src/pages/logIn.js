@@ -9,7 +9,7 @@ import { Facebook as FacebookIcon } from '../icons/facebook';
 import { Google as GoogleIcon } from '../icons/google';
 import { UsersService } from '../../services/UsersServices';
 import { useState } from 'react';
-import { AuthContext } from '../contexts/auth-context';
+import { useAuthContext } from '../contexts/auth-context';
 import { CONFIG } from '../../config';
 import * as React from 'react';
 import { currentUserToken } from '../contexts/currentAdmin';
@@ -17,8 +17,8 @@ import { currentUserToken } from '../contexts/currentAdmin';
 
 
 const LogIn = () => {
-
-  const { logIn } = React.useContext(AuthContext);
+  const { logIn } = useAuthContext();
+  // const { logIn } = React.useContext(AuthContext);
   const [signInError, setError] = useState("hidden");
   const formik = useFormik({
     initialValues: {
@@ -39,14 +39,14 @@ const LogIn = () => {
         .required('Password is required'),
     }),
     onSubmit: async () => {    
-      currentUserToken = await logIn(formik.values.email, formik.values.password);
+      await logIn(formik.values.email, formik.values.password);
       
       // .catch(function (error) {
       //       formik.values.error_message = "Incorrect email or password"
       //       console.log(error);
       //       if (error && error.response && error.response.status == 401) return null;
       //     });
-      if(currentUserToken == null){      
+      if(currentUserToken.token == ''){      
         formik.values.email = '';
         formik.values.password = '';
         setError("show");
