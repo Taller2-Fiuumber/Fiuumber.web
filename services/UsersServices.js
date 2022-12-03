@@ -48,6 +48,18 @@ export const UsersService = {
           throw error;
       }
     },
+    getAmountOfBlockedPassengers: async () => {
+        try {
+  
+            const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/user/passenger/blocked/amount`
+            const response = await axios.get(url, HEADERS);
+            return response.data.amount;
+        }
+        catch (error) {
+            console.log(`UsersService getAmountOfBlockedPassengers: ${error}`);
+            throw error;
+        }
+      },
 
     getDrivers: async (skip, take) => {
         try {
@@ -93,6 +105,32 @@ export const UsersService = {
           throw error;
       }
     },
+
+    getAmountOfBlockedDrivers: async () => {
+        try {
+  
+            const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/user/driver/blocked/amount`
+            const response = await axios.get(url, HEADERS);
+            return response.data.amount;
+        }
+        catch (error) {
+            console.log(`UsersService getAmountOfBlockedDrivers: ${error}`);
+            throw error;
+        }
+      },
+      getAmountOfBlockedUsers: async () => {
+        try {
+  
+            const url = 'https://fiuumber-api-users.herokuapp.com/api/users-service/user/blocked/amount'
+            const response = await axios.get(url, HEADERS);
+            return response.data.amount;
+        }
+        catch (error) {
+            console.log(`UsersService getAmountOfBlockedUsers: ${error}`);
+            throw error;
+        }
+      },
+      
 
     getAdmins: async (skip, take) => {
         try {

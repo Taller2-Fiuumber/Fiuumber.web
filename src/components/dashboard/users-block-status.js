@@ -2,15 +2,46 @@ import { Doughnut } from 'react-chartjs-2';
 import { Box, Card, CardContent, CardHeader, Divider, Typography, useTheme } from '@mui/material';
 import Check from '@mui/icons-material/Check';
 import Block from '@mui/icons-material/Block';
+import { useState, useEffect, Text} from 'react';
+import { UsersService } from '../../../services/UsersServices';
+
 
 export const UsersBlockStatus = (props) => {
   const theme = useTheme();
 
+  const [totalAmountOfBlockedUsers, setTotalAmountOfBlockedUsers] = useState(0);
+  const [amountOfDrivers, setAmountOfDrivers] = useState(0);
+  const [amountOfPassengers, setAmountOfPassengers] = useState(0);
+  const [totalAmountOfUsers, setTotalAmountOfUsers] = useState(0);
+
+  useEffect(() => {
+   
+    UsersService.getAmountOfPassenger().then((value) => {
+      setAmountOfPassengers(value);
+    }).catch((error) => {
+      console.log(error);
+    });
+    UsersService.getAmountOfDriver().then((value) => {
+      setAmountOfDrivers(value);
+    }).catch((error) => {
+      console.log(error);
+    });
+    setTotalAmountOfUsers(amountOfDrivers+amountOfPassengers);
+    
+    UsersService.getAmountOfBlockedUsers().then((value) => {
+      setTotalAmountOfBlockedUsers(value);
+    }).catch((error) => {
+      console.log(error);
+    });
+
+  }, []);
+
+
   const data = {
     datasets: [
       {
-        data: [63, 15],
-        backgroundColor: ['#D4ECDD', '#395B64'],
+        data: [totalAmountOfBlockedUsers, totalAmountOfUsers],
+        backgroundColor: ['#395B64', '#A5C9CA'],
         borderWidth: 8,
         borderColor: '#FFFFFF',
         hoverBorderColor: '#FFFFFF'
@@ -18,6 +49,7 @@ export const UsersBlockStatus = (props) => {
     ],
     labels: ['Blocked', 'Not blocked']
   };
+  
 
   const options = {
     animation: false,
@@ -41,16 +73,17 @@ export const UsersBlockStatus = (props) => {
     }
   };
 
+
   const userTypes = [
     {
       title: 'Blocked',
-      value: 63,
+      value: Math.round(0),
       icon: Block,
       color: '#D4ECDD'
     },
     {
       title: 'Not blocked',
-      value: 15,
+      value: Math.round(100),
       icon: Check,
       color: '#395B64'
     },

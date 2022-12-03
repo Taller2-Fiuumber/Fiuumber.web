@@ -71,19 +71,19 @@ export const UsersDistribution = (props) => {
   const userTypes = [
     {
       title: 'Admins',
-      value: Math.round((amountOfAdmins/totalAmount)*100),
+      value: Math.round((amountOfAdmins/totalAmount)*100*1),
       icon: LaptopMacIcon,
       color: '#D4ECDD'
     },
     {
       title: 'Passengers',
-      value: Math.round((amountOfPassengers/totalAmount)*100),
+      value: Math.round((amountOfPassengers/totalAmount)*100*1),
       icon: Person,
       color: '#395B64'
     },
     {
       title: 'Drivers',
-      value: Math.round((amountOfDrivers/totalAmount)*100),
+      value: Math.round((amountOfDrivers/totalAmount)*100*1),
       icon: CarRental,
       color: '#A5C9CA'
     }
