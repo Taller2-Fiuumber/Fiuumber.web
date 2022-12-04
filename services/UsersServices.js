@@ -310,4 +310,16 @@ export const UsersService = {
             throw error;
         }
     },
+    getLoginMetrics: async (currentDate, days) => {
+        try {
+            const url = ``
+            const response = await axios.get(url, HEADERS);
+            return response;
+        }
+        catch (error) {
+            console.log(`LoginMetrics get: ${error}`);
+            if (error && error.response && error.response.status == 401) return null;
+            throw error;
+        }
+    },
 };

@@ -5,7 +5,25 @@ import {useState} from 'react';
 export const LoginMetrics = (props) => {
   const theme = useTheme();
 
-  const[time, setTime] = useState("Week");
+  const[time, setTime] = useState("Last 7 days");
+
+  const [user_password_data, setUserPasswordData] = useState([18, 5, 19, 27, 29, 19, 20]); // datos iniciales 7 days
+  const [federated_identity_data, setFederatedIdentityData] = useState([11, 20, 12, 29, 30, 25, 13]); // datos iniciales 30 days
+  const [labels, changeLabels] = useState(['1 Aug', '2 Aug', '3 Aug', '4 Aug', '5 Aug', '6 Aug', '7 aug']);
+  const changeTimeSelection = (value) => {
+    if (value == "Last 30 days") { // quiero cambiar a 30 days
+      // basicamente hacer un get y reemplazar ahi, esto deberia hacerse en un use effect
+      setUserPasswordData([1, 1, 1, 1, 1, 1, 1, 1, 1, 1]);
+      setFederatedIdentityData([1, 1, 1, 1, 1, 1, 1, 1, 1, 1]);
+      changeLabels(['1 Jul', '2 Jul', '3 Jul', '4 Jul', '5 Jul', '6 Jul', '7 Jul', '8 jul', '9 jul', '10 jul'])
+    } else {
+      setUserPasswordData([18, 5, 19, 27, 29, 19, 20]);
+      setFederatedIdentityData([11, 20, 12, 29, 30, 25, 13]);
+      changeLabels(['1 Aug', '2 Aug', '3 Aug', '4 Aug', '5 Aug', '6 Aug', '7 aug'])
+    }
+    
+    setTime(value);
+  };
 
   const data = {
     datasets: [
@@ -15,7 +33,7 @@ export const LoginMetrics = (props) => {
         barThickness: 12,
         borderRadius: 4,
         categoryPercentage: 0.5,
-        data: [18, 5, 19, 27, 29, 19, 20],
+        data: user_password_data,
         label: 'User & password',
         maxBarThickness: 10
       },
@@ -25,12 +43,12 @@ export const LoginMetrics = (props) => {
         barThickness: 12,
         borderRadius: 4,
         categoryPercentage: 0.5,
-        data: [11, 20, 12, 29, 30, 25, 13],
+        data: federated_identity_data,
         label: 'Federated Identity',
         maxBarThickness: 10
       }
     ],
-    labels: ['1 Aug', '2 Aug', '3 Aug', '4 Aug', '5 Aug', '6 Aug', '7 aug']
+    labels: labels
   };
 
   const options = {
@@ -91,16 +109,16 @@ export const LoginMetrics = (props) => {
           <InputLabel >Period</InputLabel>
           <Select
             value={time} 
-            onChange={(e) => setTime(e.target.value)}
+            onChange={(e) => changeTimeSelection(e.target.value)}
             label="Period"
           >
-            <MenuItem value={"Day"}>Day</MenuItem>
-            <MenuItem value={"Week"}>Week</MenuItem>
-            <MenuItem value={"Month"}>Month</MenuItem>
+            <MenuItem value={"Last 7 days"}>Last 7 days</MenuItem>
+            <MenuItem value={"Last 30 days"}>Last 30 days</MenuItem>
+            {/* <MenuItem value={"Month"}>Month</MenuItem> */}
           </Select>
       </FormControl>
         )}
-        title="LogIn Metrics"
+        title="Number of Logins"
       />
       <Divider />
       <CardContent>
