@@ -12,35 +12,42 @@ export const UsersBlockStatus = (props) => {
   const [totalAmountOfBlockedUsers, setTotalAmountOfBlockedUsers] = useState(0);
   const [amountOfDrivers, setAmountOfDrivers] = useState(0);
   const [amountOfPassengers, setAmountOfPassengers] = useState(0);
-  const [totalAmountOfUsers, setTotalAmountOfUsers] = useState(0);
+  // const [totalAmountOfUsers, setTotalAmountOfUsers] = useState(0);
 
   useEffect(() => {
    
     UsersService.getAmountOfPassenger().then((value) => {
-      setAmountOfPassengers(value);
+      if (value != undefined){
+        setAmountOfPassengers(value);
+      }
     }).catch((error) => {
       console.log(error);
     });
     UsersService.getAmountOfDriver().then((value) => {
-      setAmountOfDrivers(value);
+      if (value != undefined){
+        setAmountOfDrivers(value);
+      }
     }).catch((error) => {
       console.log(error);
     });
-    setTotalAmountOfUsers(amountOfDrivers+amountOfPassengers);
-    
     UsersService.getAmountOfBlockedUsers().then((value) => {
-      setTotalAmountOfBlockedUsers(value);
+      if (value != undefined){
+        setTotalAmountOfBlockedUsers(value);
+      }
+      console.log("PASE POR ACA");
+
     }).catch((error) => {
       console.log(error);
     });
+    console.log(totalAmountOfBlockedUsers);
 
-  }, []);
+  }, [totalAmountOfBlockedUsers, amountOfDrivers, amountOfPassengers]);
 
 
   const data = {
     datasets: [
       {
-        data: [totalAmountOfBlockedUsers, totalAmountOfUsers],
+        data: [totalAmountOfBlockedUsers, (amountOfDrivers+amountOfPassengers)-totalAmountOfBlockedUsers],
         backgroundColor: ['#395B64', '#A5C9CA'],
         borderWidth: 8,
         borderColor: '#FFFFFF',
@@ -77,13 +84,13 @@ export const UsersBlockStatus = (props) => {
   const userTypes = [
     {
       title: 'Blocked',
-      value: Math.round(0),
+      value: ((totalAmountOfBlockedUsers/(amountOfDrivers+amountOfPassengers))*100).toFixed(1),
       icon: Block,
       color: '#D4ECDD'
     },
     {
       title: 'Not blocked',
-      value: Math.round(100),
+      value: (100 - (totalAmountOfBlockedUsers/(amountOfDrivers+amountOfPassengers))*100).toFixed(1),
       icon: Check,
       color: '#395B64'
     },

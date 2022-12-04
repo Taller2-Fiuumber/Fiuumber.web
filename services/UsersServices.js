@@ -121,9 +121,9 @@ export const UsersService = {
       getAmountOfBlockedUsers: async () => {
         try {
   
-            const url = 'https://fiuumber-api-users.herokuapp.com/api/users-service/user/blocked/amount'
+            const url = 'https://fiuumber-api-users.herokuapp.com/api/users-service/user/passenger/blocked/amount'
             const response = await axios.get(url, HEADERS);
-            return response.data.amount;
+            return response.data;
         }
         catch (error) {
             console.log(`UsersService getAmountOfBlockedUsers: ${error}`);
