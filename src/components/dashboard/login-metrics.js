@@ -1,29 +1,60 @@
 import { Bar } from 'react-chartjs-2';
 import { Box, Button, Card, CardContent, CardHeader, Divider, useTheme, Select, MenuItem, InputLabel, FormControl} from '@mui/material';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
+import { UsersService } from '../../../services/UsersServices';
 
 export const LoginMetrics = (props) => {
   const theme = useTheme();
 
-  const[time, setTime] = useState("Last 7 days");
+  const[time, setTime] = useState(7);
+  
+  const currentDate = new Date(Date.now());
+  const currentDateString = `${currentDate.getDate()}/${currentDate.getMonth()+1}/${currentDate.getFullYear()}`
 
   const [user_password_data, setUserPasswordData] = useState([18, 5, 19, 27, 29, 19, 20]); // datos iniciales 7 days
-  const [federated_identity_data, setFederatedIdentityData] = useState([11, 20, 12, 29, 30, 25, 13]); // datos iniciales 30 days
+  const [federated_identity_data, setFederatedIdentityData] = useState([11, 20, 12, 29, 30, 25, 13]); // datos iniciales 7 days
   const [labels, changeLabels] = useState(['1 Aug', '2 Aug', '3 Aug', '4 Aug', '5 Aug', '6 Aug', '7 aug']);
-  const changeTimeSelection = (value) => {
-    if (value == "Last 30 days") { // quiero cambiar a 30 days
-      // basicamente hacer un get y reemplazar ahi, esto deberia hacerse en un use effect
-      setUserPasswordData([1, 1, 1, 1, 1, 1, 1, 1, 1, 1]);
-      setFederatedIdentityData([1, 1, 1, 1, 1, 1, 1, 1, 1, 1]);
-      changeLabels(['1 Jul', '2 Jul', '3 Jul', '4 Jul', '5 Jul', '6 Jul', '7 Jul', '8 jul', '9 jul', '10 jul'])
-    } else {
-      setUserPasswordData([18, 5, 19, 27, 29, 19, 20]);
-      setFederatedIdentityData([11, 20, 12, 29, 30, 25, 13]);
-      changeLabels(['1 Aug', '2 Aug', '3 Aug', '4 Aug', '5 Aug', '6 Aug', '7 aug'])
-    }
+
+
+
+    const changeTimeSelection = (numberOfDays) => {
     
-    setTime(value);
-  };
+      if (numberOfDays == "Last 30 days") {
+        setTime(30);
+        //  changeLabels(['1 Jul', '2 Jul', '3 Jul', '4 Jul', '5 Jul', '6 Jul', '7 Jul', '8 jul', '9 jul', '10 jul']);
+      }else {
+        //changeLabels(['1 Aug', '2 Aug', '3 Aug', '4 Aug', '5 Aug', '6 Aug', '7 aug']);
+        setTime(7);
+      }
+      
+    };
+  
+
+    useEffect(() => {
+      // quiero cambiar a 30 days
+        // basicamente hacer un get y reemplazar ahi, esto deberia hacerse en un use effect
+        UsersService.getLogInMetricsGoogle("05/12/2022", time).then((value) => {
+          if (value != undefined){
+            changeLabels(value[0])
+            setFederatedIdentityData(value[1]);
+
+          }
+        }).catch((error) => {
+          console.log(error);
+        });
+
+        UsersService.getLogInMetrics("05/12/2022", time).then((value) => {
+          if (value != undefined){
+            changeLabels(value[0])
+            setUserPasswordData(value[1]);
+          }
+        }).catch((error) => {
+          console.log(error);
+        });
+     
+    }, [time]);
+
+
 
   const data = {
     datasets: [
@@ -108,17 +139,16 @@ export const LoginMetrics = (props) => {
         <FormControl sx={{ m: 1, minWidth: 120 }}>
           <InputLabel >Period</InputLabel>
           <Select
-            value={time} 
+            value={`Last ${time} days`} 
             onChange={(e) => changeTimeSelection(e.target.value)}
             label="Period"
           >
             <MenuItem value={"Last 7 days"}>Last 7 days</MenuItem>
             <MenuItem value={"Last 30 days"}>Last 30 days</MenuItem>
-            {/* <MenuItem value={"Month"}>Month</MenuItem> */}
           </Select>
       </FormControl>
         )}
-        title="Number of Logins"
+        title="LogIn Metrics"
       />
       <Divider />
       <CardContent>

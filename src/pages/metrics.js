@@ -36,9 +36,10 @@ const Page = () => (
       }}
     >
       <Typography
-        sx={{ m: 1 }}
+        sx={{ mt: 1 }}
         variant="h2"
-        color="#10B981"
+        color="#10B981"//"#395B64"
+        textAlign="center"
       > Fiuumber - Metrics
       </Typography>
 
@@ -46,34 +47,56 @@ const Page = () => (
         <Grid
           container
           spacing={4}
+          justifyContent="center"
+          alignItems="center"
         >
-          <Grid
+        <Grid
             item
-            lg={6}
-            md={6}
-            xl={6}
+            // lg={6}
+            // md={6}
+            // xl={6}
+            // xs={12}
+            lg={11}
+            md={12}
+            xl={11}
             xs={12}
           >
+            <Typography
+              sx={{ m: 2 }}
+              variant="h5"
+              color="#000000"
+              textAlign="center"
+            > Users Metrics
+            </Typography>
+
             <LoginMetrics />
           </Grid>
           <Grid
             item
-            lg={6}
-            md={6}
-            xl={6}
+            // lg={6}
+            // md={6}
+            // xl={6}
+            // xs={12}
+            lg={11}
+            md={12}
+            xl={11}
             xs={12}
           >
             <SignUpMetrics />
           </Grid>
-          <Grid
+          {/* <Grid
             item
-            lg={7}
+            // lg={7}
+            // md={12}
+            // xl={8}
+            // xs={12}
+            lg={11}
             md={12}
-            xl={8}
+            xl={11}
             xs={12}
           >
             <PasswordRecoveryMetrics />
-          </Grid>
+          </Grid> */}
           <Grid
             item
             lg={5}
@@ -92,6 +115,7 @@ const Page = () => (
           >
             <UsersDistribution sx={{ height: '100%' }} />
           </Grid>
+
           <Grid
             item
             lg={7}
@@ -99,6 +123,13 @@ const Page = () => (
             xl={8}
             xs={12}
           >
+              <Typography
+              sx={{ m: 2 }}
+              variant="h5"
+              color="#000000"
+              textAlign="center"
+            > Trips Metrics
+            </Typography>
             <NewTripsMetrics />
           </Grid>
           <Grid

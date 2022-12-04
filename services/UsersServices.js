@@ -310,14 +310,85 @@ export const UsersService = {
             throw error;
         }
     },
-    getLoginMetrics: async (currentDate, days) => {
+    getLogInMetricsGoogle: async (currentDate, days) => {
         try {
-            const url = ``
+            const url = `http://localhost:8081/api/users-service/users/logInGoogle/count-per-day-last-days?day=${currentDate}&numberOfDays=${days}`
             const response = await axios.get(url, HEADERS);
-            return response;
+     
+            const labels = [];
+            const values = [];
+            for (let i=days-1; i>=0 ;i--){
+                values.push(response.data[i].value);
+                labels.push(response.data[i].key);
+            }
+
+            return [labels, values];
         }
         catch (error) {
-            console.log(`LoginMetrics get: ${error}`);
+            console.log(`LoginMetricsGoogle get: ${error}`);
+            if (error && error.response && error.response.status == 401) return null;
+            throw error;
+        }
+    },
+    getLogInMetrics: async (currentDate, days) => {
+        try {
+            console.log(currentDate, "current date")
+            console.log(days, "days")
+            const url = `http://localhost:8081/api/users-service/users/logIn/count-per-day-last-days?day=${currentDate}&numberOfDays=${days}`
+            const response = await axios.get(url, HEADERS);
+            const labels = [];
+            const values = [];
+            for (let i=days-1; i>=0 ;i--){
+                values.push(response.data[i].value);
+                labels.push(response.data[i].key);
+            }
+
+            return [labels, values];
+        }
+        catch (error) {
+            console.log(`LogInMetrics get: ${error}`);
+            if (error && error.response && error.response.status == 401) return null;
+            throw error;
+        }
+    },
+
+    getSignInMetricsGoogle: async (currentDate, days) => {
+        try {
+            const url = `http://localhost:8081/api/users-service/users/signInGoogle/count-per-day-last-days?day=${currentDate}&numberOfDays=${days}`
+            const response = await axios.get(url, HEADERS);
+            
+            const labels = [];
+            const values = [];
+            for (let i=days-1; i>=0 ;i--){
+                values.push(response.data[i].value);
+                labels.push(response.data[i].key);
+            }
+
+            return [labels, values];
+        }
+        catch (error) {
+            console.log(`SignInMetricsGoogle get: ${error}`);
+            if (error && error.response && error.response.status == 401) return null;
+            throw error;
+        }
+    },
+
+    getSignInMetrics: async (currentDate, days) => {
+        try {
+            const url = `http://localhost:8081/api/users-service/users/signIn/count-per-day-last-days?day=${currentDate}&numberOfDays=${days}`
+            const response = await axios.get(url, HEADERS);
+            
+            const labels = [];
+            const values = [];
+            for (let i=days-1; i>=0 ;i--){
+                values.push(response.data[i].value);
+                labels.push(response.data[i].key);
+            }
+
+            return [labels, values];
+        }
+        catch (error) {
+            console.log(`SignInMetrics get: ${error}`);
             if (error && error.response && error.response.status == 401) return null;
             throw error;
         }
