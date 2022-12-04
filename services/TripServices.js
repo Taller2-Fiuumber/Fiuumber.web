@@ -252,7 +252,7 @@ export const TripServices = {
             console.log ("prod")
         } else(console.log("invalid type"));
         
-        // try { 
+        // try {
         //     const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/user/${id}/blocked`
         //     const response = await axios.delete(url, HEADERS); 
         //     return response;

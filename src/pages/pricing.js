@@ -1,16 +1,27 @@
 import Head from 'next/head';
-import { Box, BoxProps, Container, Grid, Input, Typography, TextField, InputAdornment, Button, Stack } from '@mui/material';
+import { Box, BoxProps, Container, Grid, Input, Typography, TextField, InputAdornment, Button, Stack, Modal } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { DashboardLayout } from '../components/dashboard-layout';
 import { PricesRules } from '../../models/prices';
 import {useState} from 'react';
 import { TripServices} from '../../services/TripServices';
 
-
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 600,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
 
 const Page = () => {
 
     const[time, setTime] = useState("");
+    const[open, setOpen] = useState(false);
     const[duration, setduration] = useState("");
     const[distance, setdistance] = useState("");
     const[dailyTripAmountDriver, setDailyTripAmountDriver] = useState("");
@@ -21,6 +32,9 @@ const Page = () => {
     const[seniorityPassenger, setSeniorityPassenger] = useState("");
     const[recentTripAmount, setRecentTripAmount] = useState("");
     const[basePrice, setBasePrice] = useState("");
+    const[origin, setOrigin] = useState("");
+    const[destination, setDestination] = useState("");
+    const[calculatedPrice, setCalculatedPrice] = useState("");
     
     const submitRules = (type) => { 
     
@@ -38,6 +52,20 @@ const Page = () => {
             
         TripServices.applyPricingRules(newRules, type);
     };
+
+    const testRules = (priceRules) => { 
+        console.log(origin);
+        console.log(destination);
+        setCalculatedPrice("$999");
+
+    
+    };
+
+    const discard = () => {     
+        
+        //Cerrar el modal...y setear las rules en 0
+           
+    };
     
 
     return(
@@ -47,9 +75,7 @@ const Page = () => {
             Pricing | Fiuumber
         </title>
         </Head>
-        <Box
-
-            
+        <Box            
             component="main"
             sx={{
                 flexGrow: 1,
@@ -240,18 +266,18 @@ const Page = () => {
                         direction="row" 
                         justifyContent="center  "
                         spacing={4}>
-                    <Button
+                    {/* <Button
                         color="success"            
                         onClick={() => {submitRules("prod")}                
                     }
                         size="large"
                         variant="contained"
                         >Apply new pricing rules
-                    </Button> 
+                    </Button>  */}
 
                     <Button
                         color="info"            
-                        onClick={() => {submitRules("demo")}                
+                        onClick={() => {setOpen(true)}                
                     }
                         size="large"
                         variant="contained"
@@ -260,9 +286,97 @@ const Page = () => {
                     </Stack>
                 {/* </Box> */}
             </Stack>
-
+            
         
         </Box>
+        <Modal
+            open={open}
+            onClose={() => setOpen(false)}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+            >
+            <Box sx={style}>            
+                <Stack direction ="column" justifyContent = "space-evenly" spacing={10}>
+                    <Stack>
+                        <Typography
+                            sx={[{ ml: 4 }, { mt : 3}]}
+                            variant="h3"
+                            color="#000000"
+                        > Enter trip:
+                        </Typography> 
+                    </Stack>
+                        <Stack 
+                            direction="row" 
+                            justifyContent="space-evenly"
+                            spacing={1}>
+                        
+                            <TextField
+                                value={origin} 
+                                onChange={(e) => setOrigin(e.target.value)}
+                                height="1"
+                                width="10%"                             
+                                placeholder=""
+                                label="Origin"
+                                variant="outlined"/>
+
+                            <TextField
+                                value={destination}  
+                                onChange={(e) => setDestination(e.target.value)}
+                                height="1"
+                                width="10%"                             
+                                placeholder=""
+                                label="Destination"
+                                variant="outlined"/>    
+
+                            <Button                                 
+                                color="info"            
+                                onClick={() => {testRules()}}
+                                size="large"
+                                variant="contained"
+                                >Test rules
+                            </Button> 
+
+                            
+                        </Stack>
+
+                        <Stack 
+                            direction="row" 
+                            justifyContent="center"
+                            spacing={2}>
+                            
+                            <TextField
+                                value={calculatedPrice}                                                      
+                                label="Calculated trip price"
+                                variant="filled" color="success" focused
+                                size = "medium"
+                                InputProps={{
+                                    readOnly: true,
+                                }}
+                            />
+
+                            <Button                                 
+                                color="success"            
+                                onClick={() => {submitRules("prod")}}
+                                size="large"
+                                variant="contained"
+                                >Apply Rules
+                            </Button> 
+
+                            <Button    
+                                startIcon = {<DeleteIcon/>}                             
+                                color="error"            
+                                onClick={() => {discard()}}
+                                size="large"
+                                variant="contained"
+                                >Discard Rules
+                            </Button> 
+
+                            
+                        </Stack>
+                
+                </Stack>         
+            </Box>
+        </Modal>
     </>)
 };
 
