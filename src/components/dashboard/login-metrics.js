@@ -11,29 +11,24 @@ export const LoginMetrics = (props) => {
   const currentDate = new Date(Date.now());
   const currentDateString = `${currentDate.getDate()}/${currentDate.getMonth()+1}/${currentDate.getFullYear()}`
 
-  const [user_password_data, setUserPasswordData] = useState([18, 5, 19, 27, 29, 19, 20]); // datos iniciales 7 days
-  const [federated_identity_data, setFederatedIdentityData] = useState([11, 20, 12, 29, 30, 25, 13]); // datos iniciales 7 days
-  const [labels, changeLabels] = useState(['1 Aug', '2 Aug', '3 Aug', '4 Aug', '5 Aug', '6 Aug', '7 aug']);
+  const [user_password_data, setUserPasswordData] = useState([]); // datos iniciales 7 days
+  const [federated_identity_data, setFederatedIdentityData] = useState([]); // datos iniciales 7 days
+  const [labels, changeLabels] = useState([]);
 
 
-
-    const changeTimeSelection = (numberOfDays) => {
+  const changeTimeSelection = (numberOfDays) => {
+  
+    if (numberOfDays == "Last 30 days") {
+      setTime(30);
+    }else {
+      setTime(7);
+    }
     
-      if (numberOfDays == "Last 30 days") {
-        setTime(30);
-        //  changeLabels(['1 Jul', '2 Jul', '3 Jul', '4 Jul', '5 Jul', '6 Jul', '7 Jul', '8 jul', '9 jul', '10 jul']);
-      }else {
-        //changeLabels(['1 Aug', '2 Aug', '3 Aug', '4 Aug', '5 Aug', '6 Aug', '7 aug']);
-        setTime(7);
-      }
-      
-    };
+  };
   
 
     useEffect(() => {
-      // quiero cambiar a 30 days
-        // basicamente hacer un get y reemplazar ahi, esto deberia hacerse en un use effect
-        UsersService.getLogInMetricsGoogle("05/12/2022", time).then((value) => {
+        UsersService.getLogInMetricsGoogle(currentDateString, time).then((value) => {
           if (value != undefined){
             changeLabels(value[0])
             setFederatedIdentityData(value[1]);
@@ -43,7 +38,7 @@ export const LoginMetrics = (props) => {
           console.log(error);
         });
 
-        UsersService.getLogInMetrics("05/12/2022", time).then((value) => {
+        UsersService.getLogInMetrics(currentDateString, time).then((value) => {
           if (value != undefined){
             changeLabels(value[0])
             setUserPasswordData(value[1]);

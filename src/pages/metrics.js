@@ -118,9 +118,9 @@ const Page = () => (
 
           <Grid
             item
-            lg={7}
+            lg={11}
             md={12}
-            xl={8}
+            xl={11}
             xs={12}
           >
               <Typography
@@ -134,9 +134,9 @@ const Page = () => (
           </Grid>
           <Grid
             item
-            lg={8}
+            lg={11}
             md={12}
-            xl={9}
+            xl={11}
             xs={12}
           >
             <TripDurationMetrics />

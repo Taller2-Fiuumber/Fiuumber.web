@@ -312,7 +312,7 @@ export const UsersService = {
     },
     getLogInMetricsGoogle: async (currentDate, days) => {
         try {
-            const url = `http://localhost:8081/api/users-service/users/logInGoogle/count-per-day-last-days?day=${currentDate}&numberOfDays=${days}`
+            const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/users/logInGoogle/count-per-day-last-days?day=${currentDate}&numberOfDays=${days}`
             const response = await axios.get(url, HEADERS);
      
             const labels = [];
@@ -332,9 +332,7 @@ export const UsersService = {
     },
     getLogInMetrics: async (currentDate, days) => {
         try {
-            console.log(currentDate, "current date")
-            console.log(days, "days")
-            const url = `http://localhost:8081/api/users-service/users/logIn/count-per-day-last-days?day=${currentDate}&numberOfDays=${days}`
+            const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/users/logIn/count-per-day-last-days?day=${currentDate}&numberOfDays=${days}`
             const response = await axios.get(url, HEADERS);
             const labels = [];
             const values = [];
@@ -353,8 +351,8 @@ export const UsersService = {
     },
 
     getSignInMetricsGoogle: async (currentDate, days) => {
-        try {
-            const url = `http://localhost:8081/api/users-service/users/signInGoogle/count-per-day-last-days?day=${currentDate}&numberOfDays=${days}`
+        try { 
+            const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/users/signInGoogle/count-per-day-last-days?day=${currentDate}&numberOfDays=${days}`
             const response = await axios.get(url, HEADERS);
             
             const labels = [];
@@ -374,8 +372,8 @@ export const UsersService = {
     },
 
     getSignInMetrics: async (currentDate, days) => {
-        try {
-            const url = `http://localhost:8081/api/users-service/users/signIn/count-per-day-last-days?day=${currentDate}&numberOfDays=${days}`
+        try { 
+            const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/users/signIn/count-per-day-last-days?day=${currentDate}&numberOfDays=${days}`
             const response = await axios.get(url, HEADERS);
             
             const labels = [];

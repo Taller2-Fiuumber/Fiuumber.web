@@ -34,12 +34,10 @@ export const UsersBlockStatus = (props) => {
       if (value != undefined){
         setTotalAmountOfBlockedUsers(value);
       }
-      console.log("PASE POR ACA");
 
     }).catch((error) => {
       console.log(error);
     });
-    console.log(totalAmountOfBlockedUsers);
 
   }, [totalAmountOfBlockedUsers, amountOfDrivers, amountOfPassengers]);
 

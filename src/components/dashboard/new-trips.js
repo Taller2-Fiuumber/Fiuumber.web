@@ -1,11 +1,36 @@
 import { Bar } from 'react-chartjs-2';
 import { Box, Button, Card, CardContent, CardHeader, Divider, useTheme, Select, MenuItem, InputLabel, FormControl} from '@mui/material';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
+import { TripsServices } from '../../../services/TripsServices';
 
 export const NewTripsMetrics = (props) => {
   const theme = useTheme();
 
-  const[time, setTime] = useState("Week");
+  const[time, setTime] = useState(7);
+  const[newTripsData, setNewTripsData] = useState([]);
+  const [labels, changeLabels] = useState([]);
+
+  const changeTimeSelection = (numberOfDays) => {
+    
+    if (numberOfDays == "Last 30 days") {
+      setTime(30);
+    }else {
+      setTime(7);
+    }
+  };
+
+  useEffect(() => {
+   TripsServices.getNewTripsPerRangeMetrics(time).then((value) => {
+      if (value != undefined){
+        changeLabels(value[0])
+        setNewTripsData(value[1]);
+
+      }
+    }).catch((error) => {
+      console.log(error);
+    });
+ 
+}, [time]);
 
   const data = {
     datasets: [
@@ -15,22 +40,12 @@ export const NewTripsMetrics = (props) => {
         barThickness: 12,
         borderRadius: 4,
         categoryPercentage: 0.5,
-        data: [18, 5, 19, 27, 29, 19, 20],
+        data: newTripsData,
         label: 'Number of trips',
         maxBarThickness: 10
-      },
-    //   {
-    //     backgroundColor: '#EEEEEE',
-    //     barPercentage: 0.5,
-    //     barThickness: 12,
-    //     borderRadius: 4,
-    //     categoryPercentage: 0.5,
-    //     data: [11, 20, 12, 29, 30, 25, 13],
-    //     label: 'Federated Identity',
-    //     maxBarThickness: 10
-    //   }
+      }
     ],
-    labels: ['1 Aug', '2 Aug', '3 Aug', '4 Aug', '5 Aug', '6 Aug', '7 aug']
+    labels: labels
   };
 
   const options = {
@@ -89,13 +104,12 @@ export const NewTripsMetrics = (props) => {
           <FormControl sx={{ m: 1, minWidth: 120 }}>
           <InputLabel >Period</InputLabel>
           <Select
-            value={time} 
-            onChange={(e) => setTime(e.target.value)}
+            value={`Last ${time} days`} 
+            onChange={(e) => changeTimeSelection(e.target.value)}
             label="Period"
           >
-            <MenuItem value={"Day"}>Day</MenuItem>
-            <MenuItem value={"Week"}>Week</MenuItem>
-            <MenuItem value={"Month"}>Month</MenuItem>
+            <MenuItem value={"Last 7 days"}>Last 7 days</MenuItem>
+            <MenuItem value={"Last 30 days"}>Last 30 days</MenuItem>
           </Select>
       </FormControl>
         )}
