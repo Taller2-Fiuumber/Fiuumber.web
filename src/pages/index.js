@@ -3,7 +3,7 @@ import NextLink from 'next/link';
 import Router from 'next/router';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
+import { Box, Button, Container, Grid, Link, TextField, Typography ,useTheme} from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Facebook as FacebookIcon } from '../icons/facebook';
 import { Google as GoogleIcon } from '../icons/google';
@@ -13,6 +13,7 @@ import { AuthContext } from '../contexts/auth-context';
 import { auth, ENABLE_AUTH } from '../lib/auth';
 
 const Login = () => {
+  const theme = useTheme();
   const [signInError, setError] = useState("hidden");
   const formik = useFormik({
     initialValues: {
@@ -65,11 +66,26 @@ const Login = () => {
           alignItems: 'center',
           display: 'flex',
           flexGrow: 1,
-          minHeight: '100%'
+          minHeight: '100%',
+          //backgroundColor:'#D4ECDD', //'#26a69a',
+          // '&:hover': {
+          //   backgroundColor: '#A5C9CA',
+          //   opacity: [0.9, 0.8, 0.7],
+          // },
+  
         }}
+        
       >
-        <Container maxWidth="sm">
+        <Container maxWidth="sm" >
           <form onSubmit={formik.handleSubmit}>
+          <Grid
+          container
+          spacing={4}
+          justifyContent="center"
+          alignItems="center"
+          padding ="5px" 
+         // border= "5px solid grey"
+        >
             <Box sx={{ my: 3 }}>
             <Typography
                 color="textSecondary"
@@ -94,38 +110,7 @@ const Login = () => {
               container
               spacing={3}
             >
-              {/* <Grid
-                item
-                xs={12}
-                md={6}
-              > */}
-                {/* <Button
-                  color="info"
-                  fullWidth
-                  startIcon={<FacebookIcon />}
-                  onClick={() => formik.handleSubmit()}
-                  size="large"
-                  variant="contained"
-                >
-                  Login with Facebook
-                </Button> */}
-              {/* </Grid> */}
-              <Grid
-                item
-                xs={12}
-                // md={6}
-              >
-                <Button
-                  color="error"
-                  fullWidth
-                  onClick={() => formik.handleSubmit()}
-                  size="large"
-                  startIcon={<GoogleIcon />}
-                  variant="contained"
-                >
-                  Login with Google
-                </Button>
-              </Grid>
+             
             </Grid>
             <Box
               sx={{
@@ -133,13 +118,6 @@ const Login = () => {
                 pt: 3
               }}
             >
-              <Typography
-                align="center"
-                color="textSecondary"
-                variant="body1"
-              >
-                or login with an admin email address
-              </Typography>
             </Box>
             <TextField
               error={Boolean(formik.touched.email && formik.errors.email)}
@@ -187,7 +165,9 @@ const Login = () => {
                 Error! Wrong email or password
               </Typography>
             </Box>
+            </Grid>
           </form>
+          
         </Container>
       </Box>
     </>

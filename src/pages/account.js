@@ -22,9 +22,10 @@ const Page = () => {
         }}
       >
         <Typography
-          sx={{ m: 1 }}
-          variant="h2"
-          color="#10B981"
+           sx={{ mt: 1 }}
+           variant="h2"
+           color="#10B981"//"#395B64"
+           textAlign="center"
         > Fiuumber - Account
         </Typography>
         <Container maxWidth="lg">

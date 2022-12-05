@@ -20,6 +20,8 @@ import { TripDurationMetrics } from '../components/dashboard/trip-duration';
 
 
 import { DashboardLayout } from '../components/dashboard-layout';
+import { PaymentsMetrics } from '../components/dashboard/ payment-metrics';
+import { CollectionMetrics } from '../components/dashboard/collection-metrics';
 
 const Page = () => (
   <>
@@ -84,19 +86,6 @@ const Page = () => (
           >
             <SignUpMetrics />
           </Grid>
-          {/* <Grid
-            item
-            // lg={7}
-            // md={12}
-            // xl={8}
-            // xs={12}
-            lg={11}
-            md={12}
-            xl={11}
-            xs={12}
-          >
-            <PasswordRecoveryMetrics />
-          </Grid> */}
           <Grid
             item
             lg={5}
@@ -115,7 +104,6 @@ const Page = () => (
           >
             <UsersDistribution sx={{ height: '100%' }} />
           </Grid>
-
           <Grid
             item
             lg={11}
@@ -140,6 +128,31 @@ const Page = () => (
             xs={12}
           >
             <TripDurationMetrics />
+          </Grid>
+          <Grid
+            item
+            lg={11}
+            md={12}
+            xl={11}
+            xs={12}
+          >
+              <Typography
+              sx={{ m: 2 }}
+              variant="h5"
+              color="#000000"
+              textAlign="center"
+            > Payments Metrics
+            </Typography>
+            <PaymentsMetrics />
+          </Grid>
+          <Grid
+            item
+            lg={11}
+            md={12}
+            xl={11}
+            xs={12}
+          >
+            <CollectionMetrics />
           </Grid>
         </Grid>
       </Container>
