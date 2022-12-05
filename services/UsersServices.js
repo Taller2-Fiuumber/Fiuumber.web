@@ -3,12 +3,14 @@ import { HEADERS, URL_USERS } from "./Constants";
 import { Passenger } from '../models/passenger';
 import { Driver } from '../models/driver';
 import { Admin } from '../models/admin';
+import { currentUserToken } from '../src/contexts/currentAdmin';
+
 
 export const UsersService = {
     getPassengers: async (skip, take) => {
         try {
 
-            const response = await axios.get(`${URL_USERS}/passenger/page/${skip}&${take}`, HEADERS);
+            const response = await axios.get(`${URL_USERS}/passenger/page/${skip}&${take}`, HEADERS,);
             const passengers = [];
             for (let index = 0; index < response.data.length; index++) {
                 const passenger = new Passenger(
@@ -36,8 +38,8 @@ export const UsersService = {
 
     getAmountOfPassenger: async () => {
       try {
-
             const response = await axios.get(`${URL_USERS}/passengers/count`, HEADERS);
+            console.log(currentUserToken.token.toString());
             return response.data.amount;
       }
       catch (error) {
