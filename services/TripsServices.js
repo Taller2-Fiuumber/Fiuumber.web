@@ -1,7 +1,13 @@
 import axios from 'axios';// For API consuming
-import { HEADERS, URL_TRIPS } from "./Constants";
+import { URL_TRIPS } from "./Constants";
+import { currentUserToken } from '../src/contexts/currentAdmin';
+
 
 export const TripsServices = {
+
+    getHeaders: () => {
+        return {headers: { Accept: 'application/json', 'auth-token': currentUserToken.token}};
+    },
 
     getNewTripsPerRangeMetrics: async (days) => {
         try { 
@@ -11,24 +17,23 @@ export const TripsServices = {
             const currentDate = new Date(Date.now());
 
             for (let i=days-1; i>=0 ;i--){
-                const newDay= currentDate;
-                currentDate.setDate(newDay.getDate()-i);
+                const newDay = new Date();
+                newDay.setDate(currentDate.getDate() - i);
+                const resultDay = newDay.toLocaleDateString("en-CA", {year: "numeric", month: "2-digit", day: "2-digit"});
                 values.push(0);
-                labels.push(`${currentDate.getDate()}/${currentDate.getMonth()+1}/${currentDate.getFullYear()}`);
+                labels.push(resultDay);
             }
            const url = `${URL_TRIPS}/metrics/trips/new/count/days/range?amount=${days}` 
-           const response = await axios.get(url, HEADERS);
-            
-          
-            for (let i=days-1; i>=0 ;i--){
-                for(let j=0; j<len(response); j++){
-                    if(response[j]==labels[i]){
-                       values[i]=response[j].value;
+           const response = await axios.get(url, TripsServices.getHeaders());
+
+          let datas = response.data;
+            for (let i=0; i<days; i++){
+                for(let j=0; j<datas.length; j++){
+                    if(datas[j]._id == labels[i]){
+                       values[i]=datas[j].count;
                     }
                 }
             }
-            console.log(labels, "labels");
-            console.log(values, "values")
             return [labels, values];
         }
         catch (error) {
@@ -55,18 +60,17 @@ export const TripsServices = {
             }
 
             const url = `${URL_TRIPS}/metrics/trips/duration/days/range?amount=${days}`
-            const response = await axios.get(url, HEADERS);
+            const response = await axios.get(url, TripsServices.getHeaders());
             
-  
             for (let i=days-1; i>=0 ;i--){
-                for(let j=0; j<len(response); j++){
+                for(let j=0; j<response.length; j++){
                     if(response[j]==labels[i]){
                        values[i]=response[j].value;
                     }
                 }
             }
-            console.log(labels, "labels");
-            console.log(values, "values")
+            // console.log(labels, "labels");
+            // console.log(values, "values")
             return [labels, values];
         }
         catch (error) {

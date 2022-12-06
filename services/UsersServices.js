@@ -12,7 +12,6 @@ export const UsersService = {
     },
     getPassengers: async (skip, take) => {
         try {
-            console.log("_________EL TOKEN EN USER SERVICE____________", currentUserToken.token);
             const response = await axios.get(`${URL_USERS}/passenger/page/${skip}&${take}`, UsersService.getHeaders());
             const passengers = [];
             for (let index = 0; index < response.data.length; index++) {
@@ -42,7 +41,6 @@ export const UsersService = {
     getAmountOfPassenger: async () => {
       try {
             const response = await axios.get(`${URL_USERS}/passengers/count`, UsersService.getHeaders());
-            console.log(currentUserToken.token.toString());
             return response.data.amount;
       }
       catch (error) {
@@ -53,8 +51,7 @@ export const UsersService = {
     getAmountOfBlockedPassengers: async () => {
         try {
   
-            const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/user/passenger/blocked/amount`
-            const response = await axios.get(url, UsersService.getHeaders());
+            const response = await axios.get(`${URL_USERS}/user/passenger/blocked/amount`, UsersService.getHeaders());
             return response.data.amount;
         }
         catch (error) {
@@ -109,8 +106,7 @@ export const UsersService = {
     getAmountOfBlockedDrivers: async () => {
         try {
   
-            const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/user/driver/blocked/amount`
-            const response = await axios.get(url, UsersService.getHeaders());
+            const response = await axios.get(`${URL_USERS}/user/driver/blocked/amount`, UsersService.getHeaders());
             return response.data.amount;
         }
         catch (error) {
@@ -121,8 +117,7 @@ export const UsersService = {
       getAmountOfBlockedUsers: async () => {
         try {
   
-            const url = 'https://fiuumber-api-users.herokuapp.com/api/users-service/user/passenger/blocked/amount'
-            const response = await axios.get(url, UsersService.getHeaders());
+            const response = await axios.get(`${URL_USERS}/user/passenger/blocked/amount`, UsersService.getHeaders());
             return response.data;
         }
         catch (error) {
@@ -203,7 +198,6 @@ export const UsersService = {
         try {
 
             //Acá se cargarian las nuevas tarifas a Trips.
-            //const url = `https://fiuumber-api-users.herokuapp.com/api/trips`
             const response = await axios.post(`${URL_TRIPS}`, UsersService.getHeaders());
 
 
@@ -304,8 +298,7 @@ export const UsersService = {
     },
     getLogInMetricsGoogle: async (currentDate, days) => {
         try {
-            const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/users/logInGoogle/count-per-day-last-days?day=${currentDate}&numberOfDays=${days}`
-            const response = await axios.get(url, UsersService.getHeaders());
+            const response = await axios.get(`${URL_USERS}/users/logInGoogle/count-per-day-last-days?day=${currentDate}&numberOfDays=${days}`, UsersService.getHeaders());
      
             const labels = [];
             const values = [];
@@ -324,8 +317,7 @@ export const UsersService = {
     },
     getLogInMetrics: async (currentDate, days) => {
         try {
-            const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/users/logIn/count-per-day-last-days?day=${currentDate}&numberOfDays=${days}`
-            const response = await axios.get(url, UsersService.getHeaders());
+            const response = await axios.get(`${URL_USERS}/users/logIn/count-per-day-last-days?day=${currentDate}&numberOfDays=${days}`, UsersService.getHeaders());
             const labels = [];
             const values = [];
             for (let i=days-1; i>=0 ;i--){
@@ -344,8 +336,7 @@ export const UsersService = {
 
     getSignInMetricsGoogle: async (currentDate, days) => {
         try { 
-            const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/users/signInGoogle/count-per-day-last-days?day=${currentDate}&numberOfDays=${days}`
-            const response = await axios.get(url, UsersService.getHeaders());
+            const response = await axios.get(`${URL_USERS}/users/signInGoogle/count-per-day-last-days?day=${currentDate}&numberOfDays=${days}`, UsersService.getHeaders());
             
             const labels = [];
             const values = [];
@@ -365,8 +356,7 @@ export const UsersService = {
 
     getSignInMetrics: async (currentDate, days) => {
         try { 
-            const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/users/signIn/count-per-day-last-days?day=${currentDate}&numberOfDays=${days}`
-            const response = await axios.get(url, UsersService.getHeaders());
+            const response = await axios.get(`${URL_USERS}/users/signIn/count-per-day-last-days?day=${currentDate}&numberOfDays=${days}`, UsersService.getHeaders());
             
             const labels = [];
             const values = [];
