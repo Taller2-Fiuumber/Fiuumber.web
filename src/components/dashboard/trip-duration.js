@@ -36,17 +36,18 @@ export const TripDurationMetrics = (props) => {
   const data = {
     datasets: [
       {
-        backgroundColor: '#3F51B5',
+        backgroundColor: '#A5C9CA',
         barPercentage: 0.5,
-        barThickness: 12,
+        barThickness: 65,
         borderRadius: 4,
         categoryPercentage: 0.5,
         data: tripDurationData,
-        label: 'Number',
-        maxBarThickness: 100
+        label: 'Quantity',
+        maxBarThickness: 100,
       },
     ],
-    labels: labels
+    labels: labels,
+    parsing: {xAxisKey: 'm'},
   };
 
   const options = {
@@ -56,6 +57,26 @@ export const TripDurationMetrics = (props) => {
     legend: { display: false },
     maintainAspectRatio: false,
     responsive: true,
+    scales: {
+      x: {
+        display: true,
+        title: {
+          display: true,
+          text: "Duration (in minutes)"
+        }
+      },
+      y: {
+        display: true,
+        title: {
+          display: true,
+          text: "Quantity"
+        },
+        ticks: {
+          stepSize: 1,
+        }
+      }
+
+    },
     xAxes: [
       {
         ticks: {
@@ -82,7 +103,8 @@ export const TripDurationMetrics = (props) => {
           zeroLineBorderDash: [2],
           zeroLineBorderDashOffset: [2],
           zeroLineColor: theme.palette.divider
-        }
+        }, 
+        labels: "hola",
       }
     ],
     tooltips: {
@@ -124,7 +146,7 @@ export const TripDurationMetrics = (props) => {
             position: 'relative'
           }}
         >
-          <Line
+          <Bar
             data={data}
             options={options}
           />

@@ -84,6 +84,25 @@ export const LoginMetrics = (props) => {
     legend: { display: false },
     maintainAspectRatio: false,
     responsive: true,
+    scales: {
+      x: {
+        display: true,
+        title: {
+          display: true,
+          text: "Date"
+        }
+      },
+      y: {
+        display: true,
+        title: {
+          display: true,
+          text: "Quantity"
+        },
+        ticks: {
+          stepSize: 1,
+        }
+      }
+    },
     xAxes: [
       {
         ticks: {
