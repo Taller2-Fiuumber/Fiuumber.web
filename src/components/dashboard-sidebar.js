@@ -57,7 +57,7 @@ const items = [
   }
 ];
 
-export const DashboardSidebar = (props) => {
+export const DashboardSidebar = (props, userToken) => {
   const { open, onClose } = props;
   const router = useRouter();
   const settingsRef = useRef(null);

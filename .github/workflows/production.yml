@@ -35,6 +35,7 @@ jobs:
       GITHUB_TOKEN: ${{ github.token }}
       GITHUB_USERNAME: ${{ github.actor }}
       HEROKU_APP: fiuumber-web
+      DD_API_KEY: ${{ secrets.DD_API_KEY }}
     steps:
       - uses: actions/checkout@master
 
@@ -54,7 +55,9 @@ jobs:
           echo "IMAGE_TAG=$(echo $IMAGE_NAME:$VERSION)" >> $GITHUB_ENV
 
       - name: Build image
-        run: docker build -t ${{ env.IMAGE_TAG }} .
+        env:
+          DD_API_KEY: ${{ secrets.DD_API_KEY }}
+        run: docker build -t ${{ env.IMAGE_TAG }} . --build-arg dd_api_key=${{ env.DD_API_KEY }}
       - name: Push image to Github Container Registry
         run: docker push ${{ env.IMAGE_TAG }}
 
@@ -68,10 +71,12 @@ jobs:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: docker tag ${{ env.IMAGE_TAG }} registry.heroku.com/${{ env.HEROKU_APP}}/web
 
+
       - name: Push container to Heroku Container Registry
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:push web --app ${{ env.HEROKU_APP}}
+          DD_API_KEY: ${{ secrets.DD_API_KEY }}
+        run: heroku container:push web --arg dd_api_key=${{ env.DD_API_KEY}} --app ${{ env.HEROKU_APP}}
 
       - name: Release container to Heroku Container Registry
         env:
