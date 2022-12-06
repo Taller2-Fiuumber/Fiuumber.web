@@ -1,35 +1,51 @@
 import { Bar } from 'react-chartjs-2';
-import { Box, Button, Card, CardContent, CardHeader, Divider, useTheme } from '@mui/material';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import { Box, Button, Card, CardContent, CardHeader, Divider, useTheme, Select, MenuItem, InputLabel, FormControl} from '@mui/material';
+import {useState, useEffect} from 'react';
+import { TripsServices } from '../../../services/TripsServices';
 
-export const Sales = (props) => {
+export const NewTripsMetrics = (props) => {
   const theme = useTheme();
+
+  const[time, setTime] = useState(7);
+  const[newTripsData, setNewTripsData] = useState([]);
+  const [labels, changeLabels] = useState([]);
+
+  const changeTimeSelection = (numberOfDays) => {
+    
+    if (numberOfDays == "Last 30 days") {
+      setTime(30);
+    }else {
+      setTime(7);
+    }
+  };
+
+  useEffect(() => {
+   TripsServices.getNewTripsPerRangeMetrics(time).then((value) => {
+      if (value != undefined){
+        changeLabels(value[0])
+        setNewTripsData(value[1]);
+
+      }
+    }).catch((error) => {
+      console.log(error);
+    });
+ 
+}, [time]);
 
   const data = {
     datasets: [
       {
-        backgroundColor: '#3F51B5',
+        backgroundColor: '#A5C9CA',
         barPercentage: 0.5,
         barThickness: 12,
         borderRadius: 4,
         categoryPercentage: 0.5,
-        data: [18, 5, 19, 27, 29, 19, 20],
-        label: 'This year',
-        maxBarThickness: 10
-      },
-      {
-        backgroundColor: '#EEEEEE',
-        barPercentage: 0.5,
-        barThickness: 12,
-        borderRadius: 4,
-        categoryPercentage: 0.5,
-        data: [11, 20, 12, 29, 30, 25, 13],
-        label: 'Last year',
+        data: newTripsData,
+        label: 'Number of trips',
         maxBarThickness: 10
       }
     ],
-    labels: ['1 Aug', '2 Aug', '3 Aug', '4 Aug', '5 Aug', '6 Aug', '7 aug']
+    labels: labels
   };
 
   const options = {
@@ -39,6 +55,26 @@ export const Sales = (props) => {
     legend: { display: false },
     maintainAspectRatio: false,
     responsive: true,
+    scales: {
+      x: {
+        display: true,
+        title: {
+          display: true,
+          text: "Date"
+        }
+      },
+      y: {
+        display: true,
+        title: {
+          display: true,
+          text: "Quantity"
+        },
+        ticks: {
+          stepSize: 1,
+        }
+      }
+
+    },
     xAxes: [
       {
         ticks: {
@@ -85,14 +121,19 @@ export const Sales = (props) => {
     <Card {...props}>
       <CardHeader
         action={(
-          <Button
-            endIcon={<ArrowDropDownIcon fontSize="small" />}
-            size="small"
+          <FormControl sx={{ m: 1, minWidth: 120 }}>
+          <InputLabel >Period</InputLabel>
+          <Select
+            value={`Last ${time} days`} 
+            onChange={(e) => changeTimeSelection(e.target.value)}
+            label="Period"
           >
-            Last 7 days
-          </Button>
+            <MenuItem value={"Last 7 days"}>Last 7 days</MenuItem>
+            <MenuItem value={"Last 30 days"}>Last 30 days</MenuItem>
+          </Select>
+      </FormControl>
         )}
-        title="Latest Sales"
+        title="New trips metrics"
       />
       <Divider />
       <CardContent>
@@ -108,22 +149,7 @@ export const Sales = (props) => {
           />
         </Box>
       </CardContent>
-      <Divider />
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          p: 2
-        }}
-      >
-        <Button
-          color="primary"
-          endIcon={<ArrowRightIcon fontSize="small" />}
-          size="small"
-        >
-          Overview
-        </Button>
-      </Box>
+   
     </Card>
   );
 };
