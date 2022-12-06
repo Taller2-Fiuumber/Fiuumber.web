@@ -16,7 +16,6 @@ export const TripsServices = {
                 values.push(0);
                 labels.push(`${currentDate.getDate()}/${currentDate.getMonth()+1}/${currentDate.getFullYear()}`);
             }
-           // const url = `https://fiuumber-api-trips.herokuapp.com/api/trips/metrics/trips/new/count/days/range?amount=${days}`
            const url = `${URL_TRIPS}/metrics/trips/new/count/days/range?amount=${days}` 
            const response = await axios.get(url, HEADERS);
             
@@ -55,7 +54,6 @@ export const TripsServices = {
                 labels.push(`${currentDate.getDate()}/${currentDate.getMonth()+1}/${currentDate.getFullYear()}`);
             }
 
-            //const url = `https://fiuumber-api-trips.herokuapp.com/api/trips/metrics/trips/duration/days/range?amount=${days}`
             const url = `${URL_TRIPS}/metrics/trips/duration/days/range?amount=${days}`
             const response = await axios.get(url, HEADERS);
             

@@ -1,16 +1,19 @@
 import axios from 'axios';// For API consuming
-import { HEADERS, URL_USERS } from "./Constants";
+import { URL_USERS } from "./Constants";
 import { Passenger } from '../models/passenger';
 import { Driver } from '../models/driver';
 import { Admin } from '../models/admin';
 import { currentUserToken } from '../src/contexts/currentAdmin';
 
-
 export const UsersService = {
+
+    getHeaders: () => {
+        return {headers: { Accept: 'application/json', 'auth-token': currentUserToken.token}};
+    },
     getPassengers: async (skip, take) => {
         try {
-
-            const response = await axios.get(`${URL_USERS}/passenger/page/${skip}&${take}`, HEADERS,);
+            console.log("_________EL TOKEN EN USER SERVICE____________", currentUserToken.token);
+            const response = await axios.get(`${URL_USERS}/passenger/page/${skip}&${take}`, UsersService.getHeaders());
             const passengers = [];
             for (let index = 0; index < response.data.length; index++) {
                 const passenger = new Passenger(
@@ -38,7 +41,7 @@ export const UsersService = {
 
     getAmountOfPassenger: async () => {
       try {
-            const response = await axios.get(`${URL_USERS}/passengers/count`, HEADERS);
+            const response = await axios.get(`${URL_USERS}/passengers/count`, UsersService.getHeaders());
             console.log(currentUserToken.token.toString());
             return response.data.amount;
       }
@@ -51,7 +54,7 @@ export const UsersService = {
         try {
   
             const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/user/passenger/blocked/amount`
-            const response = await axios.get(url, HEADERS);
+            const response = await axios.get(url, UsersService.getHeaders());
             return response.data.amount;
         }
         catch (error) {
@@ -63,7 +66,7 @@ export const UsersService = {
     getDrivers: async (skip, take) => {
         try {
 
-            const response = await axios.get(`${URL_USERS}/driver/page/${skip}&${take}`, HEADERS);
+            const response = await axios.get(`${URL_USERS}/driver/page/${skip}&${take}`, UsersService.getHeaders());
 
             const drivers = [];
             for (let index = 0; index < response.data.length; index++) {
@@ -94,7 +97,7 @@ export const UsersService = {
     getAmountOfDriver: async () => {
       try {
 
-            const response = await axios.get(`${URL_USERS}/drivers/count`, HEADERS);
+            const response = await axios.get(`${URL_USERS}/drivers/count`, UsersService.getHeaders());
             return response.data.amount;
       }
       catch (error) {
@@ -107,7 +110,7 @@ export const UsersService = {
         try {
   
             const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/user/driver/blocked/amount`
-            const response = await axios.get(url, HEADERS);
+            const response = await axios.get(url, UsersService.getHeaders());
             return response.data.amount;
         }
         catch (error) {
@@ -119,7 +122,7 @@ export const UsersService = {
         try {
   
             const url = 'https://fiuumber-api-users.herokuapp.com/api/users-service/user/passenger/blocked/amount'
-            const response = await axios.get(url, HEADERS);
+            const response = await axios.get(url, UsersService.getHeaders());
             return response.data;
         }
         catch (error) {
@@ -132,7 +135,7 @@ export const UsersService = {
     getAdmins: async (skip, take) => {
         try {
 
-            const response = await axios.get(`${URL_USERS}/administrator/page/${skip}&${take}`, HEADERS);
+            const response = await axios.get(`${URL_USERS}/administrator/page/${skip}&${take}`, UsersService.getHeaders());
 
             const admins = [];
             for (let index = 0; index < response.data.length; index++) {
@@ -154,7 +157,7 @@ export const UsersService = {
     getAmountOfAdmins: async () => {
         try {
 
-            const response = await axios.get(`${URL_USERS}/administrators/count`, HEADERS);
+            const response = await axios.get(`${URL_USERS}/administrators/count`, UsersService.getHeaders());
             return response.data.amount;
         }
         catch (error) {
@@ -167,7 +170,7 @@ export const UsersService = {
         try {
 
             const admin = new Admin(-1, email, firstName, lastName, password);
-            await axios.post(`${URL_USERS}/administrator`, admin, HEADERS);
+            await axios.post(`${URL_USERS}/administrator`, admin, UsersService.getHeaders());
             return true;
 
         }
@@ -182,7 +185,7 @@ export const UsersService = {
         try {
             email = email.replace("@", "%40");
             const url = `https://fiuumber-gateway-1.herokuapp.com/api/auth/administrator/login?email=${email}&password=${password}`
-            const response = await axios.get(url, HEADERS);
+            const response = await axios.get(url, UsersService.getHeaders());
             const token = response.data.token;
             const admin = new Admin(response.data.user.id, response.data.user.email, response.data.user.firstName, response.data.user.lastName, response.data.user.password,  response.data.user.createdAt);
 
@@ -201,7 +204,7 @@ export const UsersService = {
 
             //Acá se cargarian las nuevas tarifas a Trips.
             //const url = `https://fiuumber-api-users.herokuapp.com/api/trips`
-            const response = await axios.post(`${URL_TRIPS}`, HEADERS);
+            const response = await axios.post(`${URL_TRIPS}`, UsersService.getHeaders());
 
 
 
@@ -218,7 +221,7 @@ export const UsersService = {
     getPassenger: async (id) => {
         try {
 
-            const response_user = await axios.get(`${URL_USERS}/user/${id}`, HEADERS);
+            const response_user = await axios.get(`${URL_USERS}/user/${id}`, UsersService.getHeaders());
             const passenger = new Passenger( response_user.data.id,
                 response_user.data.email,
                 response_user.data.firstName,
@@ -240,7 +243,7 @@ export const UsersService = {
     getDriver: async (id) => {
         try {
 
-            const response_user = await axios.get(`${URL_USERS}/driver/${id}`, HEADERS);
+            const response_user = await axios.get(`${URL_USERS}/driver/${id}`, UsersService.getHeaders());
             let driverVehicle = response_user.data.driverVehicle;
             const driver = new Driver(
                     response_user.data.user.id,
@@ -265,7 +268,7 @@ export const UsersService = {
     getAdmin: async (id) => {
         try {
 
-            const response = await axios.get(`${URL_USERS}/administrator/${id}`, HEADERS);
+            const response = await axios.get(`${URL_USERS}/administrator/${id}`, UsersService.getHeaders());
 
             const admin = new Admin(response.data.id, response.data.email, response.data.firstName, response.data.lastName, response.data.password,  response.data.createdAt);
             return admin;
@@ -279,7 +282,7 @@ export const UsersService = {
     blockUser: async (id) => {
         try {
 
-            const response = await axios.post(`${URL_USERS}/user/${id}/blocked`, HEADERS);
+            const response = await axios.post(`${URL_USERS}/user/${id}/blocked`, UsersService.getHeaders());
             return response;
         }
         catch (error) {
@@ -290,7 +293,7 @@ export const UsersService = {
     },
     unblockUser: async (id) => {
         try {
-            const response = await axios.delete(`${URL_USERS}/user/${id}/blocked`, HEADERS);
+            const response = await axios.delete(`${URL_USERS}/user/${id}/blocked`, UsersService.getHeaders());
             return response;
         }
         catch (error) {
@@ -302,7 +305,7 @@ export const UsersService = {
     getLogInMetricsGoogle: async (currentDate, days) => {
         try {
             const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/users/logInGoogle/count-per-day-last-days?day=${currentDate}&numberOfDays=${days}`
-            const response = await axios.get(url, HEADERS);
+            const response = await axios.get(url, UsersService.getHeaders());
      
             const labels = [];
             const values = [];
@@ -322,7 +325,7 @@ export const UsersService = {
     getLogInMetrics: async (currentDate, days) => {
         try {
             const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/users/logIn/count-per-day-last-days?day=${currentDate}&numberOfDays=${days}`
-            const response = await axios.get(url, HEADERS);
+            const response = await axios.get(url, UsersService.getHeaders());
             const labels = [];
             const values = [];
             for (let i=days-1; i>=0 ;i--){
@@ -342,7 +345,7 @@ export const UsersService = {
     getSignInMetricsGoogle: async (currentDate, days) => {
         try { 
             const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/users/signInGoogle/count-per-day-last-days?day=${currentDate}&numberOfDays=${days}`
-            const response = await axios.get(url, HEADERS);
+            const response = await axios.get(url, UsersService.getHeaders());
             
             const labels = [];
             const values = [];
@@ -363,7 +366,7 @@ export const UsersService = {
     getSignInMetrics: async (currentDate, days) => {
         try { 
             const url = `https://fiuumber-api-users.herokuapp.com/api/users-service/users/signIn/count-per-day-last-days?day=${currentDate}&numberOfDays=${days}`
-            const response = await axios.get(url, HEADERS);
+            const response = await axios.get(url, UsersService.getHeaders());
             
             const labels = [];
             const values = [];

@@ -51,10 +51,9 @@ export const AuthProvider = (props) => {
       // dispatch(authAction);
       return null;
     }
-
     // The next service will update currentUserToken if everything goes okay
     await AuthService.validateLogin(email, password);
-
+    
     if (currentUserToken.token == '') {
       //Aca tendria que haber un error?
       return;
