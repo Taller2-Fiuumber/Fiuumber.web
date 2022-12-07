@@ -6,9 +6,14 @@ import { Passenger } from '../../../models/passenger';
 import { Driver } from '../../../models/driver';
 import { Admin } from '../../../models/admin';
 import { Vehicle } from '../../../models/vehicle';
+import { UserCalificationMetrics } from '../../components/dashboard/user-calification-metrics';
+
+
 import {
   Box,
   Button,
+  Container,
+  Typography,
   Card,
   CardContent,
   CardHeader,
@@ -296,6 +301,7 @@ export const AccountProfileDetails = (props) => {
           </Grid>
         </CardContent>
         <Divider />
+        
         <Box sx={{
               display: 'flex',
               justifyContent: 'flex-end',
@@ -339,23 +345,38 @@ export const AccountProfileDetails = (props) => {
             }
 
           </Box>
-          {/* <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-              p: 2
-            }}
-          > 
-            <Button
-              //color="primary"
-              color="secondary"
-              variant="contained"
-            >
-              Save details
-            </Button>
-          </Box> */}
         </Box>
+        <Container maxWidth={false}>
+
+      </Container>
       </Card>
+      <Grid
+          container
+          spacing={4}
+          justifyContent="center"
+          alignItems="center"
+        >
+        <Grid
+            item
+            // lg={6}
+            // md={6}
+            // xl={6}
+            // xs={12}
+            lg={11}
+            md={12}
+            xl={11}
+            xs={12}
+          >
+            <Typography
+              sx={{ m: 2 }}
+              variant="h5"
+              color="#000000"
+              textAlign="center"
+            > User Metrics
+            </Typography>
+            <UserCalificationMetrics />
+          </Grid>
+        </Grid>
     </form>
   );
 };
