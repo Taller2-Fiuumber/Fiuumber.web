@@ -70,7 +70,7 @@ const LogIn = () => {
       >
         <Container maxWidth="sm">
           <form onSubmit={formik.handleSubmit}>
-            <Box sx={{ my: 3 }}>
+            <Box sx={{ my: 3, justifyContent: 'center' }}>
             <Typography
                 color="textSecondary"
                 variant="h2"
@@ -94,7 +94,7 @@ const LogIn = () => {
               container
               spacing={3}
             >
-              <Grid
+              {/* <Grid
                 item
                 xs={12}
                 // md={6}
@@ -109,9 +109,9 @@ const LogIn = () => {
                 >
                   Login with Google
                 </Button>
-              </Grid>
+              </Grid> */}
             </Grid>
-            <Box
+            {/* <Box
               sx={{
                 pb: 1,
                 pt: 3
@@ -124,7 +124,7 @@ const LogIn = () => {
               >
                 or login with an admin email address
               </Typography>
-            </Box>
+            </Box> */}
             <TextField
               error={Boolean(formik.touched.email && formik.errors.email)}
               fullWidth
