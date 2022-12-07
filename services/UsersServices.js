@@ -276,8 +276,9 @@ export const UsersService = {
     blockUser: async (id) => {
         try {
 
-            const response = await axios.post(`${URL_USERS}/user/${id}/blocked`, UsersService.getHeaders());
+            const response = await axios.post(`${URL_USERS}/user/${id}/blocked`, null, UsersService.getHeaders());
             return response;
+            
         }
         catch (error) {
             console.log(`UsersService getAdmin: ${error}`);

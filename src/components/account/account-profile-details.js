@@ -202,7 +202,6 @@ export const AccountProfileDetails = (props) => {
               label="Address"
               name="Address"
               readOnly={true}
-              // onChange={handleChange}
               required
               value={user.address}
               variant="outlined"
@@ -220,7 +219,6 @@ export const AccountProfileDetails = (props) => {
               label="Domain"
               name="Domain"
               readOnly={true}
-              // onChange={handleChange}
               required
               value={user.vehicle.domain}
               variant="outlined"
@@ -238,7 +236,6 @@ export const AccountProfileDetails = (props) => {
               label="Model"
               name="Model"
               readOnly={true}
-              // onChange={handleChange}
               required
               value={user.vehicle.model}
               variant="outlined"
@@ -256,7 +253,6 @@ export const AccountProfileDetails = (props) => {
               label="ModelYear"
               name="ModelYear"
               readOnly={true}
-              // onChange={handleChange}
               required
               value={user.vehicle.modelYear}
               variant="outlined"
@@ -274,7 +270,6 @@ export const AccountProfileDetails = (props) => {
               label="Color"
               name="Color"
               readOnly={true}
-              // onChange={handleChange}
               required
               value={user.vehicle.colorName}
               variant="outlined"
@@ -292,7 +287,6 @@ export const AccountProfileDetails = (props) => {
               label="Brand"
               name="Brand"
               readOnly={true}
-              // onChange={handleChange}
               required
               value={user.vehicle.brand}
               variant="outlined"
