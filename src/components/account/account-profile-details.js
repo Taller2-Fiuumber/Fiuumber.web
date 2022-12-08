@@ -7,6 +7,7 @@ import { Driver } from '../../../models/driver';
 import { Admin } from '../../../models/admin';
 import { Vehicle } from '../../../models/vehicle';
 import { UserCalificationMetrics } from '../../components/dashboard/user-calification-metrics';
+import { TripsResultsList } from '../../components/dashboard/trips-results';
 
 
 import {
@@ -90,12 +91,6 @@ export const AccountProfileDetails = (props) => {
   console.log(user);
 
 
-  // const handleChange = (event) => {
-  //   setValues({
-  //     ...values,
-  //     [event.target.name]: event.target.value
-  //   });
-  // };
 
 
   return (
@@ -349,7 +344,7 @@ export const AccountProfileDetails = (props) => {
         <Container maxWidth={false}>
 
       </Container>
-      </Card>
+      {/* </Card> */}
       <Grid
           container
           spacing={4}
@@ -367,16 +362,34 @@ export const AccountProfileDetails = (props) => {
             xl={11}
             xs={12}
           >
+            { (type!="admin") &&
             <Typography
               sx={{ m: 2 }}
               variant="h5"
               color="#000000"
               textAlign="center"
-            > User Metrics
+            > User Califications Metrics
             </Typography>
-            <UserCalificationMetrics />
-          </Grid>
+            }
+            { (type!="admin") &&
+              <UserCalificationMetrics sx={{ height: 650 }}  />
+            }
+            { (type!="admin") &&
+            <Typography
+              sx={{ m: 2 }}
+              variant="h5"
+              color="#000000"
+              textAlign="center"
+            > Trips history
+            </Typography>
+            }
+            { (type!="admin") &&
+               <TripsResultsList sx={{ width: 850 }}  />
+            }
+            </Grid>
         </Grid>
+        </Card>
+
     </form>
   );
 };

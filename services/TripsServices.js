@@ -98,7 +98,7 @@ export const TripsServices = {
             // // const url = `${URL_TRIPS}/calification/passenger/${id}?skip=0&limit=100` //descomentar esto, lo puse en 69 porq es el unico que tiene calificaciones posta
             const url = '';
             if (typeOfUser == "passenger"){
-                url = `${URL_TRIPS}/calification/passenger/${id}?skip=0&limit=100`
+                url = `${URL_TRIPS}/calification/passenger/69?skip=0&limit=100`
             } else {
                 url = `${URL_TRIPS}/calification/driver/${id}?skip=0&limit=100`
             }
@@ -115,7 +115,7 @@ export const TripsServices = {
             if (datas.length == 0){
                 values = false;
             }
-            console.log("______values________", values);
+            
             return values;
         }
         catch (error) {
@@ -125,4 +125,52 @@ export const TripsServices = {
         }
     },
 
+    getTripsById: async (id, skip, limit, typeOfUser) => {
+        try {
+
+            const url = '';
+            if (typeOfUser == "passenger"){
+                url = `${URL_TRIPS}/passenger/${id}?skip=${skip}&limit=${limit}`
+            } else {
+                url = `${URL_TRIPS}/driver/${id}?skip=${skip}&limit=${limit}`
+            }
+            const response = await axios.get(url, TripsServices.getHeaders());
+            if (response.data.length != 0){
+                for(let i = 0; i<response.data.length; i++){
+                    if(response.data[i].start == null){
+                        response.data[i].start = "No data.";
+                        
+                    }
+                    if(response.data[i].finish == null){
+                        response.data[i].finish = "No data.";
+                    }
+                    response.data[i].start = response.data[i].start.split('.')[0];
+                    response.data[i].finish = response.data[i].finish.split('.')[0];
+                }
+            }
+            return response.data;
+        }
+        catch (error) {
+            console.log(`Get trips by id: ${error}`);
+            if (error && error.response && error.response.status == 401) return null;
+            throw error;
+        }
+    },
+
+    getAmountOfTrips: async (id, typeOfUser) => {
+        try {
+                const url = '';
+                if (typeOfUser == "passenger"){
+                    url = `${URL_TRIPS}/passenger/${id}/count`
+                } else {
+                    url = `${URL_TRIPS}/driver/${id}/count`
+                }
+                const response = await axios.get(url, TripsServices.getHeaders());
+                return response.data;
+        }
+        catch (error) {
+            console.log(`UsersService getAmountOfPassenger: ${error}`);
+            throw error;
+        }
+      },
 };

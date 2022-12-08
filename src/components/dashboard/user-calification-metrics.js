@@ -123,7 +123,7 @@ export const UserCalificationMetrics = (props) => {
     <Card {...props}>
       <CardHeader
         action={(
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
+          <FormControl sx={{ m: 1, minWidth: 120}}>
       </FormControl>
         )}
         title="Califications metrics"
@@ -136,14 +136,16 @@ export const UserCalificationMetrics = (props) => {
             position: 'relative'
           }}
         >
+        {(noData) &&
         <Alert severity="info">
-            <AlertTitle>Info</AlertTitle>
-            This passenger didn't make any trips yet
-        </Alert>
-          <Bar
-            data={data}
-            options={options}
-          />
+        <AlertTitle>Info</AlertTitle>
+        This passenger didn't make any trips yet
+    </Alert>  
+        }
+      <Bar
+        data={data}
+        options={options}
+      />     
         </Box>
       </CardContent>
    
