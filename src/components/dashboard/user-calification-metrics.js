@@ -3,15 +3,13 @@ import { Line } from 'react-chartjs-2';
 import { Box, Button, Card, CardContent, CardHeader, Divider, useTheme, Select, MenuItem, InputLabel, FormControl} from '@mui/material';
 import {useState, useEffect} from 'react';
 import { TripsServices } from '../../../services/TripsServices';
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
+
 
 export const UserCalificationMetrics = (props) => {
   const theme = useTheme();
 
   const labels = [1, 2, 3, 4, 5]; 
   const[calificationsData, setCalificationsData] = useState([]);
-  const [noData, setNoData] = useState(true);
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const id = urlParams.get('id');
@@ -21,11 +19,9 @@ export const UserCalificationMetrics = (props) => {
         TripsServices.getCalificationsById(id, type).then((value) => {
             if (value != undefined){
                 if (value == false) {
-                    setNoData(true);
                     setCalificationsData([0,0,0,0,0]);
                 } else {
                     setCalificationsData(value);
-                    setNoData(false);
                 }
             }
           }).catch((error) => {
@@ -136,12 +132,6 @@ export const UserCalificationMetrics = (props) => {
             position: 'relative'
           }}
         >
-        {(noData) &&
-        <Alert severity="info">
-        <AlertTitle>Info</AlertTitle>
-        This passenger didn't make any trips yet
-    </Alert>  
-        }
       <Bar
         data={data}
         options={options}

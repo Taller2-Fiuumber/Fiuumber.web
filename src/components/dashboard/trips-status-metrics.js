@@ -5,16 +5,13 @@ import Block from '@mui/icons-material/Block';
 import { useState, useEffect, Text} from 'react';
 import { TripsServices } from '../../../services/TripsServices';
 
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
+
 
 export const TripsStatus = (props) => {
   const theme = useTheme();
 
-  const [totalAmountOfTrips, setTotalAmountOfTrips] = useState(0);
   const [amountOfFinishedTrips, setAmountOfFinishedTrips] = useState(0);
   const [amountOfCanceledTrips, setAmountOfCanceledTrips] = useState(0);
-  const [noData, setNoData] = useState(true);
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -22,36 +19,13 @@ export const TripsStatus = (props) => {
   const type = urlParams.get('type');
 
   useEffect(() => {
- 
-    TripsServices.getAmountOfTrips(id, type).then((value) => {
-      
-
-      if (value != undefined){
-        if (value == false) {
-            setNoData(true);
-            setTotalAmountOfTrips(0);
-        } else {
-          setTotalAmountOfTrips(value);
-            setNoData(false);
-        }
-      }
-    }).catch((error) => {
-      console.log(error);
-    });
-
     
+
     TripsServices.getFinishedTripsById(id, type).then((value) => {
 
       if (value != undefined){
-        if (value == false) {
-            setNoData(true);
-            setAmountOfFinishedTrips(0);
-        } else {
           setAmountOfFinishedTrips(value);
-            setNoData(false);
         }
-      }
-      
     }).catch((error) => {
       console.log(error);
     });
@@ -59,19 +33,13 @@ export const TripsStatus = (props) => {
     TripsServices.getCanceledTripsById(id, type).then((value) => {
       
       if (value != undefined){
-        if (value == false) {
-            setNoData(true);
-            setAmountOfCanceledTrips(0);
-        } else {
           setAmountOfCanceledTrips(value);
-          setNoData(false);
         }
-      }
     }).catch((error) => {
       console.log(error);
     });
 
-  }, []);
+  }, [amountOfCanceledTrips, amountOfFinishedTrips]);
 
 
   const data = {
@@ -114,14 +82,14 @@ export const TripsStatus = (props) => {
   const userTypes = [
     {
       title: 'Finished',
-      value: ((amountOfFinishedTrips/totalAmountOfTrips)*100).toFixed(1),
-      icon: Block,
+      value: ((amountOfFinishedTrips/(amountOfFinishedTrips+amountOfCanceledTrips))*100).toFixed(1),
+      icon: Check,
       color: '#D4ECDD'
     },
     {
       title: 'Canceled',
-      value: ((amountOfCanceledTrips/totalAmountOfTrips)*100).toFixed(1),
-      icon: Check,
+      value: ((amountOfCanceledTrips/(amountOfFinishedTrips+amountOfCanceledTrips))*100).toFixed(1),
+      icon: Block,
       color: '#395B64'
     },
   ];
@@ -137,12 +105,7 @@ export const TripsStatus = (props) => {
             position: 'relative'
           }}
         > 
-        {(noData) &&
-        <Alert severity="info">
-        <AlertTitle>Info</AlertTitle>
-        This passenger didn't make any trips yet
-        </Alert>  
-        }
+
           <Doughnut
             data={data}
             options={options}

@@ -1,6 +1,8 @@
 
 import Router from 'next/router';
 import { UsersService } from '../../../services/UsersServices';
+import { TripsServices } from '../../../services/TripsServices';
+
 import { useEffect, useRef, useState } from 'react';
 import { Passenger } from '../../../models/passenger';
 import { Driver } from '../../../models/driver';
@@ -9,7 +11,8 @@ import { Vehicle } from '../../../models/vehicle';
 import { UserCalificationMetrics } from '../../components/dashboard/user-calification-metrics';
 import { TripsResultsList } from '../../components/dashboard/trips-results';
 import { TripsStatus } from '../../components/dashboard/trips-status-metrics';
-
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 
 import {
   Box,
@@ -36,6 +39,7 @@ export const AccountProfileDetails = (props) => {
   const [user, setUser] = useState(new Driver(-1, '','','','','','', false,null,new Vehicle('','','','','')));
   const [userType, setUserType] = useState(true);
   const [userBlocked, setUserBlock] = useState(false);
+  const [noData, setNoData] = useState(false);
 
   const type = urlParams.get('type');
 
@@ -64,6 +68,15 @@ export const AccountProfileDetails = (props) => {
         console.log(error);
       });
       setUserType(false);
+      TripsServices.getAmountOfTrips(id, type).then((value) => {
+          if(value != 0){
+            setNoData(false);
+          } else {
+            setNoData(true);
+          }
+      }).catch((error) => {
+        console.log(error);
+      });
 
   }
   if(type=="driver"){
@@ -76,6 +89,15 @@ export const AccountProfileDetails = (props) => {
         console.log(error);
       });
       setUserType(false);
+      TripsServices.getAmountOfTrips(id, type).then((value) => {
+        if(value != 0){
+          setNoData(false);
+        } else {
+          setNoData(true);
+        }
+      }).catch((error) => {
+        console.log(error);
+      });
 
     }
   if(type=="admin"){
@@ -345,7 +367,13 @@ export const AccountProfileDetails = (props) => {
         <Container maxWidth={false}>
 
       </Container>
-      {/* </Card> */}
+      {(noData) &&
+        <Alert severity="info">
+        <AlertTitle>No trips yet</AlertTitle>
+        Once this passenger makes a trip, some trip metrics will be available
+        </Alert>  
+      }
+      {(!noData) &&
       <Grid
           container
           spacing={4}
@@ -354,10 +382,6 @@ export const AccountProfileDetails = (props) => {
         >
         <Grid
             item
-            // lg={6}
-            // md={6}
-            // xl={6}
-            // xs={12}
             lg={11}
             md={12}
             xl={11}
@@ -400,7 +424,7 @@ export const AccountProfileDetails = (props) => {
                <TripsStatus sx={{ width: 850 }}  />
             }
             </Grid>
-        </Grid>
+        </Grid>}
         </Card>
 
     </form>

@@ -98,12 +98,11 @@ export const TripsServices = {
             // // const url = `${URL_TRIPS}/calification/passenger/${id}?skip=0&limit=100` //descomentar esto, lo puse en 69 porq es el unico que tiene calificaciones posta
             const url = '';
             if (typeOfUser == "passenger"){
-                url = `${URL_TRIPS}/calification/passenger/69?skip=0&limit=100`
+                url = `${URL_TRIPS}/calification/passenger/${id}?skip=0&limit=100`
             } else {
                 url = `${URL_TRIPS}/calification/driver/${id}?skip=0&limit=100`
             }
             const response = await axios.get(url, TripsServices.getHeaders());
-            console.log("_________response___________", response);
             let datas = response.data;
             for (let i=0; i<datas.length; i++){
                 for(let j = 1; j<6; j++) {
@@ -179,14 +178,11 @@ export const TripsServices = {
         try {
             const url = '';
             if (typeOfUser == "passenger"){
-                url = `${URL_TRIPS}/metrics/trips/status/passenger/${id}/count?status=TERMINATED}`
-                //url = `${URL_TRIPS}/metrics/trips/status/passenger/69/count?status=TERMINATED}`
+                url = `${URL_TRIPS}/metrics/trips/status/passenger/${id}/count?status=TERMINATED`
             } else {
-                url = `${URL_TRIPS}/metrics/trips/status/driver/${id}/count?status=TERMINATED}`
-                //url = `${URL_TRIPS}/metrics/trips/status/driver/70/count?status=TERMINATED}`
+                url = `${URL_TRIPS}/metrics/trips/status/driver/${id}/count?status=TERMINATED`
             }
             const response = await axios.get(url, TripsServices.getHeaders());
-            
             return response.data;
         }
         catch (error) {
@@ -200,11 +196,9 @@ export const TripsServices = {
         try {
                 const url = '';
                 if (typeOfUser == "passenger"){
-                    url = `${URL_TRIPS}/metrics/trips/status/passenger/${id}/count?status=CANCELED}`
-                    //url = `${URL_TRIPS}/metrics/trips/status/passenger/69/count?status=CANCELED}`
+                    url = `${URL_TRIPS}/metrics/trips/status/passenger/${id}/count?status=CANCELED`
                 } else {
-                    url = `${URL_TRIPS}/metrics/trips/status/driver/${id}/count?status=CANCELED}`
-                   //url = `${URL_TRIPS}/metrics/trips/status/driver/70/count?status=CANCELED}`
+                    url = `${URL_TRIPS}/metrics/trips/status/driver/${id}/count?status=CANCELED`
                 }
                 const response = await axios.get(url, TripsServices.getHeaders());
                 return response.data;

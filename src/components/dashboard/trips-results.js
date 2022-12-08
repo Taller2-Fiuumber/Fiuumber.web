@@ -13,8 +13,8 @@ import {
   TableRow,
 } from '@mui/material';
 import { TripsServices } from '../../../services/TripsServices';
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
+// import Alert from '@mui/material/Alert';
+// import AlertTitle from '@mui/material/AlertTitle';
 
 
 export const TripsResultsList = ({...rest }) => {
@@ -60,12 +60,6 @@ export const TripsResultsList = ({...rest }) => {
     // <Card {...rest}>
     <Grid> 
       <PerfectScrollbar>
-      {(amountOfTrips == 0) &&
-        <Alert severity="info">
-        <AlertTitle>Info</AlertTitle>
-        This passenger didn't make any trips yet
-    </Alert> 
-        }
         <Box sx={{ minWidth: 750 }}>
           <Table>
             <TableHead>
@@ -125,6 +119,5 @@ export const TripsResultsList = ({...rest }) => {
         rowsPerPageOptions={[2, 10, 25]}
       />
       </Grid>
-    // </Card>
   );
 };
