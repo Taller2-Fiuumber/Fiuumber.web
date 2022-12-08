@@ -179,11 +179,11 @@ export const TripsServices = {
         try {
             const url = '';
             if (typeOfUser == "passenger"){
-                url = `${URL_TRIPS}/passenger/${id}/count`
-                // url = `${URL_TRIPS}/metrics/trips/status/passenger/${id}/count?status=TERMINATED}`
+                url = `${URL_TRIPS}/metrics/trips/status/passenger/${id}/count?status=TERMINATED}`
+                //url = `${URL_TRIPS}/metrics/trips/status/passenger/69/count?status=TERMINATED}`
             } else {
-                url = `${URL_TRIPS}/driver/${id}/count`
-               // url = `${URL_TRIPS}/metrics/trips/status/DRIVER/${id}/count?status=TERMINATED}`
+                url = `${URL_TRIPS}/metrics/trips/status/driver/${id}/count?status=TERMINATED}`
+                //url = `${URL_TRIPS}/metrics/trips/status/driver/70/count?status=TERMINATED}`
             }
             const response = await axios.get(url, TripsServices.getHeaders());
             
@@ -196,15 +196,15 @@ export const TripsServices = {
         }
       },
 
-      getCancelledTripsById: async (id, typeOfUser) => {
+      getCanceledTripsById: async (id, typeOfUser) => {
         try {
                 const url = '';
                 if (typeOfUser == "passenger"){
-                    url = `${URL_TRIPS}/passenger/${id}/count`
-                  //  url = `${URL_TRIPS}/metrics/trips/status/passenger/${id}/count?status=CANCELLED}`
+                    url = `${URL_TRIPS}/metrics/trips/status/passenger/${id}/count?status=CANCELED}`
+                    //url = `${URL_TRIPS}/metrics/trips/status/passenger/69/count?status=CANCELED}`
                 } else {
-                    url = `${URL_TRIPS}/driver/${id}/count`
-                  // url = `${URL_TRIPS}/metrics/trips/status/driver/${id}/count?status=CANCELLED}`
+                    url = `${URL_TRIPS}/metrics/trips/status/driver/${id}/count?status=CANCELED}`
+                   //url = `${URL_TRIPS}/metrics/trips/status/driver/70/count?status=CANCELED}`
                 }
                 const response = await axios.get(url, TripsServices.getHeaders());
                 return response.data;

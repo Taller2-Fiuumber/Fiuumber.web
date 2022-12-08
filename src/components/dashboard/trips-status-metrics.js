@@ -13,7 +13,7 @@ export const TripsStatus = (props) => {
 
   const [totalAmountOfTrips, setTotalAmountOfTrips] = useState(0);
   const [amountOfFinishedTrips, setAmountOfFinishedTrips] = useState(0);
-  const [amountOfCancelledTrips, setAmountOfCancelledTrips] = useState(0);
+  const [amountOfCanceledTrips, setAmountOfCanceledTrips] = useState(0);
   const [noData, setNoData] = useState(true);
 
   const queryString = window.location.search;
@@ -56,14 +56,14 @@ export const TripsStatus = (props) => {
       console.log(error);
     });
 
-    TripsServices.getCancelledTripsById(id, type).then((value) => {
+    TripsServices.getCanceledTripsById(id, type).then((value) => {
       
       if (value != undefined){
         if (value == false) {
             setNoData(true);
-            setAmountOfCancelledTrips(0);
+            setAmountOfCanceledTrips(0);
         } else {
-          setAmountOfCancelledTrips(value);
+          setAmountOfCanceledTrips(value);
           setNoData(false);
         }
       }
@@ -71,20 +71,20 @@ export const TripsStatus = (props) => {
       console.log(error);
     });
 
-  }, []);
+  }, [noData]);
 
 
   const data = {
     datasets: [
       {
-        data: [amountOfFinishedTrips, amountOfCancelledTrips ],
+        data: [amountOfFinishedTrips, amountOfCanceledTrips ],
         backgroundColor: ['#395B64', '#A5C9CA'],
         borderWidth: 8,
         borderColor: '#FFFFFF',
         hoverBorderColor: '#FFFFFF'
       }
     ],
-    labels: ['Finished', 'Cancelled']
+    labels: ['Finished', 'Canceled']
   };
   
 
@@ -119,8 +119,8 @@ export const TripsStatus = (props) => {
       color: '#D4ECDD'
     },
     {
-      title: 'Cancelled',
-      value: ((amountOfCancelledTrips/totalAmountOfTrips)*100).toFixed(1),
+      title: 'Canceled',
+      value: ((amountOfCanceledTrips/totalAmountOfTrips)*100).toFixed(1),
       icon: Check,
       color: '#395B64'
     },
@@ -128,7 +128,7 @@ export const TripsStatus = (props) => {
 
   return (
     <Card {...props}>
-      <CardHeader title="Finished vs Cancelled Trips Status" />
+      <CardHeader title="Finished vs Canceled Trips Status" />
       <Divider />
       <CardContent>
         <Box
