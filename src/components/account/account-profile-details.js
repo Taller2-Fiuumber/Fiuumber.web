@@ -8,6 +8,7 @@ import { Admin } from '../../../models/admin';
 import { Vehicle } from '../../../models/vehicle';
 import { UserCalificationMetrics } from '../../components/dashboard/user-calification-metrics';
 import { TripsResultsList } from '../../components/dashboard/trips-results';
+import { TripsStatus } from '../../components/dashboard/trips-status-metrics';
 
 
 import {
@@ -385,6 +386,18 @@ export const AccountProfileDetails = (props) => {
             }
             { (type!="admin") &&
                <TripsResultsList sx={{ width: 850 }}  />
+            }
+             { (type!="admin") &&
+            <Typography
+              sx={{ m: 2 }}
+              variant="h5"
+              color="#000000"
+              textAlign="center"
+            > Trips Status Metrics
+            </Typography>
+            }
+            { (type!="admin") &&
+               <TripsStatus sx={{ width: 850 }}  />
             }
             </Grid>
         </Grid>

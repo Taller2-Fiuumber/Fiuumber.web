@@ -169,7 +169,48 @@ export const TripsServices = {
                 return response.data;
         }
         catch (error) {
-            console.log(`UsersService getAmountOfPassenger: ${error}`);
+            console.log(`TripsServices getAmountOfTrips: ${error}`);
+            throw error;
+        }
+      },
+
+
+      getFinishedTripsById: async (id, typeOfUser) => {
+        try {
+            const url = '';
+            if (typeOfUser == "passenger"){
+                url = `${URL_TRIPS}/passenger/${id}/count`
+                // url = `${URL_TRIPS}/metrics/trips/status/passenger/${id}/count?status=TERMINATED}`
+            } else {
+                url = `${URL_TRIPS}/driver/${id}/count`
+               // url = `${URL_TRIPS}/metrics/trips/status/DRIVER/${id}/count?status=TERMINATED}`
+            }
+            const response = await axios.get(url, TripsServices.getHeaders());
+            
+            return response.data;
+        }
+        catch (error) {
+            console.log(` TripsServices getFinishedTripsById: ${error}`);
+            if (error && error.response && error.response.status == 401) return null;
+            throw error;
+        }
+      },
+
+      getCancelledTripsById: async (id, typeOfUser) => {
+        try {
+                const url = '';
+                if (typeOfUser == "passenger"){
+                    url = `${URL_TRIPS}/passenger/${id}/count`
+                  //  url = `${URL_TRIPS}/metrics/trips/status/passenger/${id}/count?status=CANCELLED}`
+                } else {
+                    url = `${URL_TRIPS}/driver/${id}/count`
+                  // url = `${URL_TRIPS}/metrics/trips/status/driver/${id}/count?status=CANCELLED}`
+                }
+                const response = await axios.get(url, TripsServices.getHeaders());
+                return response.data;
+        }
+        catch (error) {
+            console.log(`TripsServices getCanceledTripsById: ${error}`);
             throw error;
         }
       },
