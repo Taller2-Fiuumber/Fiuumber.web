@@ -71,7 +71,7 @@ export const TripsStatus = (props) => {
       console.log(error);
     });
 
-  }, [noData]);
+  }, []);
 
 
   const data = {
