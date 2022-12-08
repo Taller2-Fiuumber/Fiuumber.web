@@ -129,7 +129,7 @@ const Page = () => (
           >
             <TripDurationMetrics />
           </Grid>
-          <Grid
+          {/* <Grid
             item
             lg={11}
             md={12}
@@ -153,7 +153,7 @@ const Page = () => (
             xs={12}
           >
             <CollectionMetrics />
-          </Grid>
+          </Grid> */}
         </Grid>
       </Container>
     </Box>

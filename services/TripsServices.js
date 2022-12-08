@@ -10,7 +10,7 @@ export const TripsServices = {
     },
 
     getNewTripsPerRangeMetrics: async (days) => {
-        try { 
+        try {
             const labels = [];
             const real_labels = [];
             const values = [];
@@ -26,7 +26,7 @@ export const TripsServices = {
                 labels.push(resultDay);
                 real_labels.push(realResultDay);
             }
-           const url = `${URL_TRIPS}/metrics/trips/new/count/days/range?amount=${days}` 
+           const url = `${URL_TRIPS}/metrics/trips/new/count/days/range?amount=${days}`
            const response = await axios.get(url, TripsServices.getHeaders());
 
           let datas = response.data;
@@ -48,7 +48,7 @@ export const TripsServices = {
 
 
     getTripDurationPerRangeMetrics: async (days) => {
-        try { 
+        try {
 
             const labels = [];
             const values = [];
@@ -65,7 +65,7 @@ export const TripsServices = {
 
             const url = `${URL_TRIPS}/metrics/trips/duration/days/range?amount=${days}`
             const response = await axios.get(url, TripsServices.getHeaders());
-            
+
             let datas = response.data;
             for (let i=0; i<datas.length; i++){
                 for(let j = 0; j<labels.length; j++) {
@@ -86,4 +86,126 @@ export const TripsServices = {
             throw error;
         }
     },
+
+    getCalificationsById: async (id, typeOfUser) => {
+        try {
+
+            const values = [];
+
+            for (let i=1; i<6 ; i++){
+                values.push(0);
+            }
+            // // const url = `${URL_TRIPS}/calification/passenger/${id}?skip=0&limit=100` //descomentar esto, lo puse en 69 porq es el unico que tiene calificaciones posta
+            const url = '';
+            if (typeOfUser == "passenger"){
+                url = `${URL_TRIPS}/calification/passenger/${id}?skip=0&limit=100`
+            } else {
+                url = `${URL_TRIPS}/calification/driver/${id}?skip=0&limit=100`
+            }
+            const response = await axios.get(url, TripsServices.getHeaders());
+            let datas = response.data;
+            for (let i=0; i<datas.length; i++){
+                for(let j = 1; j<6; j++) {
+                    if(datas[i].stars == j){
+                        values[j-1] = values[j-1] + 1;
+                    }
+                }
+            }
+            if (datas.length == 0){
+                values = false;
+            }
+            
+            return values;
+        }
+        catch (error) {
+            console.log(`Get califications by user get: ${error}`);
+            if (error && error.response && error.response.status == 401) return null;
+            throw error;
+        }
+    },
+
+    getTripsById: async (id, skip, limit, typeOfUser) => {
+        try {
+
+            const url = '';
+            if (typeOfUser == "passenger"){
+                url = `${URL_TRIPS}/passenger/${id}?skip=${skip}&limit=${limit}`
+            } else {
+                url = `${URL_TRIPS}/driver/${id}?skip=${skip}&limit=${limit}`
+            }
+            const response = await axios.get(url, TripsServices.getHeaders());
+            if (response.data.length != 0){
+                for(let i = 0; i<response.data.length; i++){
+                    if(response.data[i].start == null){
+                        response.data[i].start = "No data.";
+                        
+                    }
+                    if(response.data[i].finish == null){
+                        response.data[i].finish = "No data.";
+                    }
+                    response.data[i].start = response.data[i].start.split('.')[0];
+                    response.data[i].finish = response.data[i].finish.split('.')[0];
+                }
+            }
+            return response.data;
+        }
+        catch (error) {
+            console.log(`Get trips by id: ${error}`);
+            if (error && error.response && error.response.status == 401) return null;
+            throw error;
+        }
+    },
+
+    getAmountOfTrips: async (id, typeOfUser) => {
+        try {
+                const url = '';
+                if (typeOfUser == "passenger"){
+                    url = `${URL_TRIPS}/passenger/${id}/count`
+                } else {
+                    url = `${URL_TRIPS}/driver/${id}/count`
+                }
+                const response = await axios.get(url, TripsServices.getHeaders());
+                return response.data;
+        }
+        catch (error) {
+            console.log(`TripsServices getAmountOfTrips: ${error}`);
+            throw error;
+        }
+      },
+
+
+      getFinishedTripsById: async (id, typeOfUser) => {
+        try {
+            const url = '';
+            if (typeOfUser == "passenger"){
+                url = `${URL_TRIPS}/metrics/trips/status/passenger/${id}/count?status=TERMINATED`
+            } else {
+                url = `${URL_TRIPS}/metrics/trips/status/driver/${id}/count?status=TERMINATED`
+            }
+            const response = await axios.get(url, TripsServices.getHeaders());
+            return response.data;
+        }
+        catch (error) {
+            console.log(` TripsServices getFinishedTripsById: ${error}`);
+            if (error && error.response && error.response.status == 401) return null;
+            throw error;
+        }
+      },
+
+      getCanceledTripsById: async (id, typeOfUser) => {
+        try {
+                const url = '';
+                if (typeOfUser == "passenger"){
+                    url = `${URL_TRIPS}/metrics/trips/status/passenger/${id}/count?status=CANCELED`
+                } else {
+                    url = `${URL_TRIPS}/metrics/trips/status/driver/${id}/count?status=CANCELED`
+                }
+                const response = await axios.get(url, TripsServices.getHeaders());
+                return response.data;
+        }
+        catch (error) {
+            console.log(`TripsServices getCanceledTripsById: ${error}`);
+            throw error;
+        }
+      },
 };
