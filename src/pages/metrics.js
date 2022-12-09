@@ -174,16 +174,16 @@ return(
             > 
              <Stack
                 direction="row" 
-                justifyContent="space-between"
+                justifyContent="center"
                 spacing={3}>
 
-                <Typography
+                {/* <Typography
                     sx={{ m: 2 }}
                     variant="h5"
                     color="#000000"
                     textAlign="left"
                   > More Metrics
-                </Typography>
+                </Typography> */}
 
                 <Button
                     color="secondary"
