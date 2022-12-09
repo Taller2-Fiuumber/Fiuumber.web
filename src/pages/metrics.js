@@ -1,29 +1,96 @@
 import Head from 'next/head';
 import { Box, Container, Grid, Typography } from '@mui/material';
-import { Budget } from '../components/dashboard/budget';
-import { LatestOrders } from '../components/dashboard/latest-orders';
-import { LatestProducts } from '../components/dashboard/latest-products';
 import { SignUpMetrics } from '../components/dashboard/signup-metrics';
-import { PasswordRecoveryMetrics } from '../components/dashboard/password-recovery-metrics';
 import { LoginMetrics } from '../components/dashboard/login-metrics';
 
-import { TasksProgress } from '../components/dashboard/tasks-progress';
-import { TotalPassengers } from '../components/dashboard/total-passengers';
-import { TotalDrivers } from '../components/dashboard/total-drivers';
-import { TotalAdmins } from '../components/dashboard/total-admins';
-import { TotalProfit } from '../components/dashboard/total-profit';
 import { UsersDistribution } from '../components/dashboard/users-distribution';
 import { UsersBlockStatus } from '../components/dashboard/users-block-status';
 import { NewTripsMetrics } from '../components/dashboard/new-trips';
 import { TripDurationMetrics } from '../components/dashboard/trip-duration';
 
 
-
 import { DashboardLayout } from '../components/dashboard-layout';
 import { PaymentsMetrics } from '../components/dashboard/ payment-metrics';
 import { CollectionMetrics } from '../components/dashboard/collection-metrics';
+import { useState } from 'react';
 
-const Page = () => (
+import { styled, alpha } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Divider from '@mui/material/Divider';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+
+const StyledMenu = styled((props) => (
+  <Menu
+    elevation={0}
+    anchorOrigin={{
+      vertical: 'bottom',
+      horizontal: 'right',
+    }}
+    transformOrigin={{
+      vertical: 'top',
+      horizontal: 'right',
+    }}
+    {...props}
+  />
+))(({ theme }) => ({
+  '& .MuiPaper-root': {
+    borderRadius: 6,
+    marginTop: theme.spacing(1),
+    minWidth: 180,
+    color:
+      theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
+    boxShadow:
+      'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
+    '& .MuiMenu-list': {
+      padding: '4px 0',
+    },
+    '& .MuiMenuItem-root': {
+      '& .MuiSvgIcon-root': {
+        fontSize: 18,
+        color: theme.palette.text.secondary,
+        marginRight: theme.spacing(1.5),
+      },
+      '&:active': {
+        backgroundColor: alpha(
+          theme.palette.primary.main,
+          theme.palette.action.selectedOpacity,
+        ),
+      },
+    },
+  },
+}));
+
+const Page = () => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [showTripMetrics, setShowTripMetrics] = useState(false);
+  const [showPaymentsMetrics, setShowPaymentsMetrics] = useState(false);
+
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const handleTripMetrics = () => {
+    setShowTripMetrics(true);
+    setShowPaymentsMetrics(false);
+    setAnchorEl(null);
+  };
+  const handlePaymentMetrics = () => {
+    setShowTripMetrics(false);
+    setShowPaymentsMetrics(true);
+    setAnchorEl(null);
+  };
+  const handleHide = () => {
+    setShowTripMetrics(false);
+    setShowPaymentsMetrics(false);
+    setAnchorEl(null);
+  };
+
+return(
   <>
     <Head>
       <title>
@@ -54,10 +121,6 @@ const Page = () => (
         >
         <Grid
             item
-            // lg={6}
-            // md={6}
-            // xl={6}
-            // xs={12}
             lg={11}
             md={12}
             xl={11}
@@ -75,10 +138,6 @@ const Page = () => (
           </Grid>
           <Grid
             item
-            // lg={6}
-            // md={6}
-            // xl={6}
-            // xs={12}
             lg={11}
             md={12}
             xl={11}
@@ -104,61 +163,95 @@ const Page = () => (
           >
             <UsersDistribution sx={{ height: '100%' }} />
           </Grid>
-          <Grid
-            item
-            lg={11}
-            md={12}
-            xl={11}
-            xs={12}
-          >
+          <Button
+            // id="demo-customized-button"
+            // aria-controls={open ? 'demo-customized-menu' : undefined}
+            // aria-haspopup="true"
+            // aria-expanded={open ? 'true' : undefined}
+            variant="contained"
+            disableElevation
+            onClick={handleClick}
+            endIcon={<KeyboardArrowDownIcon />}
+      >
+        More metrics
+      </Button>
+      <StyledMenu
+        id="demo-customized-menu"
+        MenuListProps={{
+          'aria-labelledby': 'demo-customized-button',
+        }}
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={handleTripMetrics} disableRipple>
+          Trips metrics
+        </MenuItem>
+        <MenuItem onClick={handlePaymentMetrics} disableRipple>
+          Payments metrics
+        </MenuItem>
+        { (showTripMetrics||showPaymentsMetrics) &&
+        <><Divider sx={{ my: 0.5 }} /><MenuItem onClick={handleHide} disableRipple>
+                Hide metrics
+              </MenuItem></>
+        }
+      </StyledMenu>
+      {(showTripMetrics) && 
+      <><Grid
+              item
+              lg={11}
+              md={12}
+              xl={11}
+              xs={12}
+            >
               <Typography
-              sx={{ m: 2 }}
-              variant="h5"
-              color="#000000"
-              textAlign="center"
-            > Trips Metrics
-            </Typography>
-            <NewTripsMetrics />
-          </Grid>
-          <Grid
-            item
-            lg={11}
-            md={12}
-            xl={11}
-            xs={12}
-          >
-            <TripDurationMetrics />
-          </Grid>
-          {/* <Grid
-            item
-            lg={11}
-            md={12}
-            xl={11}
-            xs={12}
-          >
+                sx={{ m: 2 }}
+                variant="h5"
+                color="#000000"
+                textAlign="center"
+              > Trips Metrics
+              </Typography>
+              <NewTripsMetrics />
+            </Grid><Grid
+              item
+              lg={11}
+              md={12}
+              xl={11}
+              xs={12}
+            >
+        <TripDurationMetrics />
+      </Grid></>}
+      {(showPaymentsMetrics) && 
+          <><Grid
+              item
+              lg={11}
+              md={12}
+              xl={11}
+              xs={12}
+            >
               <Typography
-              sx={{ m: 2 }}
-              variant="h5"
-              color="#000000"
-              textAlign="center"
-            > Payments Metrics
-            </Typography>
-            <PaymentsMetrics />
-          </Grid>
-          <Grid
-            item
-            lg={11}
-            md={12}
-            xl={11}
-            xs={12}
-          >
-            <CollectionMetrics />
-          </Grid> */}
+                sx={{ m: 2 }}
+                variant="h5"
+                color="#000000"
+                textAlign="center"
+              > Payments Metrics
+              </Typography>
+              <PaymentsMetrics />
+            </Grid><Grid
+              item
+              lg={11}
+              md={12}
+              xl={11}
+              xs={12}
+            >
+                <CollectionMetrics />
+              </Grid></>
+          }
         </Grid>
       </Container>
     </Box>
   </>
-);
+)};
 
 Page.getLayout = (page) => (
   <DashboardLayout>
