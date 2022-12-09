@@ -10,7 +10,7 @@ import { TripDurationMetrics } from '../components/dashboard/trip-duration';
 
 
 import { DashboardLayout } from '../components/dashboard-layout';
-import { PaymentsMetrics } from '../components/dashboard/ payment-metrics';
+import { PaymentsMetrics } from '../components/dashboard/payment-metrics';
 import { CollectionMetrics } from '../components/dashboard/collection-metrics';
 import { useState } from 'react';
 
@@ -206,7 +206,7 @@ return(
                     Trips metrics
                   </MenuItem>
                   <MenuItem onClick={handlePaymentMetrics} disableRipple>
-                    Payments metrics
+                    Transactions metrics
                   </MenuItem>
                   { (showTripMetrics||showPaymentsMetrics) &&
                     <><Divider sx={{ my: 0.5 }} />
