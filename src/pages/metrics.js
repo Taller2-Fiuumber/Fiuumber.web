@@ -177,14 +177,6 @@ return(
                 justifyContent="center"
                 spacing={3}>
 
-                {/* <Typography
-                    sx={{ m: 2 }}
-                    variant="h5"
-                    color="#000000"
-                    textAlign="left"
-                  > More Metrics
-                </Typography> */}
-
                 <Button
                     color="secondary"
                     variant="contained"
