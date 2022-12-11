@@ -1,14 +1,24 @@
 
 import Router from 'next/router';
 import { UsersService } from '../../../services/UsersServices';
+import { TripsServices } from '../../../services/TripsServices';
+
 import { useEffect, useRef, useState } from 'react';
 import { Passenger } from '../../../models/passenger';
 import { Driver } from '../../../models/driver';
 import { Admin } from '../../../models/admin';
 import { Vehicle } from '../../../models/vehicle';
+import { UserCalificationMetrics } from '../../components/dashboard/user-calification-metrics';
+import { TripsResultsList } from '../../components/dashboard/trips-results';
+import { TripsStatus } from '../../components/dashboard/trips-status-metrics';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+
 import {
   Box,
   Button,
+  Container,
+  Typography,
   Card,
   CardContent,
   CardHeader,
@@ -29,6 +39,7 @@ export const AccountProfileDetails = (props) => {
   const [user, setUser] = useState(new Driver(-1, '','','','','','', false,null,new Vehicle('','','','','')));
   const [userType, setUserType] = useState(true);
   const [userBlocked, setUserBlock] = useState(false);
+  const [noData, setNoData] = useState(false);
 
   const type = urlParams.get('type');
 
@@ -57,6 +68,15 @@ export const AccountProfileDetails = (props) => {
         console.log(error);
       });
       setUserType(false);
+      TripsServices.getAmountOfTrips(id, type).then((value) => {
+          if(value != 0){
+            setNoData(false);
+          } else {
+            setNoData(true);
+          }
+      }).catch((error) => {
+        console.log(error);
+      });
 
   }
   if(type=="driver"){
@@ -69,6 +89,15 @@ export const AccountProfileDetails = (props) => {
         console.log(error);
       });
       setUserType(false);
+      TripsServices.getAmountOfTrips(id, type).then((value) => {
+        if(value != 0){
+          setNoData(false);
+        } else {
+          setNoData(true);
+        }
+      }).catch((error) => {
+        console.log(error);
+      });
 
     }
   if(type=="admin"){
@@ -79,18 +108,12 @@ export const AccountProfileDetails = (props) => {
       });    
       setUserType(true);
     }
-  }, [setUser]);
+  }, [setUser, id]);
 
   console.log(user.vehicle);
   console.log(user);
 
 
-  const handleChange = (event) => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value
-    });
-  };
 
 
   return (
@@ -118,13 +141,10 @@ export const AccountProfileDetails = (props) => {
             >
               <TextField
                 fullWidth
-                // helperText="Please specify the first name"
                 label="First name"
                 name="firstName"
-                // onChange={handleChange}
                 required
                 readOnly={true}
-                // color="FFFFFFF"
                 value={user.firstName}
                 variant="outlined"
               />
@@ -139,7 +159,6 @@ export const AccountProfileDetails = (props) => {
                 label="Last name"
                 name="lastName"
                 readOnly={true}
-                // onChange={handleChange}
                 required
                 value={user.lastName}
                 variant="outlined"
@@ -206,7 +225,6 @@ export const AccountProfileDetails = (props) => {
               label="Address"
               name="Address"
               readOnly={true}
-              // onChange={handleChange}
               required
               value={user.address}
               variant="outlined"
@@ -224,7 +242,6 @@ export const AccountProfileDetails = (props) => {
               label="Domain"
               name="Domain"
               readOnly={true}
-              // onChange={handleChange}
               required
               value={user.vehicle.domain}
               variant="outlined"
@@ -242,7 +259,6 @@ export const AccountProfileDetails = (props) => {
               label="Model"
               name="Model"
               readOnly={true}
-              // onChange={handleChange}
               required
               value={user.vehicle.model}
               variant="outlined"
@@ -260,7 +276,6 @@ export const AccountProfileDetails = (props) => {
               label="ModelYear"
               name="ModelYear"
               readOnly={true}
-              // onChange={handleChange}
               required
               value={user.vehicle.modelYear}
               variant="outlined"
@@ -278,7 +293,6 @@ export const AccountProfileDetails = (props) => {
               label="Color"
               name="Color"
               readOnly={true}
-              // onChange={handleChange}
               required
               value={user.vehicle.colorName}
               variant="outlined"
@@ -296,7 +310,6 @@ export const AccountProfileDetails = (props) => {
               label="Brand"
               name="Brand"
               readOnly={true}
-              // onChange={handleChange}
               required
               value={user.vehicle.brand}
               variant="outlined"
@@ -306,6 +319,7 @@ export const AccountProfileDetails = (props) => {
           </Grid>
         </CardContent>
         <Divider />
+        
         <Box sx={{
               display: 'flex',
               justifyContent: 'flex-end',
@@ -349,23 +363,70 @@ export const AccountProfileDetails = (props) => {
             }
 
           </Box>
-          {/* <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-              p: 2
-            }}
-          > 
-            <Button
-              //color="primary"
-              color="secondary"
-              variant="contained"
-            >
-              Save details
-            </Button>
-          </Box> */}
         </Box>
-      </Card>
+        <Container maxWidth={false}>
+
+      </Container>
+      {(noData) &&
+        <Alert severity="info">
+        <AlertTitle>No trips yet</AlertTitle>
+        Once this passenger makes a trip, some trip metrics will be available
+        </Alert>  
+      }
+      {(!noData) &&
+      <Grid
+          container
+          spacing={4}
+          justifyContent="center"
+          alignItems="center"
+        >
+        <Grid
+            item
+            lg={11}
+            md={12}
+            xl={11}
+            xs={12}
+          >
+            { (type!="admin") &&
+            <Typography
+              sx={{ m: 2 }}
+              variant="h5"
+              color="#000000"
+              textAlign="center"
+            > User Califications Metrics
+            </Typography>
+            }
+            { (type!="admin") &&
+              <UserCalificationMetrics sx={{ height: 650 }}  />
+            }
+            { (type!="admin") &&
+            <Typography
+              sx={{ m: 2 }}
+              variant="h5"
+              color="#000000"
+              textAlign="center"
+            > Trips history
+            </Typography>
+            }
+            { (type!="admin") &&
+               <TripsResultsList sx={{ width: 850 }}  />
+            }
+             { (type!="admin") &&
+            <Typography
+              sx={{ m: 2 }}
+              variant="h5"
+              color="#000000"
+              textAlign="center"
+            > Trips Status Metrics
+            </Typography>
+            }
+            { (type!="admin") &&
+               <TripsStatus sx={{ width: 850 }}  />
+            }
+            </Grid>
+        </Grid>}
+        </Card>
+
     </form>
   );
 };

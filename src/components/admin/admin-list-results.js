@@ -14,8 +14,8 @@ import {
   Table,
   TableBody,
   TableCell,
-  SvgIcon, 
-  Typography, 
+  SvgIcon,
+  Typography,
   List,
   TableHead,
   TablePagination,
@@ -30,21 +30,30 @@ export const AdminListResults = ({...rest }) => {
   const [page, setPage] = useState(0); //0
   const [admins, setAdmins] = useState([]);
   const [searchInput, setSearchInput] = useState("");
+  const [amountOfAdmins, setAmountOfAdmins] = useState(0);
 
   useEffect(() => {
-    UsersService.getAdmins().then((value) => {
+    UsersService.getAmountOfAdmins().then((value) => {
+      setAmountOfAdmins(value);
+    }).catch((error) => {
+      console.log(error);
+    });
+  }, []);
+
+  useEffect(() => {
+    UsersService.getAdmins(page * rowsPerPage, rowsPerPage).then((value) => {
       setAdmins(value);
     }).catch((error) => {
       console.log(error);
     });
-    
-  }, []);
 
- 
+  }, [rowsPerPage, page]);
+
+
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value));
-    setPage(0);
   };
+
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
   };
@@ -107,13 +116,13 @@ export const AdminListResults = ({...rest }) => {
                   return admin;
                 } else if (admin.firstName.toLowerCase().includes(searchInput.toLowerCase())){
                   return admin;
-                }}).slice(rowsPerPage*page, rowsPerPage*(page+1)).map((admin, index) => (
+                }}).map((admin, index) => (
                 <TableRow
                   hover
                   key={index}
                   selected={selectedAdminIds.indexOf(admin.id) !== -1}
                 >
-                 
+
                   <TableCell>
                     <Box
                       sx={{
@@ -121,7 +130,7 @@ export const AdminListResults = ({...rest }) => {
                         display: 'flex'
                       }}
                     >
-                    
+
                       <Typography
                         color="textPrimary"
                         variant="body1"
@@ -158,7 +167,7 @@ export const AdminListResults = ({...rest }) => {
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={admins.length}
+        count={amountOfAdmins}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleChangeRowsPerPage}
         page={page}

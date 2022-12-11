@@ -4,15 +4,21 @@ import PropTypes from 'prop-types';
 import { Box, MenuItem, MenuList, Popover, Typography } from '@mui/material';
 import { AuthContext } from '../contexts/auth-context';
 import { auth, ENABLE_AUTH } from '../lib/auth';
+import { UserToken } from '../../models/userToken';
+import { currentAdmin, currentUserToken } from '../contexts/currentAdmin';
+import { useRouter } from 'next/router';
+import { Admin } from '../../models/admin'
 
-export const AccountPopover = (props) => {
+export const AccountPopover = (props) => { 
+  const router = useRouter();
   const { anchorEl, onClose, open, ...other } = props;
   const authContext = useContext(AuthContext);
 
   const handleSignOut = async () => {
-    Router
-    .push('/')
-    .catch(console.error);
+    localStorage.setItem('userToken', null);
+    const newAdmin = new Admin( 42, '', '', '', '')
+    currentUserToken.setUserToken(newAdmin, '');
+    Router.push('/logIn').catch(console.error);
     onClose?.();
 
     // Check if authentication with Zalter is enabled
@@ -40,9 +46,9 @@ export const AccountPopover = (props) => {
 
     try {
       // This can be call inside AuthProvider component, but we do it here for simplicity
-      await auth.signOut();
-      // Update Auth Context state
-      authContext.signOut();
+      // await auth.signOut();
+      // // Update Auth Context state
+      // authContext.signOut();
 
       // Redirect to sign-in page
       Router
@@ -53,7 +59,16 @@ export const AccountPopover = (props) => {
     }
   };
   const handleMyProfile = () => {
-    Router.push("/account?id=" + 7 + "&type=admin") //DESHARDCODEARLO !!!
+    // const currentAdminId = currentAdmin.adminId;
+    // router
+    //       .replace({
+    //         pathname: '/account',
+    //         query: "id="  + currentAdminId + "&type=admin",
+    //       })
+    onClose?.();
+         
+    
+    Router.push("/account?id=" + currentAdmin.adminId + "&type=admin") //DESHARDCODEARLO !!!
   }
 
   return (
@@ -83,7 +98,7 @@ export const AccountPopover = (props) => {
           color="text.secondary"
           variant="body2"
         >
-          John Doe
+          {currentAdmin.firstName + currentAdmin.lastName}
         </Typography>
       </Box>
       <MenuList

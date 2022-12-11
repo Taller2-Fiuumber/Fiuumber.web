@@ -20,10 +20,10 @@ const Page = () => (
       }}
     >
       <Typography
-        sx={{ m: 1 }}
+        sx={{ mt: 1 }}
         variant="h2"
-        color="#10B981"
-        //color="#10B9D7" 
+        color="#10B981"//"#395B64"
+        textAlign="center" 
       > Fiuumber - Admins
       </Typography>
 

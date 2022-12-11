@@ -2,15 +2,26 @@ import Head from 'next/head';
 import { Box, Container, Grid, Typography } from '@mui/material';
 import { Budget } from '../components/dashboard/budget';
 import { LatestOrders } from '../components/dashboard/latest-orders';
-// import { LatestProducts } from '../components/dashboard/latest-products';
-import { Sales } from '../components/dashboard/sales';
+import { LatestProducts } from '../components/dashboard/latest-products';
+import { SignUpMetrics } from '../components/dashboard/signup-metrics';
+import { PasswordRecoveryMetrics } from '../components/dashboard/password-recovery-metrics';
+import { LoginMetrics } from '../components/dashboard/login-metrics';
+
 import { TasksProgress } from '../components/dashboard/tasks-progress';
 import { TotalPassengers } from '../components/dashboard/total-passengers';
 import { TotalDrivers } from '../components/dashboard/total-drivers';
 import { TotalAdmins } from '../components/dashboard/total-admins';
 import { TotalProfit } from '../components/dashboard/total-profit';
-import { TrafficByDevice } from '../components/dashboard/traffic-by-device';
+import { UsersDistribution } from '../components/dashboard/users-distribution';
+import { UsersBlockStatus } from '../components/dashboard/users-block-status';
+import { NewTripsMetrics } from '../components/dashboard/new-trips';
+import { TripDurationMetrics } from '../components/dashboard/trip-duration';
+
+
+
 import { DashboardLayout } from '../components/dashboard-layout';
+import { PaymentsMetrics } from '../components/dashboard/ payment-metrics';
+import { CollectionMetrics } from '../components/dashboard/collection-metrics';
 
 const Page = () => (
   <>
@@ -27,107 +38,122 @@ const Page = () => (
       }}
     >
       <Typography
-        sx={{ m: 1 }}
+        sx={{ mt: 1 }}
         variant="h2"
-        color="#10B981"
+        color="#10B981"//"#395B64"
+        textAlign="center"
       > Fiuumber - Metrics
       </Typography>
 
       <Container maxWidth={false}>
         <Grid
           container
-          spacing={5}
+          spacing={4}
+          justifyContent="center"
+          alignItems="center"
         >
+        <Grid
+            item
+            // lg={6}
+            // md={6}
+            // xl={6}
+            // xs={12}
+            lg={11}
+            md={12}
+            xl={11}
+            xs={12}
+          >
+            <Typography
+              sx={{ m: 2 }}
+              variant="h5"
+              color="#000000"
+              textAlign="center"
+            > Users Metrics
+            </Typography>
+
+            <LoginMetrics />
+          </Grid>
+          <Grid
+            item
+            // lg={6}
+            // md={6}
+            // xl={6}
+            // xs={12}
+            lg={11}
+            md={12}
+            xl={11}
+            xs={12}
+          >
+            <SignUpMetrics />
+          </Grid>
+          <Grid
+            item
+            lg={5}
+            md={6}
+            xl={4}
+            xs={12}
+          >
+            <UsersBlockStatus sx={{ height: '100%' }} />
+          </Grid>
+          <Grid
+            item
+            lg={5}
+            md={6}
+            xl={4}
+            xs={12}
+          >
+            <UsersDistribution sx={{ height: '100%' }} />
+          </Grid>
+          <Grid
+            item
+            lg={11}
+            md={12}
+            xl={11}
+            xs={12}
+          >
+              <Typography
+              sx={{ m: 2 }}
+              variant="h5"
+              color="#000000"
+              textAlign="center"
+            > Trips Metrics
+            </Typography>
+            <NewTripsMetrics />
+          </Grid>
+          <Grid
+            item
+            lg={11}
+            md={12}
+            xl={11}
+            xs={12}
+          >
+            <TripDurationMetrics />
+          </Grid>
           {/* <Grid
             item
-            lg={3}
-            sm={6}
-            xl={3}
+            lg={11}
+            md={12}
+            xl={11}
             xs={12}
           >
-            <Budget />
+              <Typography
+              sx={{ m: 2 }}
+              variant="h5"
+              color="#000000"
+              textAlign="center"
+            > Payments Metrics
+            </Typography>
+            <PaymentsMetrics />
+          </Grid>
+          <Grid
+            item
+            lg={11}
+            md={12}
+            xl={11}
+            xs={12}
+          >
+            <CollectionMetrics />
           </Grid> */}
-          <Grid
-            item
-            xl={3}
-            lg={3}
-            sm={6}
-            xs={12}
-          >
-            <TotalPassengers />
-          </Grid>
-          <Grid
-            item
-            xl={3}
-            lg={3}
-            sm={6}
-            xs={12}
-          >
-            <TotalDrivers />
-          </Grid>
-          <Grid
-            item
-            xl={3}
-            lg={3}
-            sm={6}
-            xs={12}
-          >
-            <TotalAdmins />
-          </Grid>
-          <Grid
-            item
-            xl={3}
-            lg={3}
-            sm={6}
-            xs={12}
-          >
-            {/* <TasksPrTaskogress /> */}
-          </Grid>
-          <Grid
-            item
-            xl={3}
-            lg={3}
-            sm={6}
-            xs={12}
-          >
-            <TotalProfit sx={{ height: '100%' }} />
-          </Grid>
-          <Grid
-            item
-            lg={8}
-            md={12}
-            xl={9}
-            xs={12}
-          >
-            {/* <Sales /> */}
-          </Grid>
-          <Grid
-            item
-            lg={4}
-            md={6}
-            xl={3}
-            xs={12}
-          >
-            {/* <TrafficByDevice sx={{ height: '100%' }} /> */}
-          </Grid>
-          <Grid
-            item
-            lg={4}
-            md={6}
-            xl={3}
-            xs={12}
-          >
-            {/* <LatestProducts sx={{ height: '100%' }} /> */}
-          </Grid>
-          <Grid
-            item
-            lg={8}
-            md={12}
-            xl={9}
-            xs={12}
-          >
-            {/* <LatestOrders /> */}
-          </Grid>
         </Grid>
       </Container>
     </Box>
