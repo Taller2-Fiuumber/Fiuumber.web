@@ -4,7 +4,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { DashboardLayout } from '../components/dashboard-layout';
 import { PricesRules } from '../../models/prices';
 import {useState} from 'react';
-import { TripServices} from '../../services/TripServices';
+import { TripsServices} from '../../services/TripsServices';
 
 const style = {
     position: 'absolute',
@@ -17,11 +17,27 @@ const style = {
     boxShadow: 24,
     p: 4,
   };
+  const style2 = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 850,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
 
 const Page = () => {
+    //Constantes de sistema
+    const[openModal1, setOpenModal1] = useState(false);
+    const[openModal2, setOpenModal2] = useState(false);
 
+    
+
+    //Constantes para la formula
     const[time, setTime] = useState("");
-    const[open, setOpen] = useState(false);
     const[duration, setduration] = useState("");
     const[distance, setdistance] = useState("");
     const[dailyTripAmountDriver, setDailyTripAmountDriver] = useState("");
@@ -35,8 +51,18 @@ const Page = () => {
     const[origin, setOrigin] = useState("");
     const[destination, setDestination] = useState("");
     const[calculatedPrice, setCalculatedPrice] = useState("");
+
+    //Datos dummy para testeo
+    const[dailyTripAmountDriverDummy, setDailyTripAmountDriverDummy] = useState("");
+    const[dailyTripAmountPassengerDummy, setDailyTripAmountPassengerDummy] = useState("");
+    const[monthlyTripAmountDriverDummy, setMonthlyTripAmountDriverDummy] = useState("");
+    const[monthlyTripAmountPassengerDummy, setMonthlyTripAmountPassengerDummy] = useState("");
+    const[seniorityDriverDummy, setSeniorityDriverDummy] = useState("");
+    const[seniorityPassengerDummy, setSeniorityPassengerDummy] = useState("");
+    const[recentTripAmountDummy, setRecentTripAmountDummy] = useState("");
     
-    const submitRules = (type) => { 
+    
+    const submitRules = () => { 
     
         const newRules = new PricesRules( 
             time,
@@ -50,15 +76,29 @@ const Page = () => {
             seniorityPassenger, 
             recentTripAmount);
             
-        TripServices.applyPricingRules(newRules, type);
+        TripsServices.applyPricingRules(newRules);
     };
 
-    const testRules = (priceRules) => { 
-        console.log(origin);
-        console.log(destination);
-        setCalculatedPrice("$999");
-
-    
+    const testRules = () => { 
+        const newRules = new PricesRules( 
+            time,
+            duration, 
+            distance,
+            dailyTripAmountDriver,
+            dailyTripAmountPassenger, 
+            monthlyTripAmountDriver,
+            monthlyTripAmountPassenger, 
+            seniorityDriver,
+            seniorityPassenger, 
+            recentTripAmount);
+        TripsServices.testPricingRules(newRules, 
+            dailyTripAmountDriverDummy,
+            dailyTripAmountPassengerDummy, 
+            monthlyTripAmountDriverDummy, 
+            monthlyTripAmountPassengerDummy, 
+            seniorityDriverDummy, 
+            seniorityPassengerDummy, 
+            recentTripAmountDummy);
     };
 
     const discard = () => {     
@@ -266,32 +306,141 @@ const Page = () => {
                         direction="row" 
                         justifyContent="center  "
                         spacing={4}>
-                    {/* <Button
-                        color="success"            
-                        onClick={() => {submitRules("prod")}                
-                    }
-                        size="large"
-                        variant="contained"
-                        >Apply new pricing rules
-                    </Button>  */}
-
                     <Button
                         color="info"            
-                        onClick={() => {setOpen(true)}                
+                        onClick={() => {setOpenModal2(true)}                
                     }
                         size="large"
                         variant="contained"
                         > Try Out Rules
                     </Button> 
                     </Stack>
-                {/* </Box> */}
+             
             </Stack>
             
         
         </Box>
         <Modal
-            open={open}
-            onClose={() => setOpen(false)}
+            open={openModal2}
+            onClose={() => setOpenModal2(false)}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+            >
+            <Box sx={style2}>            
+                <Stack direction ="column" justifyContent = "space-evenly" spacing={3}>
+                    <Stack>
+                        <Typography
+                            sx={[{ ml: 4 }, { mt : 3}]}
+                            variant="h3"
+                            color="#000000"
+                        > Enter dummy values:
+                        </Typography> 
+                    </Stack>
+                    <Stack>
+                        <Typography
+                            sx={[{ ml: 4 }, { mt : 3}]}
+                            variant="h4"
+                            color="#000000"
+                        > Passenger data:
+                        </Typography> 
+                    </Stack>
+
+                        <Stack 
+                            direction="row" 
+                            justifyContent="center"
+                            spacing={2}>
+
+                            <TextField
+                            value={dailyTripAmountPassengerDummy} 
+                            onChange={(e) => setDailyTripAmountPassengerDummy(e.target.value)}
+                            height="1"
+                            width="10%"                             
+                            placeholder=""
+                            label="Daily Trip Amount"
+                            variant="outlined"/>
+
+                              <TextField
+                            value={monthlyTripAmountPassengerDummy} 
+                            onChange={(e) => setMonthlyTripAmountPassengerDummy(e.target.value)}
+                            height="1"
+                            width="10%"                             
+                            placeholder=""
+                            label="Monthly Trip Amount"
+                            variant="outlined"/>
+
+                            <TextField
+                            value={seniorityPassengerDummy} 
+                            onChange={(e) => setSeniorityPassengerDummy(e.target.value)}
+                            height="1"
+                            width="10%"                             
+                            placeholder=""
+                            label="Seniority"
+                            variant="outlined"/>
+                            
+                            <TextField
+                            value={recentTripAmountDummy} 
+                            onChange={(e) => setRecentTripAmountDummy(e.target.value)}
+                            height="1"
+                            width="10%"                             
+                            placeholder=""
+                            label="Recent Trip Amount"
+                            variant="outlined"/>
+                      </Stack>
+                    <Stack> 
+                        <Typography
+                            sx={[{ ml: 4 }, { mt : 3}]}
+                            variant="h4"
+                            color="#000000"
+                        > Driver data:
+                        </Typography> 
+                    </Stack>
+                   
+                    <Stack
+                    direction="row" 
+                            justifyContent="center"
+                            spacing={2}>
+                  
+                  <TextField
+                            value={dailyTripAmountDriverDummy} 
+                            onChange={(e) => setDailyTripAmountDriverDummy(e.target.value)}
+                            height="1"
+                            width="10%"                             
+                            placeholder=""
+                            label="Daily Trip Amount"
+                            variant="outlined"/>
+
+                              <TextField
+                            value={monthlyTripAmountDriverDummy} 
+                            onChange={(e) => setMonthlyTripAmountDriverDummy(e.target.value)}
+                            height="1"
+                            width="10%"                             
+                            placeholder=""
+                            label="Monthly Trip Amount"
+                            variant="outlined"/>
+
+                            <TextField
+                            value={seniorityDriverDummy} 
+                            onChange={(e) => setSeniorityDriverDummy(e.target.value)}
+                            height="1"
+                            width="10%"                             
+                            placeholder=""
+                            label="Seniority"
+                            variant="outlined"/>
+                    </Stack>
+
+                            <Button                                
+                                color="info"            
+                                onClick={() => {setOpenModal1(true),setOpenModal2(false)}}
+                                size="large"
+                                variant="contained"
+                                >Next
+                            </Button> 
+                        </Stack>
+            </Box>
+        </Modal>
+        <Modal
+            open={openModal1}
+            onClose={() => setOpenModal1(false)}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
             >
