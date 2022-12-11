@@ -39,3 +39,4 @@ export const DashboardLayout = (props) => {
     </AuthGuard>
   );
 };
+
