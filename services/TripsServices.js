@@ -231,7 +231,9 @@ export const TripsServices = {
         monthlyTripAmountPassengerDummy, 
         seniorityDriverDummy, 
         seniorityPassengerDummy, 
-        recentTripAmountDummy) => {
+        recentTripAmountDummy,
+        tripDuration,
+        tripDistance) => {
 
         const time = rules.time;
         const duration=rules.duration; 
@@ -246,7 +248,7 @@ export const TripsServices = {
         const basePrice=rules.basePrice;
 
         try {
-            const url = `${URL_TRIPS}/fare/test/new?minimum_fare=${basePrice}&duration_fare=${duration}&distance_fare=${distance}&dailyTripAmountDriver_fare=${dailyTripAmountDriver}&dailyTripAmountPassenger_fare=${dailyTripAmountPassenger}&monthlyTripAmountDrive_fare=${monthlyTripAmountDriver}&monthlyTripAmountPassenger_fare=${monthlyTripAmountPassenger}&seniorityDriver_fare=${seniorityDriver}&seniorityPassenger_fare=${seniorityPassenger}&recentTripAmount_fare=${recentTripAmount}&duration=${basePrice}&distance=${basePrice}&dailyTripAmountDriver=${dailyTripAmountDriverDummy}&dailyTripAmountPassenger=${dailyTripAmountPassengerDummy}&monthlyTripAmountDrive=${monthlyTripAmountDriverDummy}&monthlyTripAmountPassenger=${monthlyTripAmountPassengerDummy}&seniorityDriver=${seniorityDriverDummy}&seniorityPassenger=${seniorityPassengerDummy}&recentTripAmount=${recentTripAmountDummy}`
+            const url = `${URL_TRIPS}/fare/test/new?minimum_fare=${basePrice}&duration_fare=${duration}&distance_fare=${distance}&dailyTripAmountDriver_fare=${dailyTripAmountDriver}&dailyTripAmountPassenger_fare=${dailyTripAmountPassenger}&monthlyTripAmountDrive_fare=${monthlyTripAmountDriver}&monthlyTripAmountPassenger_fare=${monthlyTripAmountPassenger}&seniorityDriver_fare=${seniorityDriver}&seniorityPassenger_fare=${seniorityPassenger}&recentTripAmount_fare=${recentTripAmount}&duration=${tripDuration}&distance=${tripDistance}&dailyTripAmountDriver=${dailyTripAmountDriverDummy}&dailyTripAmountPassenger=${dailyTripAmountPassengerDummy}&monthlyTripAmountDrive=${monthlyTripAmountDriverDummy}&monthlyTripAmountPassenger=${monthlyTripAmountPassengerDummy}&seniorityDriver=${seniorityDriverDummy}&seniorityPassenger=${seniorityPassengerDummy}&recentTripAmount=${recentTripAmountDummy}`
             const response = await axios.get(url, TripsServices.getHeaders());
 
             await axios.post(`${URL_TRIPS}/fare-rule`, rules, TripsServices.getHeaders());
@@ -260,24 +262,24 @@ export const TripsServices = {
         }
     },
 
-    calculateDistanceAndDuration(origin, destination){
+    // calculateDistanceAndDuration(origin, destination){
 
-        try {
-            const distance = 0;
-            const duration = 0;
-            // const url = ``
-            // const response = await axios.get(url, TripsServices.getHeaders());
+    //     try {
+    //         const distance = 0;
+    //         const duration = 0;
+    //         // const url = ``
+    //         // const response = await axios.get(url, TripsServices.getHeaders());
 
-            return (distance, duration);
+    //         return (distance, duration);
     
-        } 
-        catch (error) {
-            console.log(`TripService calculateDistanceAndDuration: ${error}`);
-            if (error && error.response && error.response.status == 401) return null;
-            throw error;
-        }
+    //     } 
+    //     catch (error) {
+    //         console.log(`TripService calculateDistanceAndDuration: ${error}`);
+    //         if (error && error.response && error.response.status == 401) return null;
+    //         throw error;
+    //     }
 
-    }
+    // }
 
 
 

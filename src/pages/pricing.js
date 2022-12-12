@@ -30,10 +30,24 @@ const style = {
     p: 4,
   };
 
+  const style3 = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 300,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+
 const Page = () => {
     //Constantes de sistema
     const[openModal1, setOpenModal1] = useState(false);
-    const[openModal2, setOpenModal2] = useState(false);    
+    const[openModal2, setOpenModal2] = useState(false);  
+    const[openModal3, setOpenModal3] = useState(false);    
+  
 
     //Constantes para la formula
     const[time, setTime] = useState("");
@@ -58,11 +72,11 @@ const Page = () => {
     const[recentTripAmountDummy, setRecentTripAmountDummy] = useState("");
 
     //Variables de testeo
-    const[origin, setOrigin] = useState("");
-    const[destination, setDestination] = useState("");
+    const[tripDuration, setTripDuration] = useState("");
+    const[tripDistance, setTripDistance] = useState("");
     const[calculatedPrice, setCalculatedPrice] = useState("");
 
-    const [value, setValue] = useState(null);
+    
     
     
     const submitRules = () => { 
@@ -79,37 +93,59 @@ const Page = () => {
             seniorityPassenger, 
             recentTripAmount);
             
-        TripsServices.applyPricingRules(newRules);
+        if(TripsServices.applyPricingRules(newRules)){
+            setOpenModal3(true)
+        };
     };
 
     const testRules = () => { 
+        
+        const newRules = new PricesRules(
+            time,
+            duration, 
+            distance,
+            dailyTripAmountDriver,
+            dailyTripAmountPassenger, 
+            monthlyTripAmountDriver,
+            monthlyTripAmountPassenger, 
+            seniorityDriver,
+            seniorityPassenger, 
+            recentTripAmount);
 
-        console.log(origin);
-        // const newRules = new PricesRules( 
-        //     time,
-        //     duration, 
-        //     distance,
-        //     dailyTripAmountDriver,
-        //     dailyTripAmountPassenger, 
-        //     monthlyTripAmountDriver,
-        //     monthlyTripAmountPassenger, 
-        //     seniorityDriver,
-        //     seniorityPassenger, 
-        //     recentTripAmount);
-        // TripsServices.testPricingRules(newRules, 
-        //     dailyTripAmountDriverDummy,
-        //     dailyTripAmountPassengerDummy, 
-        //     monthlyTripAmountDriverDummy, 
-        //     monthlyTripAmountPassengerDummy, 
-        //     seniorityDriverDummy, 
-        //     seniorityPassengerDummy, 
-        //     recentTripAmountDummy);
+
+
+        const result = TripsServices.testPricingRules(newRules, 
+            dailyTripAmountDriverDummy,
+            dailyTripAmountPassengerDummy, 
+            monthlyTripAmountDriverDummy, 
+            monthlyTripAmountPassengerDummy, 
+            seniorityDriverDummy, 
+            seniorityPassengerDummy, 
+            recentTripAmountDummy);
+
+        setCalculatedPrice(result);
     };
 
     const discard = () => {     
         
         //Cerrar el modal...y setear las rules en 0
-           
+        setOpenModal1(false);
+
+        setTime("");
+        setduration("");
+        setdistance("");
+        setDailyTripAmountDriver("");
+        setDailyTripAmountPassenger("");
+        setMonthlyTripAmountDriver("");
+        setMonthlyTripAmountPassenger("");
+        setSeniorityDriver("");
+        setSeniorityPassenger("");
+        setRecentTripAmount("");
+        setBasePrice("");
+        
+        //Los Dummy los dejo cargados
+        setTripDuration("");
+        setTripDistance("");           
     };
     
 
@@ -464,7 +500,7 @@ const Page = () => {
                             justifyContent="space-evenly"
                             spacing={1}>
 
-                        <Stack width = "30%"
+                        {/* <Stack width = "30%"
                             // label="Origen"
                             // placeholder="Origen"
                             // value={origin}
@@ -502,25 +538,25 @@ const Page = () => {
                             <GooglePlacesAutocomplete                                
                                 apiKey="AIzaSyANbv3JEv2HV3r4Sj9j7Y5yrX3KYQcSmew"                                
                                 />
-                        </Stack>
+                        </Stack> */}
                        
-                            {/* <TextField
-                                value={origin} 
-                                onChange={(e) => setOrigin(e.target.value)}
+                            <TextField
+                                value={tripDistance} 
+                                onChange={(e) => setTripDistance(e.target.value)}
                                 height="1"
                                 width="10%"                             
                                 placeholder=""
-                                label="Origin"
+                                label="Trip Distance"
                                 variant="outlined"/>
 
                             <TextField
-                                value={destination}  
-                                onChange={(e) => setDestination(e.target.value)}
+                                value={tripDuration}  
+                                onChange={(e) => setTripDuration(e.target.value)}
                                 height="1"
                                 width="10%"                             
                                 placeholder=""
-                                label="Destination"
-                                variant="outlined"/>     */}
+                                label="Trip Duration"
+                                variant="outlined"/>    
 
                             <Button                                 
                                 color="info"            
@@ -550,7 +586,7 @@ const Page = () => {
 
                             <Button                                 
                                 color="success"            
-                                onClick={() => {submitRules("prod")}}
+                                onClick={() => {submitRules()}}
                                 size="large"
                                 variant="contained"
                                 >Apply Rules
@@ -568,6 +604,34 @@ const Page = () => {
                             
                         </Stack>
                 
+                </Stack>         
+            </Box>
+        </Modal>
+        <Modal
+            open={openModal3}
+            onClose={() => setOpenModal3(false)}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+            >
+            <Box sx={style3}>            
+                <Stack direction ="column" justifyContent = "space-evenly" spacing={2}>
+                    <Stack>
+                        <Typography
+                            // sx={[{ ml: 4 }, { mt : 3}]}
+                            variant="h6"
+                            color="#000000"
+                            textAlign='center'                            
+                        >  The rules where applied successfully!
+                        </Typography> 
+                    </Stack>
+                    <Button                                
+                        color="error"            
+                        onClick={() => {setOpenModal1(false),setOpenModal2(false), setOpenModal3(false)}}
+                        size="medium"
+                        variant="contained"
+                        >Okarda lopez
+                    </Button> 
+                       
                 </Stack>         
             </Box>
         </Modal>
