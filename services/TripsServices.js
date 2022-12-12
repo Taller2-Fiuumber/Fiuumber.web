@@ -260,6 +260,25 @@ export const TripsServices = {
         }
     },
 
+    calculateDistanceAndDuration(origin, destination){
+
+        try {
+            const distance = 0;
+            const duration = 0;
+            // const url = ``
+            // const response = await axios.get(url, TripsServices.getHeaders());
+
+            return (distance, duration);
+    
+        } 
+        catch (error) {
+            console.log(`TripService calculateDistanceAndDuration: ${error}`);
+            if (error && error.response && error.response.status == 401) return null;
+            throw error;
+        }
+
+    }
+
 
 
 };

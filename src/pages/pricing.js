@@ -5,13 +5,14 @@ import { DashboardLayout } from '../components/dashboard-layout';
 import { PricesRules } from '../../models/prices';
 import {useState} from 'react';
 import { TripsServices} from '../../services/TripsServices';
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 
 const style = {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 600,
+    width: 900,
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -32,9 +33,7 @@ const style = {
 const Page = () => {
     //Constantes de sistema
     const[openModal1, setOpenModal1] = useState(false);
-    const[openModal2, setOpenModal2] = useState(false);
-
-    
+    const[openModal2, setOpenModal2] = useState(false);    
 
     //Constantes para la formula
     const[time, setTime] = useState("");
@@ -48,9 +47,6 @@ const Page = () => {
     const[seniorityPassenger, setSeniorityPassenger] = useState("");
     const[recentTripAmount, setRecentTripAmount] = useState("");
     const[basePrice, setBasePrice] = useState("");
-    const[origin, setOrigin] = useState("");
-    const[destination, setDestination] = useState("");
-    const[calculatedPrice, setCalculatedPrice] = useState("");
 
     //Datos dummy para testeo
     const[dailyTripAmountDriverDummy, setDailyTripAmountDriverDummy] = useState("");
@@ -60,6 +56,13 @@ const Page = () => {
     const[seniorityDriverDummy, setSeniorityDriverDummy] = useState("");
     const[seniorityPassengerDummy, setSeniorityPassengerDummy] = useState("");
     const[recentTripAmountDummy, setRecentTripAmountDummy] = useState("");
+
+    //Variables de testeo
+    const[origin, setOrigin] = useState("");
+    const[destination, setDestination] = useState("");
+    const[calculatedPrice, setCalculatedPrice] = useState("");
+
+    const [value, setValue] = useState(null);
     
     
     const submitRules = () => { 
@@ -80,25 +83,27 @@ const Page = () => {
     };
 
     const testRules = () => { 
-        const newRules = new PricesRules( 
-            time,
-            duration, 
-            distance,
-            dailyTripAmountDriver,
-            dailyTripAmountPassenger, 
-            monthlyTripAmountDriver,
-            monthlyTripAmountPassenger, 
-            seniorityDriver,
-            seniorityPassenger, 
-            recentTripAmount);
-        TripsServices.testPricingRules(newRules, 
-            dailyTripAmountDriverDummy,
-            dailyTripAmountPassengerDummy, 
-            monthlyTripAmountDriverDummy, 
-            monthlyTripAmountPassengerDummy, 
-            seniorityDriverDummy, 
-            seniorityPassengerDummy, 
-            recentTripAmountDummy);
+
+        console.log(origin);
+        // const newRules = new PricesRules( 
+        //     time,
+        //     duration, 
+        //     distance,
+        //     dailyTripAmountDriver,
+        //     dailyTripAmountPassenger, 
+        //     monthlyTripAmountDriver,
+        //     monthlyTripAmountPassenger, 
+        //     seniorityDriver,
+        //     seniorityPassenger, 
+        //     recentTripAmount);
+        // TripsServices.testPricingRules(newRules, 
+        //     dailyTripAmountDriverDummy,
+        //     dailyTripAmountPassengerDummy, 
+        //     monthlyTripAmountDriverDummy, 
+        //     monthlyTripAmountPassengerDummy, 
+        //     seniorityDriverDummy, 
+        //     seniorityPassengerDummy, 
+        //     recentTripAmountDummy);
     };
 
     const discard = () => {     
@@ -385,7 +390,7 @@ const Page = () => {
                             placeholder=""
                             label="Recent Trip Amount"
                             variant="outlined"/>
-                      </Stack>
+                        </Stack>
                     <Stack> 
                         <Typography
                             sx={[{ ml: 4 }, { mt : 3}]}
@@ -435,7 +440,7 @@ const Page = () => {
                                 variant="contained"
                                 >Next
                             </Button> 
-                        </Stack>
+                </Stack>
             </Box>
         </Modal>
         <Modal
@@ -458,8 +463,48 @@ const Page = () => {
                             direction="row" 
                             justifyContent="space-evenly"
                             spacing={1}>
+
+                        <Stack width = "30%"
+                            // label="Origen"
+                            // placeholder="Origen"
+                            // value={origin}
+                            // onChange={(e) => setOrigin(e.target.value)}
                         
-                            <TextField
+                        >
+                            <GooglePlacesAutocomplete
+                               
+                                apiKey="AIzaSyANbv3JEv2HV3r4Sj9j7Y5yrX3KYQcSmew"    
+                                                                               
+                                
+                                // selectProps={{
+                                    
+                                //     styles: {
+                                //         width : "100%",
+                                //         input: (provided) => {
+                                //             console.log(Input)
+                                //             // ...provided,
+                                //             // color: 'blue',
+                                        
+                                //         // option: (provided) => ({
+                                //         //     ...provided,
+                                //         //     color: 'blue',
+                                //         // }),
+                                //         // singleValue: (provided) => ({
+                                //         //     ...provided,
+                                //         //     color: 'blue',
+                                //         },
+                                //     },
+                                //   }}
+                                />
+
+                        </Stack>
+                        <Stack width = "30%">
+                            <GooglePlacesAutocomplete                                
+                                apiKey="AIzaSyANbv3JEv2HV3r4Sj9j7Y5yrX3KYQcSmew"                                
+                                />
+                        </Stack>
+                       
+                            {/* <TextField
                                 value={origin} 
                                 onChange={(e) => setOrigin(e.target.value)}
                                 height="1"
@@ -475,7 +520,7 @@ const Page = () => {
                                 width="10%"                             
                                 placeholder=""
                                 label="Destination"
-                                variant="outlined"/>    
+                                variant="outlined"/>     */}
 
                             <Button                                 
                                 color="info"            
