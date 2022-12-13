@@ -10,7 +10,7 @@ export class PricesRules{
     seniorityDriver; //constante que multiplica por Antiguedad en la app del chofer 
     seniorityPassenger; //constante que multiplica por Antiguedad en la app del pasajero
     recentTripAmount; //constante que multiplica por Cantidad de viajes en la ultima ventana temporal
-    
+    basePrice; //bajada de bandera
 
     constructor(
         time,

@@ -23,7 +23,7 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 850,
+    width: 1000,
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -79,7 +79,7 @@ const Page = () => {
     
     
     
-    const submitRules = () => { 
+    const submitRules = async () => { 
     
         const newRules = new PricesRules( 
             time,
@@ -91,9 +91,10 @@ const Page = () => {
             monthlyTripAmountPassenger, 
             seniorityDriver,
             seniorityPassenger, 
-            recentTripAmount);
+            recentTripAmount,
+            basePrice);
             
-        if(TripsServices.applyPricingRules(newRules)){
+        if(await TripsServices.applyPricingRules(newRules)){
             setOpenModal3(true)
         };
     };
@@ -121,7 +122,9 @@ const Page = () => {
             monthlyTripAmountPassengerDummy, 
             seniorityDriverDummy, 
             seniorityPassengerDummy, 
-            recentTripAmountDummy);
+            recentTripAmountDummy,
+            tripDuration,
+            tripDistance);
 
         setCalculatedPrice(result);
     };
@@ -185,7 +188,8 @@ const Page = () => {
                         justifyContent="space-evenly"
                         spacing={4}>
                     
-                        <TextField
+                        <TextField 
+                            required
                             value={time} 
                             onChange={(e) => setTime(e.target.value)}
                             height="1"
@@ -194,7 +198,8 @@ const Page = () => {
                             label="Night Time"
                             variant="outlined"/>
 
-                        <TextField
+                        <TextField 
+                            required
                             value={duration}  
                             onChange={(e) => setduration(e.target.value)}
                             height="1"
@@ -203,7 +208,8 @@ const Page = () => {
                             label="Duration"
                             variant="outlined"/>    
 
-                        <TextField
+                        <TextField 
+                            required
                             value={distance} 
                             onChange={(e) => setdistance(e.target.value)}
                             height="1"
@@ -227,7 +233,8 @@ const Page = () => {
                         justifyContent="space-evenly"
                         spacing={2}>
 
-                        <TextField
+                        <TextField 
+                            required
                             value={dailyTripAmountDriver}
                             onChange={(e) => setDailyTripAmountDriver(e.target.value)}
                             height="1"
@@ -236,7 +243,8 @@ const Page = () => {
                             label="Driver's"
                             variant="outlined"/>
 
-                        <TextField
+                        <TextField 
+                            required
                             value={dailyTripAmountPassenger} 
                             onChange={(e) => setDailyTripAmountPassenger(e.target.value)}
                             height="1"
@@ -258,7 +266,8 @@ const Page = () => {
                         justifyContent="space-evenly"
                         spacing={2}>
 
-                        <TextField
+                        <TextField 
+                            required
                             value={monthlyTripAmountDriver} 
                             onChange={(e) => setMonthlyTripAmountDriver(e.target.value)}
                             height="1"
@@ -267,7 +276,8 @@ const Page = () => {
                             label="Driver's"
                             variant="outlined"/>
 
-                        <TextField
+                        <TextField 
+                            required
                             value={monthlyTripAmountPassenger} 
                             onChange={(e) => setMonthlyTripAmountPassenger(e.target.value)}
                             height="1"
@@ -290,7 +300,8 @@ const Page = () => {
                         justifyContent="space-evenly"
                         spacing={2}>
 
-                        <TextField
+                        <TextField 
+                            required
                             value={seniorityDriver} 
                             onChange={(e) => setSeniorityDriver(e.target.value)}
                             height="1"
@@ -299,7 +310,8 @@ const Page = () => {
                             label="Driver's"
                             variant="outlined"/>
 
-                        <TextField
+                        <TextField 
+                            required
                             value={seniorityPassenger} 
                             onChange={(e) => setSeniorityPassenger(e.target.value)}
                             height="1"
@@ -322,7 +334,8 @@ const Page = () => {
                         justifyContent="space-evenly"
                         spacing={4}>
 
-                        <TextField
+                        <TextField 
+                            required
                             value={recentTripAmount} 
                             onChange={(e) => setRecentTripAmount(e.target.value)}
                             height="1"
@@ -331,7 +344,8 @@ const Page = () => {
                             label="Recent Trip Amount"
                             variant="outlined"/>
 
-                        <TextField
+                        <TextField 
+                            required
                             value={basePrice} 
                             onChange={(e) => setBasePrice(e.target.value)}
                             height="1"
@@ -391,7 +405,8 @@ const Page = () => {
                             justifyContent="center"
                             spacing={2}>
 
-                            <TextField
+                            <TextField 
+                                required
                             value={dailyTripAmountPassengerDummy} 
                             onChange={(e) => setDailyTripAmountPassengerDummy(e.target.value)}
                             height="1"
@@ -400,7 +415,8 @@ const Page = () => {
                             label="Daily Trip Amount"
                             variant="outlined"/>
 
-                              <TextField
+                            <TextField 
+                            required
                             value={monthlyTripAmountPassengerDummy} 
                             onChange={(e) => setMonthlyTripAmountPassengerDummy(e.target.value)}
                             height="1"
@@ -409,7 +425,8 @@ const Page = () => {
                             label="Monthly Trip Amount"
                             variant="outlined"/>
 
-                            <TextField
+                            <TextField 
+                            required
                             value={seniorityPassengerDummy} 
                             onChange={(e) => setSeniorityPassengerDummy(e.target.value)}
                             height="1"
@@ -418,7 +435,8 @@ const Page = () => {
                             label="Seniority"
                             variant="outlined"/>
                             
-                            <TextField
+                            <TextField 
+                            required
                             value={recentTripAmountDummy} 
                             onChange={(e) => setRecentTripAmountDummy(e.target.value)}
                             height="1"
@@ -441,7 +459,8 @@ const Page = () => {
                             justifyContent="center"
                             spacing={2}>
                   
-                  <TextField
+                            <TextField 
+                            required
                             value={dailyTripAmountDriverDummy} 
                             onChange={(e) => setDailyTripAmountDriverDummy(e.target.value)}
                             height="1"
@@ -450,7 +469,8 @@ const Page = () => {
                             label="Daily Trip Amount"
                             variant="outlined"/>
 
-                              <TextField
+                            <TextField 
+                            required
                             value={monthlyTripAmountDriverDummy} 
                             onChange={(e) => setMonthlyTripAmountDriverDummy(e.target.value)}
                             height="1"
@@ -459,7 +479,8 @@ const Page = () => {
                             label="Monthly Trip Amount"
                             variant="outlined"/>
 
-                            <TextField
+                            <TextField 
+                            required
                             value={seniorityDriverDummy} 
                             onChange={(e) => setSeniorityDriverDummy(e.target.value)}
                             height="1"
@@ -540,7 +561,8 @@ const Page = () => {
                                 />
                         </Stack> */}
                        
-                            <TextField
+                            <TextField 
+                                required
                                 value={tripDistance} 
                                 onChange={(e) => setTripDistance(e.target.value)}
                                 height="1"
@@ -549,7 +571,8 @@ const Page = () => {
                                 label="Trip Distance"
                                 variant="outlined"/>
 
-                            <TextField
+                            <TextField 
+                                required
                                 value={tripDuration}  
                                 onChange={(e) => setTripDuration(e.target.value)}
                                 height="1"
@@ -574,7 +597,8 @@ const Page = () => {
                             justifyContent="center"
                             spacing={2}>
                             
-                            <TextField
+                            <TextField 
+                                required
                                 value={calculatedPrice}                                                      
                                 label="Calculated trip price"
                                 variant="filled" color="success" focused
@@ -629,7 +653,7 @@ const Page = () => {
                         onClick={() => {setOpenModal1(false),setOpenModal2(false), setOpenModal3(false)}}
                         size="medium"
                         variant="contained"
-                        >Okarda lopez
+                        >Ok
                     </Button> 
                        
                 </Stack>         

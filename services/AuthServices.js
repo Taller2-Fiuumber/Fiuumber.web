@@ -8,12 +8,12 @@ import { currentAdmin, currentUserToken } from '../src/contexts/currentAdmin';
 import { HEADERS, RAW_HEADERS, URL_AUTH, URL_USERS } from "./Constants";
 
 export const AuthService = {
-    getCurrentUserToken: () => currentUserToken,
-    setCurrentUserToken: (userToken) => {
-        //pasa dos veces??
-        // console.log('raviol');
-        currentUserToken = userToken;
-    },
+    // getCurrentUserToken: () => currentUserToken,
+    // setCurrentUserToken: (userToken) => {
+    //     //pasa dos veces??
+    //     // console.log('raviol');
+    //     currentUserToken = userToken;
+    // },
     //getHeaders: () => { return { headers: {...RAW_HEADERS, 'auth-token': _userToken?.token}}},
     validateLogin: async (email, password) => {
         try {             
@@ -24,6 +24,7 @@ export const AuthService = {
             const admin = new Admin(response.data.user.id, response.data.user.email, response.data.user.firstName, response.data.user.lastName, response.data.user.password);
             currentAdmin.setAdmin(admin.adminId, admin.email, admin.firstName, admin.lastName, admin.password);
             currentUserToken.setUserToken(currentAdmin, token);
+            console.log(currentUserToken.token);
         }   
         catch (error) {           
             if (error && error.response && error.response.status == 401) return null;
