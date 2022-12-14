@@ -12,6 +12,9 @@ import { TripDurationMetrics } from '../components/dashboard/trip-duration';
 import { DashboardLayout } from '../components/dashboard-layout';
 import { PaymentsMetrics } from '../components/dashboard/payment-metrics';
 import { CollectionMetrics } from '../components/dashboard/collection-metrics';
+import {CollectionDriverAvgMetrics} from '../components/dashboard/collection-driver-avg'
+import {CollectionDriverMaxMetrics} from '../components/dashboard/collection-driver-max'
+import {CollectionDriverMinMetrics} from '../components/dashboard/collection-driver-min'
 import { useState } from 'react';
 
 import { styled, alpha } from '@mui/material/styles';
@@ -266,6 +269,33 @@ return(
                 >
                   <CollectionMetrics />
               </Grid>
+              <Grid
+              item
+              lg={11}
+              md={12}
+              xl={11}
+              xs={12}
+              >
+             <CollectionDriverMaxMetrics />
+            </Grid>
+            <Grid
+              item
+              lg={11}
+              md={12}
+              xl={11}
+              xs={12}
+              >
+             <CollectionDriverMinMetrics />
+            </Grid>
+            <Grid
+              item
+              lg={11}
+              md={12}
+              xl={11}
+              xs={12}
+              >
+             <CollectionDriverAvgMetrics />
+            </Grid>
             </>
           }
         </Grid>

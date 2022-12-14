@@ -1,21 +1,23 @@
-import { Bar } from 'react-chartjs-2';
+import { Bar, Line } from 'react-chartjs-2';
 import { Box, Button, Card, CardContent, CardHeader, Divider, useTheme, Select, MenuItem, InputLabel, FormControl} from '@mui/material';
 import {useState, useEffect} from 'react';
 import { TripsServices } from '../../../services/TripsServices';
 
-export const PaymentsMetrics = (props) => {
+export const CollectionDriverMaxMetrics = (props) => {
   const theme = useTheme();
 
   const[time, setTime] = useState(7);
-  const[newPaymentData, setNewPaymentData] = useState([]);
+  const[driverMaxData, setDriverMaxData] = useState([]);
   const [labels, changeLabels] = useState([]);
 
   const changeTimeSelection = (numberOfDays) => {
     
     if (numberOfDays == "Last 30 days") {
       setTime(30);
-    }else {
-      setTime(7);
+    }else if(numberOfDays == "Last 14 days"){
+        setTime(14);
+    }else{
+        setTime(7);
     }
   };
 
@@ -40,8 +42,8 @@ export const PaymentsMetrics = (props) => {
         barThickness: 12,
         borderRadius: 4,
         categoryPercentage: 0.5,
-        data: newPaymentData,
-        label: 'Money received from passengers',
+        data: driverMaxData,
+        label: 'Collected Money',
         maxBarThickness: 10
       }
     ],
@@ -109,11 +111,12 @@ export const PaymentsMetrics = (props) => {
             label="Period"
           >
             <MenuItem value={"Last 7 days"}>Last 7 days</MenuItem>
+            <MenuItem value={"Last 14 days"}>Last 14 days</MenuItem>
             <MenuItem value={"Last 30 days"}>Last 30 days</MenuItem>
           </Select>
       </FormControl>
         )}
-        title="Payment metrics"
+        title="Drivers Maximum Collection"
       />
       <Divider />
       <CardContent>
@@ -123,7 +126,7 @@ export const PaymentsMetrics = (props) => {
             position: 'relative'
           }}
         >
-          <Bar
+          <Line
             data={data}
             options={options}
           />
