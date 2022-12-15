@@ -41,7 +41,7 @@ export const PaymentsMetrics = (props) => {
         borderRadius: 4,
         categoryPercentage: 0.5,
         data: newPaymentData,
-        label: 'Number of trips',
+        label: 'Money received from passengers',
         maxBarThickness: 10
       }
     ],

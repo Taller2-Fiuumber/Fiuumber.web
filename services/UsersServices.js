@@ -375,4 +375,17 @@ export const UsersService = {
             throw error;
         }
     },
+
+    getComplaints: async (id) => {
+        try {
+
+            const response = await axios.get(`${URL_USERS}/report/driver/amount/${id}`, UsersService.getHeaders());
+            return response.data.amount;
+        }
+        catch (error) {
+            console.log(`UsersService getComplaints: ${error}`);
+            if (error && error.response && error.response.status == 401) return null;
+            throw error;
+        }
+    },
 };
