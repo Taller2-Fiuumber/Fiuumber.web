@@ -224,7 +224,8 @@ export const UsersService = {
                 response_user.data.address,
                 response_user.data.password,
                 response_user.data.blocked,
-                null);
+                response_user.data.walletAddress
+                );
             return passenger;
         }
         catch (error) {

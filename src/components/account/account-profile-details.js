@@ -2,6 +2,7 @@
 import Router from 'next/router';
 import { UsersService } from '../../../services/UsersServices';
 import { TripsServices } from '../../../services/TripsServices';
+import { PaymentsServices } from '../../../services/PaymentsServices';
 
 import { useEffect, useRef, useState } from 'react';
 import { Passenger } from '../../../models/passenger';
@@ -41,6 +42,17 @@ const style2 = {
   p: 4,
 };
 
+const style3 = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 300,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 export const AccountProfileDetails = (props) => {
 
@@ -53,6 +65,7 @@ export const AccountProfileDetails = (props) => {
   const [userBlocked, setUserBlock] = useState(false);
   const [noData, setNoData] = useState(false);
   const[openModal, setOpenModal] = useState(false);
+  const[openModal2, setOpenModal2] = useState(false);
   const[paymentDetail, setPaymentDetail] = useState("");
   const[loadBalance, setLoadBalance] = useState(0);
 
@@ -132,6 +145,12 @@ export const AccountProfileDetails = (props) => {
   const cargarSaldo = () => {
  
     console.log('cargue saldo', loadBalance, paymentDetail);
+    console.log ('a la wallet de', user.email  ,user.wallet);
+    if (PaymentsServices.loadBallanceToWallet(loadBalance,user.wallet)){
+      setOpenModal(false);
+      setOpenModal2(true);
+    }   
+    
     
   };
 
@@ -431,6 +450,34 @@ export const AccountProfileDetails = (props) => {
                                 >Next
                             </Button> 
                 </Stack>
+            </Box>
+        </Modal>
+        <Modal
+            open={openModal2}
+            onClose={() => setOpenModal(false)}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+            >
+            <Box sx={style3}>            
+                <Stack direction ="column" justifyContent = "space-evenly" spacing={2}>
+                    <Stack>
+                        <Typography
+                            // sx={[{ ml: 4 }, { mt : 3}]}
+                            variant="h6"
+                            color="#000000"
+                            textAlign='center'                            
+                        >  The balance was charged successfully!
+                        </Typography> 
+                    </Stack>
+                    <Button                                
+                        color="info"            
+                        onClick={() => {setOpenModal2(false)}}
+                        size="medium"
+                        variant="contained"
+                        >Ok
+                    </Button> 
+                       
+                </Stack>         
             </Box>
         </Modal>
 
