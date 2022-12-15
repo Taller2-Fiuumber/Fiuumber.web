@@ -24,10 +24,22 @@ import {
   CardHeader,
   Divider,
   Grid,
-  TextField
+  TextField,
+  Modal,
+  Stack
 } from '@mui/material';
 
-
+const style2 = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 500,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 
 export const AccountProfileDetails = (props) => {
@@ -40,6 +52,10 @@ export const AccountProfileDetails = (props) => {
   const [userType, setUserType] = useState(true);
   const [userBlocked, setUserBlock] = useState(false);
   const [noData, setNoData] = useState(false);
+  const[openModal, setOpenModal] = useState(false);
+  const[paymentDetail, setPaymentDetail] = useState("");
+  const[loadBalance, setLoadBalance] = useState(0);
+
 
   const type = urlParams.get('type');
 
@@ -58,6 +74,7 @@ export const AccountProfileDetails = (props) => {
       console.log(error);
     });
   };
+
 
  useEffect(() => {
   if(type=="passenger"){
@@ -110,8 +127,13 @@ export const AccountProfileDetails = (props) => {
     }
   }, [setUser, id]);
 
-  console.log(user.vehicle);
-  console.log(user);
+
+
+  const cargarSaldo = () => {
+ 
+    console.log('cargue saldo', loadBalance, paymentDetail);
+    
+  };
 
 
 
@@ -325,13 +347,100 @@ export const AccountProfileDetails = (props) => {
               justifyContent: 'flex-end',
               p: 2
             }}>
+              
+
+<Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              p: 2
+            }}
+          >                     
+
+            {(type=="passenger") && 
+            <Button
+              color="info"
+              variant="contained" //si block = false => tenbgo que poder apretar => queda blocked user
+              onClick={() => {setOpenModal(true)}}
+            >
+              Cargar saldo
+            </Button>            
+            }  
+
+          </Box>
+          <Modal
+            open={openModal}
+            onClose={() => setOpenModal(false)}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+            >
+            <Box sx={style2}>            
+                <Stack direction ="column" justifyContent = "space-evenly" spacing={3}>
+                    <Stack>
+                        <Typography
+                            sx={[{ ml: 4 }, { mt : 3}]}
+                            variant="h5"
+                            color="#000000"
+                        > Enter detail for balance charge:
+                        </Typography> 
+                    </Stack>
+                    <Stack 
+                            direction="row" 
+                            justifyContent="center"
+                            spacing={2}>
+                            
+                            <TextField 
+                            required
+                            value={paymentDetail} 
+                            onChange={(e) => setPaymentDetail(e.target.value)}
+                            height="1"
+                            width="10%"                             
+                            placeholder=""
+                            label="Payment Detail"
+                            variant="outlined"/>
+                        </Stack>
+                    <Stack>
+                        <Typography
+                            sx={[{ ml: 4 }, { mt : 3}]}
+                            variant="h5"
+                            color="#000000"
+                        > Load Balance:
+                        </Typography> 
+                    </Stack>
+
+                        <Stack 
+                            direction="row" 
+                            justifyContent="center"
+                            spacing={2}>
+                            
+                            <TextField 
+                            required
+                            value={loadBalance} 
+                            onChange={(e) => setLoadBalance(e.target.value)}
+                            height="1"
+                            width="10%"                             
+                            placeholder=""
+                            label="Amount"
+                            variant="outlined"/>
+                        </Stack>
+                            <Button                                
+                                color="info"            
+                                onClick={() => {cargarSaldo()}}
+                                size="large"
+                                variant="contained"
+                                >Next
+                            </Button> 
+                </Stack>
+            </Box>
+        </Modal>
+
           <Box
             sx={{
               display: 'flex',
               justifyContent: 'flex-end',
               p: 2
             }}
-          > 
+          >
             {(type!="admin") && 
             <Button
               color="error"
@@ -342,7 +451,6 @@ export const AccountProfileDetails = (props) => {
               Block User
             </Button>            
             }
-
           </Box>
           <Box
             sx={{
