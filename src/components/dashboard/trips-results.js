@@ -43,6 +43,7 @@ export const TripsResultsList = ({...rest }) => {
     }).catch((error) => {
       console.log(error);
     });
+    
 
   }, [page, rowsPerPage]);
 

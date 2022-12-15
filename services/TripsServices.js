@@ -129,9 +129,9 @@ export const TripsServices = {
 
             const url = '';
             if (typeOfUser == "passenger"){
-                url = `${URL_TRIPS}/passenger/${id}?skip=${skip}&limit=${limit}`
+                url = `${URL_TRIPS}/passenger/${id}?skip=${skip}&limit=${limit}&in_progress=false`
             } else {
-                url = `${URL_TRIPS}/driver/${id}?skip=${skip}&limit=${limit}`
+                url = `${URL_TRIPS}/driver/${id}?skip=${skip}&limit=${limit}&in_progress=false`
             }
             const response = await axios.get(url, TripsServices.getHeaders());
             if (response.data.length != 0){
