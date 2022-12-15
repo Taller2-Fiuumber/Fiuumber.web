@@ -93,13 +93,15 @@ const Page = () => {
             seniorityPassenger, 
             recentTripAmount,
             basePrice);
+
+        console.log(newRules);
             
         if(await TripsServices.applyPricingRules(newRules)){
             setOpenModal3(true)
         };
     };
 
-    const testRules = () => { 
+    const testRules = async () => { 
         
         const newRules = new PricesRules(
             time,
@@ -115,7 +117,7 @@ const Page = () => {
 
 
 
-        const result = TripsServices.testPricingRules(newRules, 
+        const result = await TripsServices.testPricingRules(newRules, 
             dailyTripAmountDriverDummy,
             dailyTripAmountPassengerDummy, 
             monthlyTripAmountDriverDummy, 

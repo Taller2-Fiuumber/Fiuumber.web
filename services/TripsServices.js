@@ -254,7 +254,7 @@ export const TripsServices = {
     
         } 
         catch (error) {
-            console.log(`TripService applyPricingRules: ${error}`);
+            console.log(`TripService testPricingRules: ${error}`);
             if (error && error.response && error.response.status == 401) return null;
             throw error;
         }

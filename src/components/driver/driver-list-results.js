@@ -34,30 +34,38 @@ export const DriverListResults = ({...rest }) => {
   const [drivers, setDrivers] = useState([]);
   const [amountOfDrivers, setAmountOfDrivers] = useState(0);
 
+
   useEffect(() => {
+    getInitialData(page, rowsPerPage);
+
+  }, []);
+
+
+
+  const getInitialData = (page, rowsPerPage) => {
     UsersService.getAmountOfDriver().then((value) => {
       setAmountOfDrivers(value);
     }).catch((error) => {
       console.log(error);
     });
-  }, []);
 
-  useEffect(() => {
     UsersService.getDrivers(page * rowsPerPage, rowsPerPage).then((value) => {
-      setDrivers(value);
+      const drivers_aux = value ? value:[]
+      setDrivers(drivers_aux);
     }).catch((error) => {
       console.log(error);
     });
-
-  }, [rowsPerPage, page]);
+  }
 
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value));
+    getInitialData(page, parseInt(event.target.value));  
   };
 
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
+    getInitialData(newPage, rowsPerPage);
   };
 
   return (
