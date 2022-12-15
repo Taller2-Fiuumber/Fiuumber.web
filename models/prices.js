@@ -1,19 +1,19 @@
 
-export class PricesRules{
-    time; //Horario del viaje
-    duration; //Duracion
-    distance; //Distancia a recorrer
-    dailyTripAmountDriver; //Cantidad de viajes en el dia del chofer
-    dailyTripAmountPassenger; //Cantidad de viajes en el dia del pasajero
-    monthlyTripAmountDriver; //Cantidad de viajes en el mes del chofer
-    monthlyTripAmountPassenger; //Cantidad de viajes en el mes del pasajero
-    seniorityDriver; //Antiguedad en la app del chofer
-    seniorityPassenger; //Antiguedad en la app del pasajero
-    recentTripAmount; //Cantidad de viajes en la ultima ventana temporal
-    
+export class PricesRules{ 
+    nightShift; //constante que multiplica por Horario del viaje
+    duration; //constante que multiplica por Duracion
+    distance; //constante que multiplica por  Distancia a recorrer
+    dailyTripAmountDriver; //constante que multiplica por Cantidad de viajes en el dia del chofer
+    dailyTripAmountPassenger; //constante que multiplica por Cantidad de viajes en el dia del pasajero
+    monthlyTripAmountDriver; //constante que multiplica por Cantidad de viajes en el mes del chofer
+    monthlyTripAmountPassenger; //constante que multiplica por Cantidad de viajes en el mes del pasajero
+    seniorityDriver; //constante que multiplica por Antiguedad en la app del chofer 
+    seniorityPassenger; //constante que multiplica por Antiguedad en la app del pasajero
+    recentTripAmount; //constante que multiplica por Cantidad de viajes en la ultima ventana temporal
+    basePrice; //bajada de bandera
 
     constructor(
-        time,
+        nightShift,
         duration, 
         distance,
         dailyTripAmountDriver,
@@ -25,9 +25,8 @@ export class PricesRules{
         recentTripAmount,
         basePrice,
 
-
     ) {        
-        this.time = time;
+        this.nightShift = nightShift;
         this.duration = duration; 
         this.distance = distance;
         this.dailyTripAmountDriver = dailyTripAmountDriver;

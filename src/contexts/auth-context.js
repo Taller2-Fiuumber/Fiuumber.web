@@ -44,13 +44,13 @@ export const AuthProvider = (props) => {
   const { children } = props;
 
   const logIn = async (email, password) => {
-    if (CONFIG.bypassLogin) {
-      admin = new Admin(420, "email", "firstName", "lastName", "address", "password");
-      currentUserToken.setUserToken(admin, 'EL_TOKEN');
-      // const authAction = new AuthAction(currentUserToken, 'SIGN_IN');
-      // dispatch(authAction);
-      return null;
-    }
+    // if (CONFIG.bypassLogin) {
+    //   admin = new Admin(420, "email", "firstName", "lastName", "address", "password");
+    //   currentUserToken.setUserToken(admin, 'EL_TOKEN');
+    //   // const authAction = new AuthAction(currentUserToken, 'SIGN_IN');
+    //   // dispatch(authAction);
+    //   return null;
+    // }
     // The next service will update currentUserToken if everything goes okay
     await AuthService.validateLogin(email, password);
     
@@ -64,6 +64,7 @@ export const AuthProvider = (props) => {
 
     localStorage.setItem('userToken', JSON.stringify(currentUserToken));
     //Estaria bueno acá, al pushear metrics, pasarle el usuario.
+    
     Router.push('/metrics');
 
   };
