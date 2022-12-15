@@ -10,23 +10,29 @@ export const UserCalificationMetrics = (props) => {
 
   const labels = [1, 2, 3, 4, 5]; 
   const[calificationsData, setCalificationsData] = useState([]);
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  const id = urlParams.get('id');
-  const type = urlParams.get('type');
+ 
+  const [id, setId] = useState('');
+  const [typeWindow, setTypeWindow] = useState('');
+ 
 
   useEffect(() => {
-        TripsServices.getCalificationsById(id, type).then((value) => {
-            if (value != undefined){
-                if (value == false) {
-                    setCalificationsData([0,0,0,0,0]);
-                } else {
-                    setCalificationsData(value);
-                }
+
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    setId(urlParams.get('id'));
+    setTypeWindow(urlParams.get('type'));
+
+    TripsServices.getCalificationsById(id, typeWindow).then((value) => {
+        if (value != undefined){
+            if (value == false) {
+                setCalificationsData([0,0,0,0,0]);
+            } else {
+                setCalificationsData(value);
             }
-          }).catch((error) => {
-            console.log(error);
-        }); 
+        }
+      }).catch((error) => {
+        console.log(error);
+    }); 
     }, []);
 
   const data = {

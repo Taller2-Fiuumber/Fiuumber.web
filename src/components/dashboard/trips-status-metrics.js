@@ -13,15 +13,17 @@ export const TripsStatus = (props) => {
   const [amountOfFinishedTrips, setAmountOfFinishedTrips] = useState(0);
   const [amountOfCanceledTrips, setAmountOfCanceledTrips] = useState(0);
 
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  const id = urlParams.get('id');
-  const type = urlParams.get('type');
+  const [id, setId] = useState('');
+  const [typeWindow, setTypeWindow] = useState('');
 
   useEffect(() => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    setId(urlParams.get('id'));
+    setTypeWindow(urlParams.get('type'));
     
 
-    TripsServices.getFinishedTripsById(id, type).then((value) => {
+    TripsServices.getFinishedTripsById(id, typeWindow).then((value) => {
 
       if (value != undefined){
           setAmountOfFinishedTrips(value);
@@ -30,7 +32,7 @@ export const TripsStatus = (props) => {
       console.log(error);
     });
 
-    TripsServices.getCanceledTripsById(id, type).then((value) => {
+    TripsServices.getCanceledTripsById(id, typeWindow).then((value) => {
       
       if (value != undefined){
           setAmountOfCanceledTrips(value);

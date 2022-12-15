@@ -33,15 +33,14 @@ import {
 export const AccountProfileDetails = (props) => {
 
  
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  const id = urlParams.get('id');
   const [user, setUser] = useState(new Driver(-1, '','','','','','', false,null,new Vehicle('','','','','')));
   const [userType, setUserType] = useState(true);
   const [userBlocked, setUserBlock] = useState(false);
   const [noData, setNoData] = useState(false);
 
-  const type = urlParams.get('type');
+  const [id, setId] = useState('');
+  const [typeWindow, setTypeWindow] = useState('');
+ 
 
   const blockUser = () => {
     UsersService.blockUser(id).then((value) => { 
@@ -60,7 +59,17 @@ export const AccountProfileDetails = (props) => {
   };
 
  useEffect(() => {
-  if(type=="passenger"){
+  console.log(window);
+
+  
+
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  setId(urlParams.get('id'));
+  setTypeWindow(urlParams.get('type'));
+
+ 
+  if(typeWindow=="passenger"){
       UsersService.getPassenger(id).then((value) => { 
         setUser(new Passenger(value.userId, value.email,value.firstName,value.lastName,value.username,value.address,value.password, value.blocked,value.wallet));
         setUserBlock(value.blocked);     
@@ -68,7 +77,7 @@ export const AccountProfileDetails = (props) => {
         console.log(error);
       });
       setUserType(false);
-      TripsServices.getAmountOfTrips(id, type).then((value) => {
+      TripsServices.getAmountOfTrips(id, typeWindow).then((value) => {
           if(value != 0){
             setNoData(false);
           } else {
@@ -79,7 +88,7 @@ export const AccountProfileDetails = (props) => {
       });
 
   }
-  if(type=="driver"){
+  if(typeWindow=="driver"){
       UsersService.getDriver(id).then((value) => { 
         console.log("valor",value);
         const driverVehicle= new Vehicle(value.vehicle.domain,value.vehicle.modelYear,value.vehicle.colorName,value.vehicle.vehicle.brand,value.vehicle.vehicle.model)
@@ -89,7 +98,7 @@ export const AccountProfileDetails = (props) => {
         console.log(error);
       });
       setUserType(false);
-      TripsServices.getAmountOfTrips(id, type).then((value) => {
+      TripsServices.getAmountOfTrips(id, typeWindow).then((value) => {
         if(value != 0){
           setNoData(false);
         } else {
@@ -100,7 +109,7 @@ export const AccountProfileDetails = (props) => {
       });
 
     }
-  if(type=="admin"){
+  if(typeWindow=="admin"){
       UsersService.getAdmin(id).then((value) => { 
         setUser(new Admin(value.id, value.email, value.firstName, value.lastName, value.password,  value.createdAt));
       }).catch((error) => {
@@ -125,7 +134,7 @@ export const AccountProfileDetails = (props) => {
     >
       <Card>
         <CardHeader
-          subheader={type.toLocaleUpperCase()}
+          subheader={typeWindow.toLocaleUpperCase()}
           title="PROFILE"
         />
         <Divider />
@@ -196,7 +205,7 @@ export const AccountProfileDetails = (props) => {
                 variant="outlined"
               />
             </Grid>
-            {(type!="admin") && 
+            {(typeWindow!="admin") && 
             <Grid
               item
               md={6}
@@ -214,7 +223,7 @@ export const AccountProfileDetails = (props) => {
               />
             </Grid>
          }
-          {(type!="admin") && 
+          {(typeWindow!="admin") && 
           <Grid
             item
             md={6}
@@ -231,7 +240,7 @@ export const AccountProfileDetails = (props) => {
             />
           </Grid>
         }
-          {(type=="driver") &&
+          {(typeWindow=="driver") &&
           <Grid
             item
             md={6}
@@ -248,7 +257,7 @@ export const AccountProfileDetails = (props) => {
             />
           </Grid>
         }
-          {(type=="driver") && 
+          {(typeWindow=="driver") && 
           <Grid
             item
             md={6}
@@ -265,7 +274,7 @@ export const AccountProfileDetails = (props) => {
             />
           </Grid>
         }
-        {(type=="driver") && 
+        {(typeWindow=="driver") && 
           <Grid
             item
             md={6}
@@ -282,7 +291,7 @@ export const AccountProfileDetails = (props) => {
             />
           </Grid>
         }
-        {(type=="driver") && 
+        {(typeWindow=="driver") && 
           <Grid
             item
             md={6}
@@ -299,7 +308,7 @@ export const AccountProfileDetails = (props) => {
             />
           </Grid>
         }
-        {(type=="driver") && 
+        {(typeWindow=="driver") && 
           <Grid
             item
             md={6}
@@ -332,7 +341,7 @@ export const AccountProfileDetails = (props) => {
               p: 2
             }}
           > 
-            {(type!="admin") && 
+            {(typeWindow!="admin") && 
             <Button
               color="error"
               variant="contained" //si block = false => tenbgo que poder apretar => queda blocked user
@@ -351,7 +360,7 @@ export const AccountProfileDetails = (props) => {
               p: 2
             }}
           > 
-            {(type!="admin") && 
+            {(typeWindow!="admin") && 
             <Button
               color="primary"
               variant="contained" //si block = false => no tenbgo que poder apretar => niego block user
@@ -387,7 +396,7 @@ export const AccountProfileDetails = (props) => {
             xl={11}
             xs={12}
           >
-            { (type!="admin") &&
+            { (typeWindow!="admin") &&
             <Typography
               sx={{ m: 2 }}
               variant="h5"
@@ -396,10 +405,10 @@ export const AccountProfileDetails = (props) => {
             > User Califications Metrics
             </Typography>
             }
-            { (type!="admin") &&
+            { (typeWindow!="admin") &&
               <UserCalificationMetrics sx={{ height: 650 }}  />
             }
-            { (type!="admin") &&
+            { (typeWindow!="admin") &&
             <Typography
               sx={{ m: 2 }}
               variant="h5"
@@ -408,10 +417,10 @@ export const AccountProfileDetails = (props) => {
             > Trips history
             </Typography>
             }
-            { (type!="admin") &&
+            { (typeWindow!="admin") &&
                <TripsResultsList sx={{ width: 850 }}  />
             }
-             { (type!="admin") &&
+             { (typeWindow!="admin") &&
             <Typography
               sx={{ m: 2 }}
               variant="h5"
@@ -420,7 +429,7 @@ export const AccountProfileDetails = (props) => {
             > Trips Status Metrics
             </Typography>
             }
-            { (type!="admin") &&
+            { (typeWindow!="admin") &&
                <TripsStatus sx={{ width: 850 }}  />
             }
             </Grid>
