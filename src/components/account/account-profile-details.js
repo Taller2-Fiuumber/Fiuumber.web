@@ -64,6 +64,7 @@ export const AccountProfileDetails = (props) => {
   const [userType, setUserType] = useState(true);
   const [userBlocked, setUserBlock] = useState(false);
   const [noData, setNoData] = useState(false);
+  
   const[openModal, setOpenModal] = useState(false);
   const[openModal2, setOpenModal2] = useState(false);
   const[paymentDetail, setPaymentDetail] = useState("");
