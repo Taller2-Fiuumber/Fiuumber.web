@@ -33,29 +33,34 @@ export const AdminListResults = ({...rest }) => {
   const [amountOfAdmins, setAmountOfAdmins] = useState(0);
 
   useEffect(() => {
+    getInitialData(page, rowsPerPage);
+  }, []);
+
+  const getInitialData = (page, rowsPerPage) => {
+
     UsersService.getAmountOfAdmins().then((value) => {
       setAmountOfAdmins(value);
     }).catch((error) => {
       console.log(error);
     });
-  }, []);
-
-  useEffect(() => {
+  
     UsersService.getAdmins(page * rowsPerPage, rowsPerPage).then((value) => {
-      setAdmins(value);
+      const admins_aux = value ? value:[]
+      setAdmins(admins_aux);
     }).catch((error) => {
       console.log(error);
     });
-
-  }, [rowsPerPage, page]);
+  }
 
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value));
+    getInitialData(page, parseInt(event.target.value));   
   };
 
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
+    getInitialData(newPage, parseInt(event.target.value));   
   };
 
   return (

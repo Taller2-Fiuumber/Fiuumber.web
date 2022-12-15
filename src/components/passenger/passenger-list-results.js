@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import { UsersService } from '../../../services/UsersServices';
 import Router from 'next/router';
 import { Search as SearchIcon } from '../../icons/search';
+import {Passenger} from '../../../models/passenger'
 import {
   Button,
   Box,
@@ -29,33 +30,42 @@ export const PassengerListResults = ({...rest }) => {
   const [selectedPassengerIds, setSelectedPassengerIds] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [page, setPage] = useState(0);
+
+
   const [passengers, setPassengers] = useState([]);
   const [amountOfPassenger, setAmountOfPassenger] = useState(0);
 
   useEffect(() => {
-    UsersService.getAmountOfPassenger().then((value) => {
-      setAmountOfPassenger(value);
-    }).catch((error) => {
-      console.log(error);
-    });
+    getInitialData(page, rowsPerPage);
+
   }, []);
 
-  useEffect(() => {
+
+  const getInitialData = (page, rowsPerPage) => {
+    UsersService.getAmountOfPassenger().then((value) => {      
+      setAmountOfPassenger(value);      
+    }).catch((error) => {
+      console.log(error);
+    });   
+ 
     UsersService.getPassengers(page * rowsPerPage, rowsPerPage).then((value) => {
-      setPassengers(value);
+      const passengers_aux = value ? value:[]
+      setPassengers(passengers_aux);
     }).catch((error) => {
       console.log(error);
     });
+  }
 
-  }, [page, rowsPerPage]);
-
-  const handleChangeRowsPerPage = (event) => {
+  const handleChangeRowsPerPage = (event) => {   
     setRowsPerPage(parseInt(event.target.value));
-    // setPage(0);
+    getInitialData(page, parseInt(event.target.value));    
+    
   };
 
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
+    getInitialData(newPage, rowsPerPage);
+
   };
 
   return (
@@ -115,7 +125,8 @@ export const PassengerListResults = ({...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {passengers.filter(passenger=> {
+              {
+              passengers.filter(passenger=> {
                 if(searchInput === ''){
                   return passenger;
                 } else if (passenger.email.includes(searchInput.toLowerCase())){
