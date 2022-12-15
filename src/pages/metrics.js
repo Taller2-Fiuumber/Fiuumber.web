@@ -200,15 +200,14 @@ return(
                   <MenuItem onClick={handleTripMetrics} disableRipple>
                     Trips metrics
                   </MenuItem>
-                  <MenuItem onClick={handlePaymentMetrics} disableRipple>
-                    Transactions metrics
-                  </MenuItem>
-                  { (showTripMetrics||showPaymentsMetrics) &&
-                    <><Divider sx={{ my: 0.5 }} />
+                  { (showTripMetrics) &&
+                   <Container maxWidth={false}>
+                    <Divider sx={{ my: 0.5 }} />
                       <MenuItem onClick={handleHide} disableRipple>
                             Hide metrics
                       </MenuItem>
-                    </>
+                    
+                    </Container>
                   }
                 </StyledMenu> 
               </Stack>
@@ -216,7 +215,8 @@ return(
           </Grid>
          
           {(showTripMetrics) && 
-          <><Grid
+           <Container maxWidth={false}>
+            <Grid
               item
               lg={11}
               md={12}
@@ -241,62 +241,7 @@ return(
               >
              <TripDurationMetrics />
             </Grid>
-          </>}
-          {(showPaymentsMetrics) && 
-            <>
-              <Grid
-                item
-                lg={11}
-                md={12}
-                xl={11}
-                xs={12}
-                >
-                <Typography
-                  sx={{ m: 2 }}
-                  variant="h5"
-                  color="#000000"
-                  textAlign="center"
-                > Payments Metrics
-                </Typography>
-                <PaymentsMetrics />
-              </Grid>
-              <Grid
-                item
-                lg={11}
-                md={12}
-                xl={11}
-                xs={12}
-                >
-                  <CollectionMetrics />
-              </Grid>
-              <Grid
-              item
-              lg={11}
-              md={12}
-              xl={11}
-              xs={12}
-              >
-             <CollectionDriverMaxMetrics />
-            </Grid>
-            <Grid
-              item
-              lg={11}
-              md={12}
-              xl={11}
-              xs={12}
-              >
-             <CollectionDriverMinMetrics />
-            </Grid>
-            <Grid
-              item
-              lg={11}
-              md={12}
-              xl={11}
-              xs={12}
-              >
-             <CollectionDriverAvgMetrics />
-            </Grid>
-            </>
+            </Container>
           }
         </Grid>
       </Container>
