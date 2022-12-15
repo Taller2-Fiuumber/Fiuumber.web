@@ -5,6 +5,7 @@ import { DashboardLayout } from '../components/dashboard-layout';
 import { PricesRules } from '../../models/prices';
 import {useState} from 'react';
 import { TripsServices} from '../../services/TripsServices';
+import { FareHistoryList } from '../components/dashboard/fare-history-list';
 //import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 
 const style = {
@@ -374,12 +375,7 @@ const Page = () => {
                         variant="contained"
                         > Try Out Rules
                     </Button>
-                    </Stack>
 
-                    <Stack 
-                        direction="row" 
-                        justifyContent="center  "
-                        spacing={4}>
                     <Button
                         color="info"            
                         onClick={() => {setHistoryVisibility(true)} }   
@@ -388,6 +384,8 @@ const Page = () => {
                         > View Fare History
                     </Button> 
                     </Stack>
+
+                   
                   
                     { (historyVisibility==true) &&
                         <FareHistoryList sx={{ width: 850 }}  />
@@ -630,7 +628,7 @@ const Page = () => {
                         </Typography>
                     </Stack>
                     <Button
-                        color="error"
+                        color="success"
                         onClick={() => {setOpenModal1(false),setOpenModal2(false), setOpenModal3(false)}}
                         size="medium"
                         variant="contained"

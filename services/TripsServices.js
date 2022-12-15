@@ -267,7 +267,13 @@ export const TripsServices = {
 
             const url = `${URL_TRIPS}/fare-rules`
             const response = await axios.get(url, TripsServices.getHeaders());
-                
+
+
+            console.log(response);
+            return response;
+
+
+
         } 
         catch (error) {
             console.log(`TripService applyPricingRules: ${error}`);
