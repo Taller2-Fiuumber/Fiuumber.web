@@ -1,11 +1,12 @@
 import Head from 'next/head';
-import { Box, BoxProps, Container, Grid, Input, Typography, TextField, InputAdornment, Button, Stack, Modal } from '@mui/material';
+import { Box, BoxProps, Container, Grid, Input, Typography, TextField,ToggleButton, InputAdornment, Button, Stack, Modal } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { DashboardLayout } from '../components/dashboard-layout';
 import { PricesRules } from '../../models/prices';
 import {useState} from 'react';
 import { TripsServices} from '../../services/TripsServices';
 import { FareHistoryList } from '../components/dashboard/fare-history-list';
+import { Visibility } from '@mui/icons-material';
 //import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 
 const style = {
@@ -365,13 +366,19 @@ const Page = () => {
                         > Try Out Rules
                     </Button>
 
-                    <Button
-                        color="info"            
-                        onClick={() => {setHistoryVisibility(true)} }   
+                    <ToggleButton
+                        color="info"  
+                        //value="check"
+                        selected={historyVisibility}
                         size="large"
                         variant="contained"
+                        onChange={() => {
+                            {setHistoryVisibility(!historyVisibility)}
+                        }}
                         > View Fare History
-                    </Button> 
+                        
+                    </ToggleButton>
+            
                     </Stack>
 
                    

@@ -110,7 +110,7 @@ export const FareHistoryList = ({...rest }) => {
                   key={index}
                 >
                   <TableCell>
-                  {fares.selected}
+                  {fares.selected.toString()}
                   </TableCell>
                   <TableCell>
                   {fares.minimum}
@@ -128,7 +128,7 @@ export const FareHistoryList = ({...rest }) => {
                   {fares.dailyTripAmountPassenger}
                   </TableCell>
                   <TableCell>
-                  {fares.monthlyTripAmountDrive}
+                  {fares.monthlyTripAmountDriver}
                   </TableCell>
                   <TableCell>
                     {fares.monthlyTripAmountPassenger}
