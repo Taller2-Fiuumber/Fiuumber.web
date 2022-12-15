@@ -235,7 +235,7 @@ export const TripsServices = {
         tripDuration,
         tripDistance) => {
 
-        const time = rules.time;
+        const nightShift = rules.nightShift;
         const duration=rules.duration; 
         const distance=rules.distance; 
         const dailyTripAmountDriver= rules.dailyTripAmountDriver; 
@@ -248,7 +248,7 @@ export const TripsServices = {
         const basePrice=rules.basePrice;
 
         try {
-            const url = `${URL_TRIPS}/fare/test/new?time_fare=${time}&minimum_fare=${basePrice}&duration_fare=${duration}&distance_fare=${distance}&dailyTripAmountDriver_fare=${dailyTripAmountDriver}&dailyTripAmountPassenger_fare=${dailyTripAmountPassenger}&monthlyTripAmountDrive_fare=${monthlyTripAmountDriver}&monthlyTripAmountPassenger_fare=${monthlyTripAmountPassenger}&seniorityDriver_fare=${seniorityDriver}&seniorityPassenger_fare=${seniorityPassenger}&recentTripAmount_fare=${recentTripAmount}&duration=${tripDuration}&distance=${tripDistance}&dailyTripAmountDriver=${dailyTripAmountDriverDummy}&dailyTripAmountPassenger=${dailyTripAmountPassengerDummy}&monthlyTripAmountDrive=${monthlyTripAmountDriverDummy}&monthlyTripAmountPassenger=${monthlyTripAmountPassengerDummy}&seniorityDriver=${seniorityDriverDummy}&seniorityPassenger=${seniorityPassengerDummy}&recentTripAmount=${recentTripAmountDummy}`
+            const url = `${URL_TRIPS}/fare/test/new?time_fare=${nightShift}&minimum_fare=${basePrice}&duration_fare=${duration}&distance_fare=${distance}&dailyTripAmountDriver_fare=${dailyTripAmountDriver}&dailyTripAmountPassenger_fare=${dailyTripAmountPassenger}&monthlyTripAmountDrive_fare=${monthlyTripAmountDriver}&monthlyTripAmountPassenger_fare=${monthlyTripAmountPassenger}&seniorityDriver_fare=${seniorityDriver}&seniorityPassenger_fare=${seniorityPassenger}&recentTripAmount_fare=${recentTripAmount}&duration=${tripDuration}&distance=${tripDistance}&dailyTripAmountDriver=${dailyTripAmountDriverDummy}&dailyTripAmountPassenger=${dailyTripAmountPassengerDummy}&monthlyTripAmountDrive=${monthlyTripAmountDriverDummy}&monthlyTripAmountPassenger=${monthlyTripAmountPassengerDummy}&seniorityDriver=${seniorityDriverDummy}&seniorityPassenger=${seniorityPassengerDummy}&recentTripAmount=${recentTripAmountDummy}`
             const response = await axios.get(url, TripsServices.getHeaders());
             return response;
     

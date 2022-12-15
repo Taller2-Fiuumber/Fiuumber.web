@@ -1,6 +1,6 @@
 
 export class PricesRules{ 
-    time; //constante que multiplica por Horario del viaje
+    nightShift; //constante que multiplica por Horario del viaje
     duration; //constante que multiplica por Duracion
     distance; //constante que multiplica por  Distancia a recorrer
     dailyTripAmountDriver; //constante que multiplica por Cantidad de viajes en el dia del chofer
