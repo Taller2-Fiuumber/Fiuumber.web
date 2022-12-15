@@ -13,7 +13,7 @@ export class PricesRules{
     basePrice; //bajada de bandera
 
     constructor(
-        time,
+        nightShift,
         duration, 
         distance,
         dailyTripAmountDriver,
@@ -26,7 +26,7 @@ export class PricesRules{
         basePrice,
 
     ) {        
-        this.time = time;
+        this.nightShift = nightShift;
         this.duration = duration; 
         this.distance = distance;
         this.dailyTripAmountDriver = dailyTripAmountDriver;

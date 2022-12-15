@@ -5,7 +5,7 @@ import { DashboardLayout } from '../components/dashboard-layout';
 import { PricesRules } from '../../models/prices';
 import {useState} from 'react';
 import { TripsServices} from '../../services/TripsServices';
-import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+//import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 
 const style = {
     position: 'absolute',
@@ -50,31 +50,31 @@ const Page = () => {
   
 
     //Constantes para la formula
-    const[time, setTime] = useState("");
-    const[duration, setduration] = useState("");
-    const[distance, setdistance] = useState("");
-    const[dailyTripAmountDriver, setDailyTripAmountDriver] = useState("");
-    const[dailyTripAmountPassenger, setDailyTripAmountPassenger] = useState("");
-    const[monthlyTripAmountDriver, setMonthlyTripAmountDriver] = useState("");
-    const[monthlyTripAmountPassenger, setMonthlyTripAmountPassenger] = useState("");
-    const[seniorityDriver, setSeniorityDriver] = useState("");
-    const[seniorityPassenger, setSeniorityPassenger] = useState("");
-    const[recentTripAmount, setRecentTripAmount] = useState("");
-    const[basePrice, setBasePrice] = useState("");
+    const[nightShift, setnightShift] = useState(0);
+    const[duration, setduration] = useState(0);
+    const[distance, setdistance] = useState(0);
+    const[dailyTripAmountDriver, setDailyTripAmountDriver] = useState(0);
+    const[dailyTripAmountPassenger, setDailyTripAmountPassenger] = useState(0);
+    const[monthlyTripAmountDriver, setMonthlyTripAmountDriver] = useState(0);
+    const[monthlyTripAmountPassenger, setMonthlyTripAmountPassenger] = useState(0);
+    const[seniorityDriver, setSeniorityDriver] = useState(0);
+    const[seniorityPassenger, setSeniorityPassenger] = useState(0);
+    const[recentTripAmount, setRecentTripAmount] = useState(0);
+    const[basePrice, setBasePrice] = useState(0);
 
     //Datos dummy para testeo
-    const[dailyTripAmountDriverDummy, setDailyTripAmountDriverDummy] = useState("");
-    const[dailyTripAmountPassengerDummy, setDailyTripAmountPassengerDummy] = useState("");
-    const[monthlyTripAmountDriverDummy, setMonthlyTripAmountDriverDummy] = useState("");
-    const[monthlyTripAmountPassengerDummy, setMonthlyTripAmountPassengerDummy] = useState("");
-    const[seniorityDriverDummy, setSeniorityDriverDummy] = useState("");
-    const[seniorityPassengerDummy, setSeniorityPassengerDummy] = useState("");
-    const[recentTripAmountDummy, setRecentTripAmountDummy] = useState("");
+    const[dailyTripAmountDriverDummy, setDailyTripAmountDriverDummy] = useState(0);
+    const[dailyTripAmountPassengerDummy, setDailyTripAmountPassengerDummy] = useState(0);
+    const[monthlyTripAmountDriverDummy, setMonthlyTripAmountDriverDummy] = useState(0);
+    const[monthlyTripAmountPassengerDummy, setMonthlyTripAmountPassengerDummy] = useState(0);
+    const[seniorityDriverDummy, setSeniorityDriverDummy] = useState(0);
+    const[seniorityPassengerDummy, setSeniorityPassengerDummy] = useState(0);
+    const[recentTripAmountDummy, setRecentTripAmountDummy] = useState(0);
 
     //Variables de testeo
-    const[tripDuration, setTripDuration] = useState("");
-    const[tripDistance, setTripDistance] = useState("");
-    const[calculatedPrice, setCalculatedPrice] = useState("");
+    const[tripDuration, setTripDuration] = useState(0);
+    const[tripDistance, setTripDistance] = useState(0);
+    const[calculatedPrice, setCalculatedPrice] = useState(0);
 
     
     
@@ -82,7 +82,7 @@ const Page = () => {
     const submitRules = async () => { 
     
         const newRules = new PricesRules( 
-            time,
+            nightShift,
             duration, 
             distance,
             dailyTripAmountDriver,
@@ -102,7 +102,7 @@ const Page = () => {
     const testRules = () => { 
         
         const newRules = new PricesRules(
-            time,
+            nightShift,
             duration, 
             distance,
             dailyTripAmountDriver,
@@ -134,21 +134,21 @@ const Page = () => {
         //Cerrar el modal...y setear las rules en 0
         setOpenModal1(false);
 
-        setTime("");
-        setduration("");
-        setdistance("");
-        setDailyTripAmountDriver("");
-        setDailyTripAmountPassenger("");
-        setMonthlyTripAmountDriver("");
-        setMonthlyTripAmountPassenger("");
-        setSeniorityDriver("");
-        setSeniorityPassenger("");
-        setRecentTripAmount("");
-        setBasePrice("");
+        setnightShift(0);
+        setduration(0);
+        setdistance(0);
+        setDailyTripAmountDriver(0);
+        setDailyTripAmountPassenger(0);
+        setMonthlyTripAmountDriver(0);
+        setMonthlyTripAmountPassenger(0);
+        setSeniorityDriver(0);
+        setSeniorityPassenger(0);
+        setRecentTripAmount(0);
+        setBasePrice(0);
         
         //Los Dummy los dejo cargados
-        setTripDuration("");
-        setTripDistance("");           
+        setTripDuration(0);
+        setTripDistance(0);           
     };
     
 
@@ -190,11 +190,11 @@ const Page = () => {
                     
                         <TextField 
                             required
-                            value={time} 
-                            onChange={(e) => setTime(e.target.value)}
+                            value={nightShift} 
+                            onChange={(e) => setnightShift(e.target.value)}
                             height="1"
                             width="10%"                             
-                            placeholder=""
+                            //placeholder=""
                             label="Night Time"
                             variant="outlined"/>
 
@@ -204,7 +204,7 @@ const Page = () => {
                             onChange={(e) => setduration(e.target.value)}
                             height="1"
                             width="10%"                             
-                            placeholder=""
+                            //placeholder=""
                             label="Duration"
                             variant="outlined"/>    
 
@@ -214,7 +214,7 @@ const Page = () => {
                             onChange={(e) => setdistance(e.target.value)}
                             height="1"
                             width="10%"                             
-                            placeholder=""
+                            //placeholder=""
                             label="Distance"
                             variant="outlined"/>                         
                     </Stack>
@@ -239,7 +239,7 @@ const Page = () => {
                             onChange={(e) => setDailyTripAmountDriver(e.target.value)}
                             height="1"
                             width="10%"                             
-                            placeholder=""
+                            //placeholder=""
                             label="Driver's"
                             variant="outlined"/>
 
@@ -249,7 +249,7 @@ const Page = () => {
                             onChange={(e) => setDailyTripAmountPassenger(e.target.value)}
                             height="1"
                             width="10%"                             
-                            placeholder=""
+                            //placeholder=""
                             label="Passenger's"
                             variant="outlined"/>      
                     </Stack>
@@ -272,7 +272,7 @@ const Page = () => {
                             onChange={(e) => setMonthlyTripAmountDriver(e.target.value)}
                             height="1"
                             width="10%"                             
-                            placeholder=""
+                            //placeholder=""
                             label="Driver's"
                             variant="outlined"/>
 
@@ -282,7 +282,7 @@ const Page = () => {
                             onChange={(e) => setMonthlyTripAmountPassenger(e.target.value)}
                             height="1"
                             width="10%"                             
-                            placeholder=""
+                            //placeholder=""
                             label="Passenger's"
                             variant="outlined"/>
                     </Stack>
@@ -306,7 +306,7 @@ const Page = () => {
                             onChange={(e) => setSeniorityDriver(e.target.value)}
                             height="1"
                             width="10%"                             
-                            placeholder=""
+                            //placeholder=""
                             label="Driver's"
                             variant="outlined"/>
 
@@ -316,7 +316,7 @@ const Page = () => {
                             onChange={(e) => setSeniorityPassenger(e.target.value)}
                             height="1"
                             width="10%"                             
-                            placeholder=""
+                            //placeholder=""
                             label="Passenger's"
                             variant="outlined"/>
 
@@ -340,7 +340,7 @@ const Page = () => {
                             onChange={(e) => setRecentTripAmount(e.target.value)}
                             height="1"
                             width="10%"                             
-                            placeholder=""
+                            //placeholder=""
                             label="Recent Trip Amount"
                             variant="outlined"/>
 
@@ -350,7 +350,7 @@ const Page = () => {
                             onChange={(e) => setBasePrice(e.target.value)}
                             height="1"
                             width="10%"                             
-                            placeholder=""
+                            //placeholder=""
                             label="Base Price"
                             variant="outlined"/>
 
@@ -411,7 +411,7 @@ const Page = () => {
                             onChange={(e) => setDailyTripAmountPassengerDummy(e.target.value)}
                             height="1"
                             width="10%"                             
-                            placeholder=""
+                            //placeholder=""
                             label="Daily Trip Amount"
                             variant="outlined"/>
 
@@ -421,7 +421,7 @@ const Page = () => {
                             onChange={(e) => setMonthlyTripAmountPassengerDummy(e.target.value)}
                             height="1"
                             width="10%"                             
-                            placeholder=""
+                            //placeholder=""
                             label="Monthly Trip Amount"
                             variant="outlined"/>
 
@@ -431,7 +431,7 @@ const Page = () => {
                             onChange={(e) => setSeniorityPassengerDummy(e.target.value)}
                             height="1"
                             width="10%"                             
-                            placeholder=""
+                            //placeholder=""
                             label="Seniority"
                             variant="outlined"/>
                             
@@ -441,7 +441,7 @@ const Page = () => {
                             onChange={(e) => setRecentTripAmountDummy(e.target.value)}
                             height="1"
                             width="10%"                             
-                            placeholder=""
+                            //placeholder=""
                             label="Recent Trip Amount"
                             variant="outlined"/>
                         </Stack>
@@ -465,7 +465,7 @@ const Page = () => {
                             onChange={(e) => setDailyTripAmountDriverDummy(e.target.value)}
                             height="1"
                             width="10%"                             
-                            placeholder=""
+                            //placeholder=""
                             label="Daily Trip Amount"
                             variant="outlined"/>
 
@@ -475,7 +475,7 @@ const Page = () => {
                             onChange={(e) => setMonthlyTripAmountDriverDummy(e.target.value)}
                             height="1"
                             width="10%"                             
-                            placeholder=""
+                            //placeholder=""
                             label="Monthly Trip Amount"
                             variant="outlined"/>
 
@@ -485,7 +485,7 @@ const Page = () => {
                             onChange={(e) => setSeniorityDriverDummy(e.target.value)}
                             height="1"
                             width="10%"                             
-                            placeholder=""
+                            //placeholder=""
                             label="Seniority"
                             variant="outlined"/>
                     </Stack>
@@ -567,7 +567,7 @@ const Page = () => {
                                 onChange={(e) => setTripDistance(e.target.value)}
                                 height="1"
                                 width="10%"                             
-                                placeholder=""
+                                //placeholder=""
                                 label="Trip Distance"
                                 variant="outlined"/>
 
@@ -577,7 +577,7 @@ const Page = () => {
                                 onChange={(e) => setTripDuration(e.target.value)}
                                 height="1"
                                 width="10%"                             
-                                placeholder=""
+                                //placeholder=""
                                 label="Trip Duration"
                                 variant="outlined"/>    
 
