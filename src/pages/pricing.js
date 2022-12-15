@@ -77,54 +77,56 @@ const Page = () => {
     const[tripDistance, setTripDistance] = useState(0);
     const[calculatedPrice, setCalculatedPrice] = useState(0);
 
-    
-    
-    
-    const submitRules = async () => { 
-    
-        const newRules = new PricesRules( 
+
+
+
+    const submitRules = async () => {
+
+        const newRules = new PricesRules(
             nightShift,
-            duration, 
+            duration,
             distance,
             dailyTripAmountDriver,
-            dailyTripAmountPassenger, 
+            dailyTripAmountPassenger,
             monthlyTripAmountDriver,
-            monthlyTripAmountPassenger, 
+            monthlyTripAmountPassenger,
             seniorityDriver,
-            seniorityPassenger, 
+            seniorityPassenger,
             recentTripAmount,
             basePrice);
 
         console.log(newRules);
-            
+
         if(await TripsServices.applyPricingRules(newRules)){
             setOpenModal3(true)
         };
     };
 
-    const testRules = async () => { 
-        
+    const testRules = async () => {
+
         const newRules = new PricesRules(
             nightShift,
-            duration, 
+            duration,
             distance,
             dailyTripAmountDriver,
-            dailyTripAmountPassenger, 
+            dailyTripAmountPassenger,
             monthlyTripAmountDriver,
-            monthlyTripAmountPassenger, 
+            monthlyTripAmountPassenger,
             seniorityDriver,
-            seniorityPassenger, 
-            recentTripAmount);
+            seniorityPassenger,
+            recentTripAmount,
+            basePrice
+            );
 
 
 
-        const result = await TripsServices.testPricingRules(newRules, 
+        const result = await TripsServices.testPricingRules(newRules,
             dailyTripAmountDriverDummy,
-            dailyTripAmountPassengerDummy, 
-            monthlyTripAmountDriverDummy, 
-            monthlyTripAmountPassengerDummy, 
-            seniorityDriverDummy, 
-            seniorityPassengerDummy, 
+            dailyTripAmountPassengerDummy,
+            monthlyTripAmountDriverDummy,
+            monthlyTripAmountPassengerDummy,
+            seniorityDriverDummy,
+            seniorityPassengerDummy,
             recentTripAmountDummy,
             tripDuration,
             tripDistance);
@@ -132,8 +134,8 @@ const Page = () => {
         setCalculatedPrice(result);
     };
 
-    const discard = () => {     
-        
+    const discard = () => {
+
         //Cerrar el modal...y setear las rules en 0
         setOpenModal1(false);
 
@@ -148,12 +150,12 @@ const Page = () => {
         setSeniorityPassenger(0);
         setRecentTripAmount(0);
         setBasePrice(0);
-        
+
         //Los Dummy los dejo cargados
         setTripDuration(0);
-        setTripDistance(0);           
+        setTripDistance(0);
     };
-    
+
 
     return(
     <>
@@ -162,7 +164,7 @@ const Page = () => {
             Pricing | Fiuumber
         </title>
         </Head>
-        <Box            
+        <Box
             component="main"
             sx={{
                 flexGrow: 1,
@@ -184,44 +186,44 @@ const Page = () => {
                         variant="h6"
                         color="#000000"
                     > Trip Info:
-                    </Typography> 
+                    </Typography>
                 </Stack>
-                    <Stack 
-                        direction="row" 
+                    <Stack
+                        direction="row"
                         justifyContent="space-evenly"
                         spacing={4}>
-                    
-                        <TextField 
+
+                        <TextField
                             required
-                            value={nightShift} 
+                            value={nightShift}
                             onChange={(e) => setnightShift(e.target.value)}
                             height="1"
-                            width="10%"                             
+                            width="10%"
                             //placeholder=""
                             label="Night Time"
                             variant="outlined"/>
 
-                        <TextField 
+                        <TextField
                             required
-                            value={duration}  
+                            value={duration}
                             onChange={(e) => setduration(e.target.value)}
                             height="1"
-                            width="10%"                             
+                            width="10%"
                             //placeholder=""
                             label="Duration"
-                            variant="outlined"/>    
+                            variant="outlined"/>
 
-                        <TextField 
+                        <TextField
                             required
-                            value={distance} 
+                            value={distance}
                             onChange={(e) => setdistance(e.target.value)}
                             height="1"
-                            width="10%"                             
+                            width="10%"
                             //placeholder=""
                             label="Distance"
-                            variant="outlined"/>                         
+                            variant="outlined"/>
                     </Stack>
-                
+
                 <Stack>
                     <Typography
                         sx={{ ml: 4 }}
@@ -231,94 +233,94 @@ const Page = () => {
                     </Typography>
                 </Stack>
 
-                    <Stack 
-                        direction="row" 
+                    <Stack
+                        direction="row"
                         justifyContent="space-evenly"
                         spacing={2}>
 
-                        <TextField 
+                        <TextField
                             required
                             value={dailyTripAmountDriver}
                             onChange={(e) => setDailyTripAmountDriver(e.target.value)}
                             height="1"
-                            width="10%"                             
+                            width="10%"
                             //placeholder=""
                             label="Driver's"
                             variant="outlined"/>
 
-                        <TextField 
+                        <TextField
                             required
-                            value={dailyTripAmountPassenger} 
+                            value={dailyTripAmountPassenger}
                             onChange={(e) => setDailyTripAmountPassenger(e.target.value)}
                             height="1"
-                            width="10%"                             
+                            width="10%"
                             //placeholder=""
                             label="Passenger's"
-                            variant="outlined"/>      
+                            variant="outlined"/>
                     </Stack>
                 <Stack>
-                    <Typography                
+                    <Typography
                         sx={{ ml: 4 }}
                         variant="h6"
                         color="#000000"
                     > Amount of trips in the month:
                     </Typography>
                 </Stack>
-                    <Stack 
-                        direction="row" 
+                    <Stack
+                        direction="row"
                         justifyContent="space-evenly"
                         spacing={2}>
 
-                        <TextField 
+                        <TextField
                             required
-                            value={monthlyTripAmountDriver} 
+                            value={monthlyTripAmountDriver}
                             onChange={(e) => setMonthlyTripAmountDriver(e.target.value)}
                             height="1"
-                            width="10%"                             
+                            width="10%"
                             //placeholder=""
                             label="Driver's"
                             variant="outlined"/>
 
-                        <TextField 
+                        <TextField
                             required
-                            value={monthlyTripAmountPassenger} 
+                            value={monthlyTripAmountPassenger}
                             onChange={(e) => setMonthlyTripAmountPassenger(e.target.value)}
                             height="1"
-                            width="10%"                             
+                            width="10%"
                             //placeholder=""
                             label="Passenger's"
                             variant="outlined"/>
                     </Stack>
-                
+
                 <Stack>
-                    <Typography                
+                    <Typography
                         sx={{ ml: 4 }}
                         variant="h6"
                         color="#000000"
                     > Seniority:
                     </Typography>
                 </Stack>
-                    <Stack 
-                        direction="row" 
+                    <Stack
+                        direction="row"
                         justifyContent="space-evenly"
                         spacing={2}>
 
-                        <TextField 
+                        <TextField
                             required
-                            value={seniorityDriver} 
+                            value={seniorityDriver}
                             onChange={(e) => setSeniorityDriver(e.target.value)}
                             height="1"
-                            width="10%"                             
+                            width="10%"
                             //placeholder=""
                             label="Driver's"
                             variant="outlined"/>
 
-                        <TextField 
+                        <TextField
                             required
-                            value={seniorityPassenger} 
+                            value={seniorityPassenger}
                             onChange={(e) => setSeniorityPassenger(e.target.value)}
                             height="1"
-                            width="10%"                             
+                            width="10%"
                             //placeholder=""
                             label="Passenger's"
                             variant="outlined"/>
@@ -332,48 +334,49 @@ const Page = () => {
                     > Extra Info:
                     </Typography>
                 </Stack>
-                    <Stack 
-                        direction="row" 
+                    <Stack
+                        direction="row"
                         justifyContent="space-evenly"
                         spacing={4}>
 
-                        <TextField 
+                        <TextField
                             required
-                            value={recentTripAmount} 
+                            value={recentTripAmount}
                             onChange={(e) => setRecentTripAmount(e.target.value)}
                             height="1"
-                            width="10%"                             
+                            width="10%"
                             //placeholder=""
                             label="Recent Trip Amount"
                             variant="outlined"/>
 
-                        <TextField 
+                        <TextField
                             required
-                            value={basePrice} 
+                            value={basePrice}
                             onChange={(e) => setBasePrice(e.target.value)}
                             height="1"
-                            width="10%"                             
+                            width="10%"
                             //placeholder=""
                             label="Base Price"
                             variant="outlined"/>
 
                 </Stack>
-            
-                
-                <Stack 
-                        direction="row" 
+
+
+                <Stack
+                        direction="row"
                         justifyContent="center  "
                         spacing={4}>
                     <Button
-                        color="info"            
-                        onClick={() => {setOpenModal2(true)}                
+                        color="info"
+                        onClick={() => {setOpenModal2(true)}
                     }
                         size="large"
                         variant="contained"
                         > Try Out Rules
-                    </Button> 
+                    </Button>
                     </Stack>
 
+<<<<<<< HEAD
                     <Stack 
                         direction="row" 
                         justifyContent="center  "
@@ -393,6 +396,11 @@ const Page = () => {
              
             </Stack>
 
+=======
+            </Stack>
+
+
+>>>>>>> d008158989d03eda0bf805b3f5e52db341eb0b8c
         </Box>
         <Modal
             open={openModal2}
@@ -400,7 +408,7 @@ const Page = () => {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
             >
-            <Box sx={style2}>            
+            <Box sx={style2}>
                 <Stack direction ="column" justifyContent = "space-evenly" spacing={3}>
                     <Stack>
                         <Typography
@@ -408,7 +416,7 @@ const Page = () => {
                             variant="h3"
                             color="#000000"
                         > Enter dummy values:
-                        </Typography> 
+                        </Typography>
                     </Stack>
                     <Stack>
                         <Typography
@@ -416,106 +424,106 @@ const Page = () => {
                             variant="h4"
                             color="#000000"
                         > Passenger data:
-                        </Typography> 
+                        </Typography>
                     </Stack>
 
-                        <Stack 
-                            direction="row" 
+                        <Stack
+                            direction="row"
                             justifyContent="center"
                             spacing={2}>
 
-                            <TextField 
+                            <TextField
                                 required
-                            value={dailyTripAmountPassengerDummy} 
+                            value={dailyTripAmountPassengerDummy}
                             onChange={(e) => setDailyTripAmountPassengerDummy(e.target.value)}
                             height="1"
-                            width="10%"                             
+                            width="10%"
                             //placeholder=""
                             label="Daily Trip Amount"
                             variant="outlined"/>
 
-                            <TextField 
+                            <TextField
                             required
-                            value={monthlyTripAmountPassengerDummy} 
+                            value={monthlyTripAmountPassengerDummy}
                             onChange={(e) => setMonthlyTripAmountPassengerDummy(e.target.value)}
                             height="1"
-                            width="10%"                             
+                            width="10%"
                             //placeholder=""
                             label="Monthly Trip Amount"
                             variant="outlined"/>
 
-                            <TextField 
+                            <TextField
                             required
-                            value={seniorityPassengerDummy} 
+                            value={seniorityPassengerDummy}
                             onChange={(e) => setSeniorityPassengerDummy(e.target.value)}
                             height="1"
-                            width="10%"                             
+                            width="10%"
                             //placeholder=""
                             label="Seniority"
                             variant="outlined"/>
-                            
-                            <TextField 
+
+                            <TextField
                             required
-                            value={recentTripAmountDummy} 
+                            value={recentTripAmountDummy}
                             onChange={(e) => setRecentTripAmountDummy(e.target.value)}
                             height="1"
-                            width="10%"                             
+                            width="10%"
                             //placeholder=""
                             label="Recent Trip Amount"
                             variant="outlined"/>
                         </Stack>
-                    <Stack> 
+                    <Stack>
                         <Typography
                             sx={[{ ml: 4 }, { mt : 3}]}
                             variant="h4"
                             color="#000000"
                         > Driver data:
-                        </Typography> 
+                        </Typography>
                     </Stack>
-                   
+
                     <Stack
-                    direction="row" 
+                    direction="row"
                             justifyContent="center"
                             spacing={2}>
-                  
-                            <TextField 
+
+                            <TextField
                             required
-                            value={dailyTripAmountDriverDummy} 
+                            value={dailyTripAmountDriverDummy}
                             onChange={(e) => setDailyTripAmountDriverDummy(e.target.value)}
                             height="1"
-                            width="10%"                             
+                            width="10%"
                             //placeholder=""
                             label="Daily Trip Amount"
                             variant="outlined"/>
 
-                            <TextField 
+                            <TextField
                             required
-                            value={monthlyTripAmountDriverDummy} 
+                            value={monthlyTripAmountDriverDummy}
                             onChange={(e) => setMonthlyTripAmountDriverDummy(e.target.value)}
                             height="1"
-                            width="10%"                             
+                            width="10%"
                             //placeholder=""
                             label="Monthly Trip Amount"
                             variant="outlined"/>
 
-                            <TextField 
+                            <TextField
                             required
-                            value={seniorityDriverDummy} 
+                            value={seniorityDriverDummy}
                             onChange={(e) => setSeniorityDriverDummy(e.target.value)}
                             height="1"
-                            width="10%"                             
+                            width="10%"
                             //placeholder=""
                             label="Seniority"
                             variant="outlined"/>
                     </Stack>
 
-                            <Button                                
-                                color="info"            
+                            <Button
+                                color="info"
                                 onClick={() => {setOpenModal1(true),setOpenModal2(false)}}
                                 size="large"
                                 variant="contained"
                                 >Next
-                            </Button> 
+                            </Button>
                 </Stack>
             </Box>
         </Modal>
@@ -525,7 +533,7 @@ const Page = () => {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
             >
-            <Box sx={style}>            
+            <Box sx={style}>
                 <Stack direction ="column" justifyContent = "space-evenly" spacing={10}>
                     <Stack>
                         <Typography
@@ -533,52 +541,97 @@ const Page = () => {
                             variant="h3"
                             color="#000000"
                         > Enter trip:
-                        </Typography> 
+                        </Typography>
                     </Stack>
-                        <Stack 
-                            direction="row" 
+                        <Stack
+                            direction="row"
                             justifyContent="space-evenly"
                             spacing={1}>
+<<<<<<< HEAD
                        
                             <TextField 
+=======
+
+                        {/* <Stack width = "30%"
+                            // label="Origen"
+                            // placeholder="Origen"
+                            // value={origin}
+                            // onChange={(e) => setOrigin(e.target.value)}
+
+                        >
+                            <GooglePlacesAutocomplete
+
+                                apiKey="AIzaSyANbv3JEv2HV3r4Sj9j7Y5yrX3KYQcSmew"
+
+
+                                // selectProps={{
+
+                                //     styles: {
+                                //         width : "100%",
+                                //         input: (provided) => {
+                                //             console.log(Input)
+                                //             // ...provided,
+                                //             // color: 'blue',
+
+                                //         // option: (provided) => ({
+                                //         //     ...provided,
+                                //         //     color: 'blue',
+                                //         // }),
+                                //         // singleValue: (provided) => ({
+                                //         //     ...provided,
+                                //         //     color: 'blue',
+                                //         },
+                                //     },
+                                //   }}
+                                />
+
+                        </Stack>
+                        <Stack width = "30%">
+                            <GooglePlacesAutocomplete
+                                apiKey="AIzaSyANbv3JEv2HV3r4Sj9j7Y5yrX3KYQcSmew"
+                                />
+                        </Stack> */}
+
+                            <TextField
+>>>>>>> d008158989d03eda0bf805b3f5e52db341eb0b8c
                                 required
-                                value={tripDistance} 
+                                value={tripDistance}
                                 onChange={(e) => setTripDistance(e.target.value)}
                                 height="1"
-                                width="10%"                             
+                                width="10%"
                                 //placeholder=""
                                 label="Trip Distance"
                                 variant="outlined"/>
 
-                            <TextField 
+                            <TextField
                                 required
-                                value={tripDuration}  
+                                value={tripDuration}
                                 onChange={(e) => setTripDuration(e.target.value)}
                                 height="1"
-                                width="10%"                             
+                                width="10%"
                                 //placeholder=""
                                 label="Trip Duration"
-                                variant="outlined"/>    
+                                variant="outlined"/>
 
-                            <Button                                 
-                                color="info"            
+                            <Button
+                                color="info"
                                 onClick={() => {testRules()}}
                                 size="large"
                                 variant="contained"
                                 >Test rules
-                            </Button> 
+                            </Button>
 
-                            
+
                         </Stack>
 
-                        <Stack 
-                            direction="row" 
+                        <Stack
+                            direction="row"
                             justifyContent="center"
                             spacing={2}>
-                            
-                            <TextField 
+
+                            <TextField
                                 required
-                                value={calculatedPrice}                                                      
+                                value={calculatedPrice}
                                 label="Calculated trip price"
                                 variant="filled" color="success" focused
                                 size = "medium"
@@ -587,27 +640,27 @@ const Page = () => {
                                 }}
                             />
 
-                            <Button                                 
-                                color="success"            
+                            <Button
+                                color="success"
                                 onClick={() => {submitRules()}}
                                 size="large"
                                 variant="contained"
                                 >Apply Rules
-                            </Button> 
+                            </Button>
 
-                            <Button    
-                                startIcon = {<DeleteIcon/>}                             
-                                color="error"            
+                            <Button
+                                startIcon = {<DeleteIcon/>}
+                                color="error"
                                 onClick={() => {discard()}}
                                 size="large"
                                 variant="contained"
                                 >Discard Rules
-                            </Button> 
+                            </Button>
 
-                            
+
                         </Stack>
-                
-                </Stack>         
+
+                </Stack>
             </Box>
         </Modal>
         <Modal
@@ -616,26 +669,26 @@ const Page = () => {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
             >
-            <Box sx={style3}>            
+            <Box sx={style3}>
                 <Stack direction ="column" justifyContent = "space-evenly" spacing={2}>
                     <Stack>
                         <Typography
                             // sx={[{ ml: 4 }, { mt : 3}]}
                             variant="h6"
                             color="#000000"
-                            textAlign='center'                            
+                            textAlign='center'
                         >  The rules where applied successfully!
-                        </Typography> 
+                        </Typography>
                     </Stack>
-                    <Button                                
-                        color="error"            
+                    <Button
+                        color="error"
                         onClick={() => {setOpenModal1(false),setOpenModal2(false), setOpenModal3(false)}}
                         size="medium"
                         variant="contained"
                         >Ok
-                    </Button> 
-                       
-                </Stack>         
+                    </Button>
+
+                </Stack>
             </Box>
         </Modal>
     </>)

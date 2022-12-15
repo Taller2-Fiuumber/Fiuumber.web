@@ -114,7 +114,7 @@ export const TripsServices = {
             if (datas.length == 0){
                 values = false;
             }
-            
+
             return values;
         }
         catch (error) {
@@ -138,7 +138,7 @@ export const TripsServices = {
                 for(let i = 0; i<response.data.length; i++){
                     if(response.data[i].start == null){
                         response.data[i].start = "No data.";
-                        
+
                     }
                     if(response.data[i].finish == null){
                         response.data[i].finish = "No data.";
@@ -215,8 +215,8 @@ export const TripsServices = {
         try {
             await axios.post(`${URL_TRIPS}/fare-rule`, rules, TripsServices.getHeaders());
             return true;
-    
-        } 
+
+        }
         catch (error) {
             console.log(`TripService applyPricingRules: ${error}`);
             if (error && error.response && error.response.status == 401) return null;
@@ -226,33 +226,34 @@ export const TripsServices = {
 
     testPricingRules: async (rules,
         dailyTripAmountDriverDummy,
-        dailyTripAmountPassengerDummy, 
-        monthlyTripAmountDriverDummy, 
-        monthlyTripAmountPassengerDummy, 
-        seniorityDriverDummy, 
-        seniorityPassengerDummy, 
+        dailyTripAmountPassengerDummy,
+        monthlyTripAmountDriverDummy,
+        monthlyTripAmountPassengerDummy,
+        seniorityDriverDummy,
+        seniorityPassengerDummy,
         recentTripAmountDummy,
         tripDuration,
         tripDistance) => {
 
         const nightShift = rules.nightShift;
-        const duration=rules.duration; 
-        const distance=rules.distance; 
-        const dailyTripAmountDriver= rules.dailyTripAmountDriver; 
-        const dailyTripAmountPassenger=rules.dailyTripAmountPassenger; 
-        const monthlyTripAmountDriver= rules.monthlyTripAmountDriver; 
-        const monthlyTripAmountPassenger= rules.monthlyTripAmountPassenger;  
+        const duration=rules.duration;
+        const distance=rules.distance;
+        const dailyTripAmountDriver= rules.dailyTripAmountDriver;
+        const dailyTripAmountPassenger=rules.dailyTripAmountPassenger;
+        const monthlyTripAmountDriver= rules.monthlyTripAmountDriver;
+        const monthlyTripAmountPassenger= rules.monthlyTripAmountPassenger;
         const seniorityDriver=rules.seniorityDriver;
         const seniorityPassenger= rules.seniorityPassenger;
         const recentTripAmount=rules.recentTripAmount;
         const basePrice=rules.basePrice;
 
         try {
-            const url = `${URL_TRIPS}/fare/test/new?time_fare=${nightShift}&minimum_fare=${basePrice}&duration_fare=${duration}&distance_fare=${distance}&dailyTripAmountDriver_fare=${dailyTripAmountDriver}&dailyTripAmountPassenger_fare=${dailyTripAmountPassenger}&monthlyTripAmountDrive_fare=${monthlyTripAmountDriver}&monthlyTripAmountPassenger_fare=${monthlyTripAmountPassenger}&seniorityDriver_fare=${seniorityDriver}&seniorityPassenger_fare=${seniorityPassenger}&recentTripAmount_fare=${recentTripAmount}&duration=${tripDuration}&distance=${tripDistance}&dailyTripAmountDriver=${dailyTripAmountDriverDummy}&dailyTripAmountPassenger=${dailyTripAmountPassengerDummy}&monthlyTripAmountDrive=${monthlyTripAmountDriverDummy}&monthlyTripAmountPassenger=${monthlyTripAmountPassengerDummy}&seniorityDriver=${seniorityDriverDummy}&seniorityPassenger=${seniorityPassengerDummy}&recentTripAmount=${recentTripAmountDummy}`
+            const url = `${URL_TRIPS}/fare/test/new?time_fare=${nightShift}&minimum_fare=${basePrice}&duration_fare=${duration}&distance_fare=${distance}&dailyTripAmountDriver_fare=${dailyTripAmountDriver}&dailyTripAmountPassenger_fare=${dailyTripAmountPassenger}&monthlyTripAmountDriver_fare=${monthlyTripAmountDriver}&monthlyTripAmountPassenger_fare=${monthlyTripAmountPassenger}&seniorityDriver_fare=${seniorityDriver}&seniorityPassenger_fare=${seniorityPassenger}&recentTripAmount_fare=${recentTripAmount}&duration=${tripDuration}&distance=${tripDistance}&dailyTripAmountDriver=${dailyTripAmountDriverDummy}&dailyTripAmountPassenger=${dailyTripAmountPassengerDummy}&monthlyTripAmountDrive=${monthlyTripAmountDriverDummy}&monthlyTripAmountPassenger=${monthlyTripAmountPassengerDummy}&seniorityDriver=${seniorityDriverDummy}&seniorityPassenger=${seniorityPassengerDummy}&recentTripAmount=${recentTripAmountDummy}`
             const response = await axios.get(url, TripsServices.getHeaders());
-            return response;
-    
-        } 
+
+            return response.data;
+
+        }
         catch (error) {
             console.log(`TripService testPricingRules: ${error}`);
             if (error && error.response && error.response.status == 401) return null;
