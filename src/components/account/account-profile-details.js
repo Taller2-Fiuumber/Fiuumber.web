@@ -142,10 +142,8 @@ export const AccountProfileDetails = (props) => {
 
 
 
-  const cargarSaldo = () => {
+  const loadBalanceWallet = () => {
  
-    console.log('cargue saldo', loadBalance, paymentDetail);
-    console.log ('a la wallet de', user.email  ,user.wallet);
     if (PaymentsServices.loadBallanceToWallet(loadBalance,user.wallet)){
       setOpenModal(false);
       setOpenModal2(true);
@@ -444,7 +442,7 @@ export const AccountProfileDetails = (props) => {
                         </Stack>
                             <Button                                
                                 color="info"            
-                                onClick={() => {cargarSaldo()}}
+                                onClick={() => {loadBalanceWallet()}}
                                 size="large"
                                 variant="contained"
                                 >Next
