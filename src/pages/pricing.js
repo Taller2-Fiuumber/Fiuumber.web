@@ -376,7 +376,6 @@ const Page = () => {
                     </Button>
                     </Stack>
 
-<<<<<<< HEAD
                     <Stack 
                         direction="row" 
                         justifyContent="center  "
@@ -396,11 +395,6 @@ const Page = () => {
              
             </Stack>
 
-=======
-            </Stack>
-
-
->>>>>>> d008158989d03eda0bf805b3f5e52db341eb0b8c
         </Box>
         <Modal
             open={openModal2}
@@ -547,53 +541,8 @@ const Page = () => {
                             direction="row"
                             justifyContent="space-evenly"
                             spacing={1}>
-<<<<<<< HEAD
                        
                             <TextField 
-=======
-
-                        {/* <Stack width = "30%"
-                            // label="Origen"
-                            // placeholder="Origen"
-                            // value={origin}
-                            // onChange={(e) => setOrigin(e.target.value)}
-
-                        >
-                            <GooglePlacesAutocomplete
-
-                                apiKey="AIzaSyANbv3JEv2HV3r4Sj9j7Y5yrX3KYQcSmew"
-
-
-                                // selectProps={{
-
-                                //     styles: {
-                                //         width : "100%",
-                                //         input: (provided) => {
-                                //             console.log(Input)
-                                //             // ...provided,
-                                //             // color: 'blue',
-
-                                //         // option: (provided) => ({
-                                //         //     ...provided,
-                                //         //     color: 'blue',
-                                //         // }),
-                                //         // singleValue: (provided) => ({
-                                //         //     ...provided,
-                                //         //     color: 'blue',
-                                //         },
-                                //     },
-                                //   }}
-                                />
-
-                        </Stack>
-                        <Stack width = "30%">
-                            <GooglePlacesAutocomplete
-                                apiKey="AIzaSyANbv3JEv2HV3r4Sj9j7Y5yrX3KYQcSmew"
-                                />
-                        </Stack> */}
-
-                            <TextField
->>>>>>> d008158989d03eda0bf805b3f5e52db341eb0b8c
                                 required
                                 value={tripDistance}
                                 onChange={(e) => setTripDistance(e.target.value)}
