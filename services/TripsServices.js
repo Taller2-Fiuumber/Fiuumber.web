@@ -260,24 +260,22 @@ export const TripsServices = {
         }
     },
 
-    // calculateDistanceAndDuration(origin, destination){
+    getHistoryFareRules: async () => {
 
-    //     try {
-    //         const distance = 0;
-    //         const duration = 0;
-    //         // const url = ``
-    //         // const response = await axios.get(url, TripsServices.getHeaders());
+        try { 
 
-    //         return (distance, duration);
-    
-    //     } 
-    //     catch (error) {
-    //         console.log(`TripService calculateDistanceAndDuration: ${error}`);
-    //         if (error && error.response && error.response.status == 401) return null;
-    //         throw error;
-    //     }
+            const url = `${URL_TRIPS}/fare-rules`
+            const response = await axios.get(url, TripsServices.getHeaders());
+                
+        } 
+        catch (error) {
+            console.log(`TripService applyPricingRules: ${error}`);
+            if (error && error.response && error.response.status == 401) return null;
+            throw error;
+        }
+    },
 
-    // }
+ 
 
 
 

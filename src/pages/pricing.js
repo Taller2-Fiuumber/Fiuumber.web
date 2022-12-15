@@ -46,8 +46,9 @@ const Page = () => {
     //Constantes de sistema
     const[openModal1, setOpenModal1] = useState(false);
     const[openModal2, setOpenModal2] = useState(false);  
-    const[openModal3, setOpenModal3] = useState(false);    
-  
+    const[openModal3, setOpenModal3] = useState(false);  
+    const[historyVisibility, setHistoryVisibility] = useState(false);  
+    
 
     //Constantes para la formula
     const[nightShift, setnightShift] = useState(0);
@@ -372,10 +373,26 @@ const Page = () => {
                         > Try Out Rules
                     </Button> 
                     </Stack>
+
+                    <Stack 
+                        direction="row" 
+                        justifyContent="center  "
+                        spacing={4}>
+                    <Button
+                        color="info"            
+                        onClick={() => {setHistoryVisibility(true)} }   
+                        size="large"
+                        variant="contained"
+                        > View Fare History
+                    </Button> 
+                    </Stack>
+                  
+                    { (historyVisibility==true) &&
+                        <FareHistoryList sx={{ width: 850 }}  />
+                    }
              
             </Stack>
-            
-        
+
         </Box>
         <Modal
             open={openModal2}
@@ -522,46 +539,6 @@ const Page = () => {
                             direction="row" 
                             justifyContent="space-evenly"
                             spacing={1}>
-
-                        {/* <Stack width = "30%"
-                            // label="Origen"
-                            // placeholder="Origen"
-                            // value={origin}
-                            // onChange={(e) => setOrigin(e.target.value)}
-                        
-                        >
-                            <GooglePlacesAutocomplete
-                               
-                                apiKey="AIzaSyANbv3JEv2HV3r4Sj9j7Y5yrX3KYQcSmew"    
-                                                                               
-                                
-                                // selectProps={{
-                                    
-                                //     styles: {
-                                //         width : "100%",
-                                //         input: (provided) => {
-                                //             console.log(Input)
-                                //             // ...provided,
-                                //             // color: 'blue',
-                                        
-                                //         // option: (provided) => ({
-                                //         //     ...provided,
-                                //         //     color: 'blue',
-                                //         // }),
-                                //         // singleValue: (provided) => ({
-                                //         //     ...provided,
-                                //         //     color: 'blue',
-                                //         },
-                                //     },
-                                //   }}
-                                />
-
-                        </Stack>
-                        <Stack width = "30%">
-                            <GooglePlacesAutocomplete                                
-                                apiKey="AIzaSyANbv3JEv2HV3r4Sj9j7Y5yrX3KYQcSmew"                                
-                                />
-                        </Stack> */}
                        
                             <TextField 
                                 required
