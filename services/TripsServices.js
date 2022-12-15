@@ -95,7 +95,6 @@ export const TripsServices = {
             for (let i=1; i<6 ; i++){
                 values.push(0);
             }
-            // // const url = `${URL_TRIPS}/calification/passenger/${id}?skip=0&limit=100` //descomentar esto, lo puse en 69 porq es el unico que tiene calificaciones posta
             const url = '';
             if (typeOfUser == "passenger"){
                 url = `${URL_TRIPS}/calification/passenger/${id}?skip=0&limit=100`
@@ -129,9 +128,9 @@ export const TripsServices = {
 
             const url = '';
             if (typeOfUser == "passenger"){
-                url = `${URL_TRIPS}/passenger/${id}?skip=${skip}&limit=${limit}`
+                url = `${URL_TRIPS}/passenger/${id}?skip=${skip}&limit=${limit}&in_progress=false`
             } else {
-                url = `${URL_TRIPS}/driver/${id}?skip=${skip}&limit=${limit}`
+                url = `${URL_TRIPS}/driver/${id}?skip=${skip}&limit=${limit}&in_progress=false`
             }
             const response = await axios.get(url, TripsServices.getHeaders());
             if (response.data.length != 0){

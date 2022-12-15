@@ -64,13 +64,20 @@ export const AccountProfileDetails = (props) => {
   const [userType, setUserType] = useState(true);
   const [userBlocked, setUserBlock] = useState(false);
   const [noData, setNoData] = useState(false);
+  
   const[openModal, setOpenModal] = useState(false);
   const[openModal2, setOpenModal2] = useState(false);
   const[paymentDetail, setPaymentDetail] = useState("");
   const[loadBalance, setLoadBalance] = useState(0);
-
+  const [complaints, setComplaints] = useState(0);
 
   const type = urlParams.get('type');
+
+  UsersService.getComplaints(id).then((value) => { 
+    setComplaints(value);     
+  }).catch((error) => {
+    console.log(error);
+  });
 
   const blockUser = () => {
     UsersService.blockUser(id).then((value) => { 
@@ -249,6 +256,24 @@ export const AccountProfileDetails = (props) => {
                 // onChange={handleChange}
                 required
                 value={user.username}
+                variant="outlined"
+              />
+            </Grid>
+         }
+         {(type=="driver") && 
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="Number of complaints"
+                name="Number of complaints"
+                readOnly={true}
+                //onChange={handleChange}
+                required
+                value={complaints}
                 variant="outlined"
               />
             </Grid>
