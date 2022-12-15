@@ -22,37 +22,39 @@ export const FareHistoryList = ({...rest }) => {
   const [fares, setFares] = useState([]);
   const [amountOfFares, setAmountOfFares] = useState(0);
 
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  const id = urlParams.get('id');
-  const type = urlParams.get('type');
+ 
+ 
 
 
   useEffect(() => {
-    TripsServices.getAmountOfFares().then((value) => {
-        setAmountOfFares(value);
-    }).catch((error) => {
-      console.log(error);
-    });
+    getInitialData(page, rowsPerPage);
   }, []);
-  
 
-  useEffect(() => {
+
+  const getInitialData = (page, rowsPerPage) => {
+    TripsServices.getAmountOfFares().then((value) => {
+      setAmountOfFares(value);
+    }).catch((error) => {
+      console.log(error);
+    })
+
     TripsServices.getFaresPages(page*rowsPerPage, rowsPerPage).then((value) => {
-      setFares(value);
+      const fares_aux = value ? value:[]
+      setFares(fares_aux);
     }).catch((error) => {
       console.log(error);
     });
-
-  }, [page, rowsPerPage]);
+  }
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value));
+    getInitialData(page, parseInt(event.target.value));   
     // setPage(0);
   };
 
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
+    getInitialData(newPage, parseInt(event.target.value));   
   };
 
   return (
@@ -162,3 +164,4 @@ export const FareHistoryList = ({...rest }) => {
       />
       </Grid>
   );
+};
