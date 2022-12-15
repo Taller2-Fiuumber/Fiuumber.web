@@ -44,11 +44,11 @@ export const AccountProfileDetails = (props) => {
 
   const type = urlParams.get('type');
 
-  // UsersService.getComplaints(id).then((value) => { 
-  //   setComplaints(value);     
-  // }).catch((error) => {
-  //   console.log(error);
-  // });
+  UsersService.getComplaints(id).then((value) => { 
+    setComplaints(value);     
+  }).catch((error) => {
+    console.log(error);
+  });
 
   const blockUser = () => {
     UsersService.blockUser(id).then((value) => { 
