@@ -41,7 +41,7 @@ export const CollectionMetrics = (props) => {
         borderRadius: 4,
         categoryPercentage: 0.5,
         data: newPaymentData,
-        label: 'Number of trips',
+        label: 'Money withdrawals from Drivers',
         maxBarThickness: 10
       }
     ],

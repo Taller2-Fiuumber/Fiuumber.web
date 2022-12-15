@@ -95,7 +95,6 @@ export const TripsServices = {
             for (let i=1; i<6 ; i++){
                 values.push(0);
             }
-            // // const url = `${URL_TRIPS}/calification/passenger/${id}?skip=0&limit=100` //descomentar esto, lo puse en 69 porq es el unico que tiene calificaciones posta
             const url = '';
             if (typeOfUser == "passenger"){
                 url = `${URL_TRIPS}/calification/passenger/${id}?skip=0&limit=100`
@@ -129,9 +128,9 @@ export const TripsServices = {
 
             const url = '';
             if (typeOfUser == "passenger"){
-                url = `${URL_TRIPS}/passenger/${id}?skip=${skip}&limit=${limit}`
+                url = `${URL_TRIPS}/passenger/${id}?skip=${skip}&limit=${limit}&in_progress=false`
             } else {
-                url = `${URL_TRIPS}/driver/${id}?skip=${skip}&limit=${limit}`
+                url = `${URL_TRIPS}/driver/${id}?skip=${skip}&limit=${limit}&in_progress=false`
             }
             const response = await axios.get(url, TripsServices.getHeaders());
             if (response.data.length != 0){
@@ -171,7 +170,7 @@ export const TripsServices = {
             console.log(`TripsServices getAmountOfTrips: ${error}`);
             throw error;
         }
-    },
+      },
 
 
       getFinishedTripsById: async (id, typeOfUser) => {
@@ -261,36 +260,27 @@ export const TripsServices = {
         }
     },
 
-    getAmountOfFares: async () => {
-        try {
-                const url = `${URL_TRIPS}/fare-rules/amount`
-                
-                const response = await axios.get(url, TripsServices.getHeaders());
-                return response.data;
-            }
-        catch (error) {
-            console.log(`TripsServices getAmountOfFares: ${error}`);
-            throw error;
-        }
-    },
+    getHistoryFareRules: async () => {
 
+        try { 
 
-
-    getFaresPages: async ( skip, limit) => {
-        try {
-
-            const url = `${URL_TRIPS}/fare-rules/page?skip=${skip}&limit=${limit}`
-            
+            const url = `${URL_TRIPS}/fare-rules`
             const response = await axios.get(url, TripsServices.getHeaders());
 
-            return response.data;
-        }
+
+            console.log(response);
+            return response;
+
+
+
+        } 
         catch (error) {
-            console.log(`Get Fares pages: ${error}`);
+            console.log(`TripService applyPricingRules: ${error}`);
             if (error && error.response && error.response.status == 401) return null;
             throw error;
         }
     },
+
  
 
 

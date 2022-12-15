@@ -38,16 +38,16 @@ export const PassengerListResults = ({...rest }) => {
   useEffect(() => {
     getInitialData(page, rowsPerPage);
 
-  }, []);
+  }, [page, rowsPerPage]);
 
 
   const getInitialData = (page, rowsPerPage) => {
-    UsersService.getAmountOfPassenger().then((value) => {      
-      setAmountOfPassenger(value);      
+    UsersService.getAmountOfPassenger().then((value) => {
+      setAmountOfPassenger(value);
     }).catch((error) => {
       console.log(error);
-    });   
- 
+    });
+
     UsersService.getPassengers(page * rowsPerPage, rowsPerPage).then((value) => {
       const passengers_aux = value ? value:[]
       setPassengers(passengers_aux);
@@ -56,10 +56,10 @@ export const PassengerListResults = ({...rest }) => {
     });
   }
 
-  const handleChangeRowsPerPage = (event) => {   
+  const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value));
-    getInitialData(page, parseInt(event.target.value));    
-    
+    getInitialData(page, parseInt(event.target.value));
+
   };
 
   const handlePageChange = (event, newPage) => {
@@ -176,7 +176,7 @@ export const PassengerListResults = ({...rest }) => {
         onRowsPerPageChange={handleChangeRowsPerPage}
         page={page}
         rowsPerPage={rowsPerPage}
-        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPageOptions={[2, 5, 10, 25]}
       />
     </Card>
   );

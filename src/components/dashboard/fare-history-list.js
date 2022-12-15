@@ -17,14 +17,22 @@ import { TripsServices } from '../../../services/TripsServices';
 
 
 export const FareHistoryList = ({...rest }) => {
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [page, setPage] = useState(0);
+  //const [rowsPerPage, setRowsPerPage] = useState(5);
+  //const [page, setPage] = useState(0);
   const [fares, setFares] = useState([]);
-  const [amountOfFares, setAmountOfFares] = useState(0);
+  //const [amountOfTrips, setAmountOfTrips] = useState(0);
 
- 
- 
 
+
+
+
+  // useEffect(() => {
+  //   TripsServices.getAmountOfTrips(id, type).then((value) => {
+  //       setAmountOfTrips(value);
+  //   }).catch((error) => {
+  //     console.log(error);
+  //   });
+  // }, []);
 
   useEffect(() => {
     getInitialData(page, rowsPerPage);
@@ -48,19 +56,19 @@ export const FareHistoryList = ({...rest }) => {
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value));
-    getInitialData(page, parseInt(event.target.value));   
+    getInitialData(page, parseInt(event.target.value));
     // setPage(0);
   };
 
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
-    getInitialData(newPage, parseInt(event.target.value));   
+    getInitialData(newPage, parseInt(event.target.value));
   };
 
   return (
 
     // <Card {...rest}>
-    <Grid> 
+    <Grid>
       <PerfectScrollbar>
         <Box sx={{ minWidth: 750 }}>
           <Table>
@@ -153,15 +161,15 @@ export const FareHistoryList = ({...rest }) => {
           </Table>
         </Box>
       </PerfectScrollbar>
-      <TablePagination
+      {/* <TablePagination
         component="div"
-        count={amountOfFares}
+        count={amountOfTrips}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleChangeRowsPerPage}
         page={page}
         rowsPerPage={rowsPerPage}
-        rowsPerPageOptions={[2, 5, 10, 25]}
-      />
+        rowsPerPageOptions={[2, 10, 25]}
+      /> */}
       </Grid>
   );
 };

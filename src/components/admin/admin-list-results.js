@@ -34,7 +34,7 @@ export const AdminListResults = ({...rest }) => {
 
   useEffect(() => {
     getInitialData(page, rowsPerPage);
-  }, []);
+  }, [page, rowsPerPage]);
 
   const getInitialData = (page, rowsPerPage) => {
 
@@ -43,7 +43,7 @@ export const AdminListResults = ({...rest }) => {
     }).catch((error) => {
       console.log(error);
     });
-  
+
     UsersService.getAdmins(page * rowsPerPage, rowsPerPage).then((value) => {
       const admins_aux = value ? value:[]
       setAdmins(admins_aux);
@@ -55,12 +55,12 @@ export const AdminListResults = ({...rest }) => {
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value));
-    getInitialData(page, parseInt(event.target.value));   
+    getInitialData(page, parseInt(event.target.value));
   };
 
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
-    getInitialData(newPage, parseInt(event.target.value));   
+    getInitialData(newPage, parseInt(event.target.value));
   };
 
   return (

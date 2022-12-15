@@ -38,7 +38,7 @@ export const TripsResultsList = ({...rest }) => {
     }).catch((error) => {
       console.log(error);
     });
-  }, []);
+  }, [id, typeWindow]);
 
   useEffect(() => {
     TripsServices.getTripsById(id, page*rowsPerPage, rowsPerPage, typeWindow).then((value) => {
@@ -47,7 +47,8 @@ export const TripsResultsList = ({...rest }) => {
       console.log(error);
     });
 
-  }, [page, rowsPerPage]);
+
+  }, [id, page, rowsPerPage, typeWindow]);
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value));
@@ -61,7 +62,7 @@ export const TripsResultsList = ({...rest }) => {
   return (
 
     // <Card {...rest}>
-    <Grid> 
+    <Grid>
       <PerfectScrollbar>
         <Box sx={{ minWidth: 750 }}>
           <Table>
@@ -119,7 +120,7 @@ export const TripsResultsList = ({...rest }) => {
         onRowsPerPageChange={handleChangeRowsPerPage}
         page={page}
         rowsPerPage={rowsPerPage}
-        rowsPerPageOptions={[2, 10, 25]}
+        rowsPerPageOptions={[2, 5, 10, 25]}
       />
       </Grid>
   );

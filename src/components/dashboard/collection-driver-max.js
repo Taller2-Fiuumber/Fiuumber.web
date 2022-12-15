@@ -1,55 +1,53 @@
-import { Bar } from 'react-chartjs-2';
-import { Line } from 'react-chartjs-2';
+import { Bar, Line } from 'react-chartjs-2';
 import { Box, Button, Card, CardContent, CardHeader, Divider, useTheme, Select, MenuItem, InputLabel, FormControl} from '@mui/material';
 import {useState, useEffect} from 'react';
 import { TripsServices } from '../../../services/TripsServices';
 
-
-export const UserCalificationMetrics = (props) => {
+export const CollectionDriverMaxMetrics = (props) => {
   const theme = useTheme();
 
-  const labels = [1, 2, 3, 4, 5];
-  const[calificationsData, setCalificationsData] = useState([]);
+  const[time, setTime] = useState(7);
+  const[driverMaxData, setDriverMaxData] = useState([]);
+  const [labels, changeLabels] = useState([]);
 
-  const [id, setId] = useState('');
-  const [typeWindow, setTypeWindow] = useState('');
+  const changeTimeSelection = (numberOfDays) => {
+    
+    if (numberOfDays == "Last 30 days") {
+      setTime(30);
+    }else if(numberOfDays == "Last 14 days"){
+        setTime(14);
+    }else{
+        setTime(7);
+    }
+  };
 
+//   useEffect(() => {
+//    TripsServices.getNewTripsPerRangeMetrics(time).then((value) => {
+//       if (value != undefined){
+//         changeLabels(value[0])
+//         setNewTripsData(value[1]);
 
-  useEffect(() => {
-
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    setId(urlParams.get('id'));
-    setTypeWindow(urlParams.get('type'));
-
-    TripsServices.getCalificationsById(id, typeWindow).then((value) => {
-        if (value != undefined){
-            if (value == false) {
-                setCalificationsData([0,0,0,0,0]);
-            } else {
-                setCalificationsData(value);
-            }
-        }
-      }).catch((error) => {
-        console.log(error);
-    });
-    }, [id, typeWindow]);
+//       }
+//     }).catch((error) => {
+//       console.log(error);
+//     });
+ 
+// }, [time]);
 
   const data = {
     datasets: [
       {
         backgroundColor: '#A5C9CA',
         barPercentage: 0.5,
-        barThickness: 65,
+        barThickness: 12,
         borderRadius: 4,
         categoryPercentage: 0.5,
-        data: calificationsData,
-        label: 'Quantity',
-        maxBarThickness: 100,
-      },
+        data: driverMaxData,
+        label: 'Collected Money',
+        maxBarThickness: 10
+      }
     ],
-    labels: labels,
-    parsing: {xAxisKey: 'm'},
+    labels: labels
   };
 
   const options = {
@@ -59,26 +57,6 @@ export const UserCalificationMetrics = (props) => {
     legend: { display: false },
     maintainAspectRatio: false,
     responsive: true,
-    scales: {
-      x: {
-        display: true,
-        title: {
-          display: true,
-          text: "Califications"
-        }
-      },
-      y: {
-        display: true,
-        title: {
-          display: true,
-          text: "Quantity"
-        },
-        ticks: {
-          stepSize: 1,
-        }
-      }
-
-    },
     xAxes: [
       {
         ticks: {
@@ -105,7 +83,7 @@ export const UserCalificationMetrics = (props) => {
           zeroLineBorderDash: [2],
           zeroLineBorderDashOffset: [2],
           zeroLineColor: theme.palette.divider
-        },
+        }
       }
     ],
     tooltips: {
@@ -125,10 +103,20 @@ export const UserCalificationMetrics = (props) => {
     <Card {...props}>
       <CardHeader
         action={(
-          <FormControl sx={{ m: 1, minWidth: 120}}>
+          <FormControl sx={{ m: 1, minWidth: 120 }}>
+          <InputLabel >Period</InputLabel>
+          <Select
+            value={`Last ${time} days`} 
+            onChange={(e) => changeTimeSelection(e.target.value)}
+            label="Period"
+          >
+            <MenuItem value={"Last 7 days"}>Last 7 days</MenuItem>
+            <MenuItem value={"Last 14 days"}>Last 14 days</MenuItem>
+            <MenuItem value={"Last 30 days"}>Last 30 days</MenuItem>
+          </Select>
       </FormControl>
         )}
-        title="Califications metrics"
+        title="Drivers Maximum Collection"
       />
       <Divider />
       <CardContent>
@@ -138,13 +126,13 @@ export const UserCalificationMetrics = (props) => {
             position: 'relative'
           }}
         >
-      <Bar
-        data={data}
-        options={options}
-      />
+          <Line
+            data={data}
+            options={options}
+          />
         </Box>
       </CardContent>
-
+   
     </Card>
   );
 };

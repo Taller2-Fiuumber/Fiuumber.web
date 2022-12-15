@@ -21,7 +21,7 @@ export const TripsStatus = (props) => {
     const urlParams = new URLSearchParams(queryString);
     setId(urlParams.get('id'));
     setTypeWindow(urlParams.get('type'));
-    
+
 
     TripsServices.getFinishedTripsById(id, typeWindow).then((value) => {
 
@@ -33,7 +33,7 @@ export const TripsStatus = (props) => {
     });
 
     TripsServices.getCanceledTripsById(id, typeWindow).then((value) => {
-      
+
       if (value != undefined){
           setAmountOfCanceledTrips(value);
         }
@@ -41,7 +41,7 @@ export const TripsStatus = (props) => {
       console.log(error);
     });
 
-  }, [amountOfCanceledTrips, amountOfFinishedTrips]);
+  }, [amountOfCanceledTrips, amountOfFinishedTrips, id, typeWindow]);
 
 
   const data = {
@@ -56,7 +56,7 @@ export const TripsStatus = (props) => {
     ],
     labels: ['Finished', 'Canceled']
   };
-  
+
 
   const options = {
     animation: false,
@@ -106,7 +106,7 @@ export const TripsStatus = (props) => {
             height: 300,
             position: 'relative'
           }}
-        > 
+        >
 
           <Doughnut
             data={data}

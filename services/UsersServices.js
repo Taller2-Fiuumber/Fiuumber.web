@@ -224,7 +224,8 @@ export const UsersService = {
                 response_user.data.address,
                 response_user.data.password,
                 response_user.data.blocked,
-                null);
+                response_user.data.walletAddress
+                );
             return passenger;
         }
         catch (error) {
@@ -370,6 +371,19 @@ export const UsersService = {
         }
         catch (error) {
             console.log(`SignInMetrics get: ${error}`);
+            if (error && error.response && error.response.status == 401) return null;
+            throw error;
+        }
+    },
+
+    getComplaints: async (id) => {
+        try {
+
+            const response = await axios.get(`${URL_USERS}/report/driver/amount/${id}`, UsersService.getHeaders());
+            return response.data.amount;
+        }
+        catch (error) {
+            console.log(`UsersService getComplaints: ${error}`);
             if (error && error.response && error.response.status == 401) return null;
             throw error;
         }

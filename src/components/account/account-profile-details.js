@@ -1,7 +1,7 @@
 
-import Router from 'next/router';
 import { UsersService } from '../../../services/UsersServices';
 import { TripsServices } from '../../../services/TripsServices';
+import { PaymentsServices } from '../../../services/PaymentsServices';
 
 import { useEffect, useRef, useState } from 'react';
 import { Passenger } from '../../../models/passenger';
@@ -24,15 +24,38 @@ import {
   CardHeader,
   Divider,
   Grid,
-  TextField
+  TextField,
+  Modal,
+  Stack
 } from '@mui/material';
 
+const style2 = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 500,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
-
+const style3 = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 300,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 export const AccountProfileDetails = (props) => {
 
- 
+
   const [user, setUser] = useState(new Driver(-1, '','','','','','', false,null,new Vehicle('','','','','')));
   const [userType, setUserType] = useState(true);
   const [userBlocked, setUserBlock] = useState(false);
@@ -40,39 +63,46 @@ export const AccountProfileDetails = (props) => {
 
   const [id, setId] = useState('');
   const [typeWindow, setTypeWindow] = useState('');
- 
+
+
+  UsersService.getComplaints(id).then((value) => {
+    setComplaints(value);
+  }).catch((error) => {
+    console.log(error);
+  });
 
   const blockUser = () => {
-    UsersService.blockUser(id).then((value) => { 
-      setUserBlock(true);     
+    UsersService.blockUser(id).then((value) => {
+      setUserBlock(true);
     }).catch((error) => {
       console.log(error);
     });
   };
 
   const unblockUser = () => {
-    UsersService.unblockUser(id).then((value) => { 
-      setUserBlock(false);     
+    UsersService.unblockUser(id).then((value) => {
+      setUserBlock(false);
     }).catch((error) => {
       console.log(error);
     });
   };
 
+
  useEffect(() => {
   console.log(window);
 
-  
+
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   setId(urlParams.get('id'));
   setTypeWindow(urlParams.get('type'));
 
- 
+
   if(typeWindow=="passenger"){
-      UsersService.getPassenger(id).then((value) => { 
+      UsersService.getPassenger(id).then((value) => {
         setUser(new Passenger(value.userId, value.email,value.firstName,value.lastName,value.username,value.address,value.password, value.blocked,value.wallet));
-        setUserBlock(value.blocked);     
+        setUserBlock(value.blocked);
       }).catch((error) => {
         console.log(error);
       });
@@ -89,11 +119,11 @@ export const AccountProfileDetails = (props) => {
 
   }
   if(typeWindow=="driver"){
-      UsersService.getDriver(id).then((value) => { 
+      UsersService.getDriver(id).then((value) => {
         console.log("valor",value);
         const driverVehicle= new Vehicle(value.vehicle.domain,value.vehicle.modelYear,value.vehicle.colorName,value.vehicle.vehicle.brand,value.vehicle.vehicle.model)
         setUser(new Driver(value.userId, value.email,value.firstName,value.lastName,value.username,value.address,value.password, value.blocked,value.wallet, driverVehicle));
-        setUserBlock(value.blocked);      
+        setUserBlock(value.blocked);
       }).catch((error) => {
         console.log(error);
       });
@@ -110,17 +140,29 @@ export const AccountProfileDetails = (props) => {
 
     }
   if(typeWindow=="admin"){
-      UsersService.getAdmin(id).then((value) => { 
+      UsersService.getAdmin(id).then((value) => {
         setUser(new Admin(value.id, value.email, value.firstName, value.lastName, value.password,  value.createdAt));
       }).catch((error) => {
         console.log(error);
-      });    
+      });
       setUserType(true);
     }
-  }, [setUser, id]);
+  }, [setUser, id, typeWindow]);
 
-  console.log(user.vehicle);
-  console.log(user);
+
+
+  const loadBalanceWallet = async() => {
+    setError(false)
+
+    if (await PaymentsServices.loadBallanceToWallet(loadBalance, user.wallet)) {
+      setOpenModal(false);
+      setOpenModal2(true);
+    } else {
+      setError(true)
+    }
+
+
+  };
 
 
 
@@ -129,7 +171,7 @@ export const AccountProfileDetails = (props) => {
     <form
       autoComplete="off"
       noValidate
-      
+
       {...props}
     >
       <Card>
@@ -205,7 +247,7 @@ export const AccountProfileDetails = (props) => {
                 variant="outlined"
               />
             </Grid>
-            {(typeWindow!="admin") && 
+            {(typeWindow!="admin") &&
             <Grid
               item
               md={6}
@@ -218,12 +260,12 @@ export const AccountProfileDetails = (props) => {
                 readOnly={true}
                 // onChange={handleChange}
                 required
-                value={user.username}
+                value={user.username != undefined ? user.username : ""}
                 variant="outlined"
               />
             </Grid>
          }
-          {(typeWindow!="admin") && 
+          {(typeWindow!="admin") &&
           <Grid
             item
             md={6}
@@ -257,7 +299,7 @@ export const AccountProfileDetails = (props) => {
             />
           </Grid>
         }
-          {(typeWindow=="driver") && 
+          {(typeWindow=="driver") &&
           <Grid
             item
             md={6}
@@ -274,7 +316,7 @@ export const AccountProfileDetails = (props) => {
             />
           </Grid>
         }
-        {(typeWindow=="driver") && 
+        {(typeWindow=="driver") &&
           <Grid
             item
             md={6}
@@ -291,7 +333,7 @@ export const AccountProfileDetails = (props) => {
             />
           </Grid>
         }
-        {(typeWindow=="driver") && 
+        {(typeWindow=="driver") &&
           <Grid
             item
             md={6}
@@ -308,7 +350,7 @@ export const AccountProfileDetails = (props) => {
             />
           </Grid>
         }
-        {(typeWindow=="driver") && 
+        {(typeWindow=="driver") &&
           <Grid
             item
             md={6}
@@ -328,20 +370,143 @@ export const AccountProfileDetails = (props) => {
           </Grid>
         </CardContent>
         <Divider />
-        
+
         <Box sx={{
               display: 'flex',
               justifyContent: 'flex-end',
               p: 2
             }}>
+
+
+<Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              p: 2
+            }}
+          >
+
+            {(type=="passenger") &&
+            <Button
+              color="info"
+              variant="contained" //si block = false => tenbgo que poder apretar => queda blocked user
+              onClick={() => {setOpenModal(true)}}
+            >
+              Cargar saldo
+            </Button>
+            }
+
+          </Box>
+          <Modal
+            open={openModal}
+            onClose={() => setOpenModal(false)}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+            >
+            <Box sx={style2}>
+                <Stack direction ="column" justifyContent = "space-evenly" spacing={3}>
+                    <Stack>
+                        <Typography
+                            sx={[{ ml: 4 }, { mt : 3}]}
+                            variant="h5"
+                            color="#000000"
+                        > Enter detail for balance charge:
+                        </Typography>
+                    </Stack>
+                    <Stack
+                            direction="row"
+                            justifyContent="center"
+                            spacing={2}>
+
+                            <TextField
+                            required
+                            value={paymentDetail}
+                            onChange={(e) => setPaymentDetail(e.target.value)}
+                            height="1"
+                            width="10%"
+                            placeholder=""
+                            label="Payment Detail"
+                            variant="outlined"/>
+                        </Stack>
+                    <Stack>
+                        <Typography
+                            sx={[{ ml: 4 }, { mt : 3}]}
+                            variant="h5"
+                            color="#000000"
+                        > Load Balance:
+                        </Typography>
+                    </Stack>
+
+                        <Stack
+                            direction="row"
+                            justifyContent="center"
+                            spacing={2}>
+
+                            <TextField
+                            required
+                            value={loadBalance}
+                            onChange={(e) => setLoadBalance(e.target.value)}
+                            height="1"
+                            width="10%"
+                            placeholder=""
+                            label="Amount"
+                            variant="outlined"/>
+                        </Stack>
+                            <Button
+                                color="info"
+                                onClick={() => {loadBalanceWallet()}}
+                                size="large"
+                                variant="contained"
+                                >Next
+                            </Button>
+                            {error ?
+                                <Typography
+                                textAlign="center"
+                                color="#ff0000"
+                                >
+                                  Error creating transaction, please try again
+                                </Typography> : null
+                            }
+                </Stack>
+            </Box>
+        </Modal>
+        <Modal
+            open={openModal2}
+            onClose={() => setOpenModal(false)}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+            >
+            <Box sx={style3}>
+                <Stack direction ="column" justifyContent = "space-evenly" spacing={2}>
+                    <Stack>
+                        <Typography
+                            // sx={[{ ml: 4 }, { mt : 3}]}
+                            variant="h6"
+                            color="#000000"
+                            textAlign='center'
+                        >  The balance was charged successfully!
+                        </Typography>
+                    </Stack>
+                    <Button
+                        color="info"
+                        onClick={() => {setOpenModal2(false)}}
+                        size="medium"
+                        variant="contained"
+                        >Ok
+                    </Button>
+
+                </Stack>
+            </Box>
+        </Modal>
+
           <Box
             sx={{
               display: 'flex',
               justifyContent: 'flex-end',
               p: 2
             }}
-          > 
-            {(typeWindow!="admin") && 
+          >
+            {(typeWindow!="admin") &&
             <Button
               color="error"
               variant="contained" //si block = false => tenbgo que poder apretar => queda blocked user
@@ -349,9 +514,8 @@ export const AccountProfileDetails = (props) => {
               onClick={blockUser}
             >
               Block User
-            </Button>            
+            </Button>
             }
-
           </Box>
           <Box
             sx={{
@@ -359,8 +523,8 @@ export const AccountProfileDetails = (props) => {
               justifyContent: 'flex-end',
               p: 2
             }}
-          > 
-            {(typeWindow!="admin") && 
+          >
+            {(typeWindow!="admin") &&
             <Button
               color="primary"
               variant="contained" //si block = false => no tenbgo que poder apretar => niego block user
@@ -368,7 +532,7 @@ export const AccountProfileDetails = (props) => {
               onClick={unblockUser}
             >
               Unblock User
-            </Button>            
+            </Button>
             }
 
           </Box>
@@ -380,7 +544,7 @@ export const AccountProfileDetails = (props) => {
         <Alert severity="info">
         <AlertTitle>No trips yet</AlertTitle>
         Once this passenger makes a trip, some trip metrics will be available
-        </Alert>  
+        </Alert>
       }
       {(!noData) &&
       <Grid

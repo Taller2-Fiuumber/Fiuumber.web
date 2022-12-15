@@ -38,7 +38,7 @@ export const DriverListResults = ({...rest }) => {
   useEffect(() => {
     getInitialData(page, rowsPerPage);
 
-  }, []);
+  }, [page, rowsPerPage]);
 
 
 
@@ -60,7 +60,7 @@ export const DriverListResults = ({...rest }) => {
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value));
-    getInitialData(page, parseInt(event.target.value));  
+    getInitialData(page, parseInt(event.target.value));
   };
 
   const handlePageChange = (event, newPage) => {
