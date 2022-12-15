@@ -165,7 +165,7 @@ export const PassengerListResults = ({...rest }) => {
         onRowsPerPageChange={handleChangeRowsPerPage}
         page={page}
         rowsPerPage={rowsPerPage}
-        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPageOptions={[2, 5, 10, 25]}
       />
     </Card>
   );

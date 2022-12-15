@@ -117,7 +117,7 @@ export const TripsResultsList = ({...rest }) => {
         onRowsPerPageChange={handleChangeRowsPerPage}
         page={page}
         rowsPerPage={rowsPerPage}
-        rowsPerPageOptions={[2, 10, 25]}
+        rowsPerPageOptions={[2, 5, 10, 25]}
       />
       </Grid>
   );
