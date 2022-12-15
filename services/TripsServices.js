@@ -170,7 +170,7 @@ export const TripsServices = {
             console.log(`TripsServices getAmountOfTrips: ${error}`);
             throw error;
         }
-    },
+      },
 
 
       getFinishedTripsById: async (id, typeOfUser) => {
@@ -260,36 +260,27 @@ export const TripsServices = {
         }
     },
 
-    getAmountOfFares: async () => {
-        try {
-                const url = `${URL_TRIPS}/fare-rules/amount`
-                
-                const response = await axios.get(url, TripsServices.getHeaders());
-                return response.data;
-            }
-        catch (error) {
-            console.log(`TripsServices getAmountOfFares: ${error}`);
-            throw error;
-        }
-    },
+    getHistoryFareRules: async () => {
 
+        try { 
 
-
-    getFaresPages: async ( skip, limit) => {
-        try {
-
-            const url = `${URL_TRIPS}/fare-rules/page?skip=${skip}&limit=${limit}`
-            
+            const url = `${URL_TRIPS}/fare-rules`
             const response = await axios.get(url, TripsServices.getHeaders());
 
-            return response.data;
-        }
+
+            console.log(response);
+            return response;
+
+
+
+        } 
         catch (error) {
-            console.log(`Get Fares pages: ${error}`);
+            console.log(`TripService applyPricingRules: ${error}`);
             if (error && error.response && error.response.status == 401) return null;
             throw error;
         }
     },
+
  
 
 
