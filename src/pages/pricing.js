@@ -200,7 +200,6 @@ const Page = () => {
                             onChange={(e) => setnightShift(e.target.value)}
                             height="1"
                             width="10%"
-                            //placeholder=""
                             label="Night Time"
                             variant="outlined"/>
 
@@ -210,7 +209,6 @@ const Page = () => {
                             onChange={(e) => setduration(e.target.value)}
                             height="1"
                             width="10%"
-                            //placeholder=""
                             label="Duration"
                             variant="outlined"/>
 
@@ -220,7 +218,6 @@ const Page = () => {
                             onChange={(e) => setdistance(e.target.value)}
                             height="1"
                             width="10%"
-                            //placeholder=""
                             label="Distance"
                             variant="outlined"/>
                     </Stack>
@@ -245,7 +242,6 @@ const Page = () => {
                             onChange={(e) => setDailyTripAmountDriver(e.target.value)}
                             height="1"
                             width="10%"
-                            //placeholder=""
                             label="Driver's"
                             variant="outlined"/>
 
@@ -255,7 +251,6 @@ const Page = () => {
                             onChange={(e) => setDailyTripAmountPassenger(e.target.value)}
                             height="1"
                             width="10%"
-                            //placeholder=""
                             label="Passenger's"
                             variant="outlined"/>
                     </Stack>
@@ -278,7 +273,6 @@ const Page = () => {
                             onChange={(e) => setMonthlyTripAmountDriver(e.target.value)}
                             height="1"
                             width="10%"
-                            //placeholder=""
                             label="Driver's"
                             variant="outlined"/>
 
@@ -288,7 +282,6 @@ const Page = () => {
                             onChange={(e) => setMonthlyTripAmountPassenger(e.target.value)}
                             height="1"
                             width="10%"
-                            //placeholder=""
                             label="Passenger's"
                             variant="outlined"/>
                     </Stack>
@@ -312,7 +305,6 @@ const Page = () => {
                             onChange={(e) => setSeniorityDriver(e.target.value)}
                             height="1"
                             width="10%"
-                            //placeholder=""
                             label="Driver's"
                             variant="outlined"/>
 
@@ -322,7 +314,6 @@ const Page = () => {
                             onChange={(e) => setSeniorityPassenger(e.target.value)}
                             height="1"
                             width="10%"
-                            //placeholder=""
                             label="Passenger's"
                             variant="outlined"/>
 
@@ -346,7 +337,6 @@ const Page = () => {
                             onChange={(e) => setRecentTripAmount(e.target.value)}
                             height="1"
                             width="10%"
-                            //placeholder=""
                             label="Recent Trip Amount"
                             variant="outlined"/>
 
@@ -356,7 +346,6 @@ const Page = () => {
                             onChange={(e) => setBasePrice(e.target.value)}
                             height="1"
                             width="10%"
-                            //placeholder=""
                             label="Base Price"
                             variant="outlined"/>
 
@@ -430,7 +419,6 @@ const Page = () => {
                             onChange={(e) => setDailyTripAmountPassengerDummy(e.target.value)}
                             height="1"
                             width="10%"
-                            //placeholder=""
                             label="Daily Trip Amount"
                             variant="outlined"/>
 
@@ -440,7 +428,6 @@ const Page = () => {
                             onChange={(e) => setMonthlyTripAmountPassengerDummy(e.target.value)}
                             height="1"
                             width="10%"
-                            //placeholder=""
                             label="Monthly Trip Amount"
                             variant="outlined"/>
 
@@ -450,7 +437,6 @@ const Page = () => {
                             onChange={(e) => setSeniorityPassengerDummy(e.target.value)}
                             height="1"
                             width="10%"
-                            //placeholder=""
                             label="Seniority"
                             variant="outlined"/>
 
@@ -460,7 +446,6 @@ const Page = () => {
                             onChange={(e) => setRecentTripAmountDummy(e.target.value)}
                             height="1"
                             width="10%"
-                            //placeholder=""
                             label="Recent Trip Amount"
                             variant="outlined"/>
                         </Stack>
@@ -484,7 +469,6 @@ const Page = () => {
                             onChange={(e) => setDailyTripAmountDriverDummy(e.target.value)}
                             height="1"
                             width="10%"
-                            //placeholder=""
                             label="Daily Trip Amount"
                             variant="outlined"/>
 
@@ -494,7 +478,6 @@ const Page = () => {
                             onChange={(e) => setMonthlyTripAmountDriverDummy(e.target.value)}
                             height="1"
                             width="10%"
-                            //placeholder=""
                             label="Monthly Trip Amount"
                             variant="outlined"/>
 
@@ -504,7 +487,6 @@ const Page = () => {
                             onChange={(e) => setSeniorityDriverDummy(e.target.value)}
                             height="1"
                             width="10%"
-                            //placeholder=""
                             label="Seniority"
                             variant="outlined"/>
                     </Stack>
@@ -546,7 +528,6 @@ const Page = () => {
                                 onChange={(e) => setTripDistance(e.target.value)}
                                 height="1"
                                 width="10%"
-                                //placeholder=""
                                 label="Trip Distance"
                                 variant="outlined"/>
 
@@ -556,7 +537,6 @@ const Page = () => {
                                 onChange={(e) => setTripDuration(e.target.value)}
                                 height="1"
                                 width="10%"
-                                //placeholder=""
                                 label="Trip Duration"
                                 variant="outlined"/>
 
