@@ -19,7 +19,7 @@ export const TripsStatus = (props) => {
   const type = urlParams.get('type');
 
   useEffect(() => {
-    
+
 
     TripsServices.getFinishedTripsById(id, type).then((value) => {
 
@@ -31,7 +31,7 @@ export const TripsStatus = (props) => {
     });
 
     TripsServices.getCanceledTripsById(id, type).then((value) => {
-      
+
       if (value != undefined){
           setAmountOfCanceledTrips(value);
         }
@@ -39,7 +39,7 @@ export const TripsStatus = (props) => {
       console.log(error);
     });
 
-  }, [amountOfCanceledTrips, amountOfFinishedTrips]);
+  }, [amountOfCanceledTrips, amountOfFinishedTrips, id, type]);
 
 
   const data = {
@@ -54,7 +54,7 @@ export const TripsStatus = (props) => {
     ],
     labels: ['Finished', 'Canceled']
   };
-  
+
 
   const options = {
     animation: false,
@@ -104,7 +104,7 @@ export const TripsStatus = (props) => {
             height: 300,
             position: 'relative'
           }}
-        > 
+        >
 
           <Doughnut
             data={data}

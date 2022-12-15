@@ -4,8 +4,6 @@ import { AccountProfileDetails } from '../components/account/account-profile-det
 import { DashboardLayout } from '../components/dashboard-layout';
 
 
-
-
 const Page = () => {
   return(
     <>

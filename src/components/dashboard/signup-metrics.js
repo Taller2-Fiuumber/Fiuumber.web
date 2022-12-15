@@ -8,7 +8,7 @@ export const SignUpMetrics = (props) => {
 
 
   const[time, setTime] = useState(7);
-  
+
   const currentDate = new Date(Date.now());
   const currentDateString = `${currentDate.getDate()}/${currentDate.getMonth()+1}/${currentDate.getFullYear()}`
 
@@ -19,13 +19,13 @@ export const SignUpMetrics = (props) => {
 
 
   const changeTimeSelection = (numberOfDays) => {
-  
+
     if (numberOfDays == "Last 30 days") {
       setTime(30);
     }else {
       setTime(7);
     }
-    
+
   };
 
   useEffect(() => {
@@ -47,8 +47,8 @@ export const SignUpMetrics = (props) => {
       }).catch((error) => {
         console.log(error);
       });
-    
-  }, [time]);
+
+  }, [currentDateString, time]);
 
   const data = {
     datasets: [
@@ -152,7 +152,7 @@ export const SignUpMetrics = (props) => {
           <FormControl sx={{ m: 1, minWidth: 120 }}>
           <InputLabel >Period</InputLabel>
           <Select
-            value={`Last ${time} days`} 
+            value={`Last ${time} days`}
             onChange={(e) => changeTimeSelection(e.target.value)}
             label="Period"
           >
@@ -177,7 +177,7 @@ export const SignUpMetrics = (props) => {
           />
         </Box>
       </CardContent>
-    
+
     </Card>
   );
 };

@@ -1,5 +1,3 @@
-
-import Router from 'next/router';
 import { UsersService } from '../../../services/UsersServices';
 import { TripsServices } from '../../../services/TripsServices';
 import { PaymentsServices } from '../../../services/PaymentsServices';
@@ -55,11 +53,11 @@ const style3 = {
 };
 
 export const AccountProfileDetails = (props) => {
-
-
-  const queryString = window.location.search;
+  const queryString = queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const id = urlParams.get('id');
+  const type = urlParams.get('type');
+
   const [user, setUser] = useState(new Driver(-1, '','','','','','', false,null,new Vehicle('','','','','')));
   const [userType, setUserType] = useState(true);
   const [userBlocked, setUserBlock] = useState(false);
@@ -73,7 +71,6 @@ export const AccountProfileDetails = (props) => {
   const [complaints, setComplaints] = useState(0);
   const [error, setError] = useState(false);
 
-  const type = urlParams.get('type');
 
   UsersService.getComplaints(id).then((value) => {
     setComplaints(value);
@@ -147,7 +144,7 @@ export const AccountProfileDetails = (props) => {
       });
       setUserType(true);
     }
-  }, [setUser, id]);
+  }, [setUser, id, type]);
 
 
 
@@ -176,7 +173,7 @@ export const AccountProfileDetails = (props) => {
     >
       <Card>
         <CardHeader
-          subheader={type.toLocaleUpperCase()}
+          subheader={type ? type.toLocaleUpperCase() : ""}
           title="PROFILE"
         />
         <Divider />

@@ -56,7 +56,7 @@ const Page = () => {
 
   useEffect(() => {
     confirm().catch(console.error);
-  }, []);
+  });
 
   if (isLoading) {
     return (

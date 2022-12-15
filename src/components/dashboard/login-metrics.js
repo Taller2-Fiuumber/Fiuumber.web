@@ -7,7 +7,7 @@ export const LoginMetrics = (props) => {
   const theme = useTheme();
 
   const[time, setTime] = useState(7);
-  
+
   const currentDate = new Date(Date.now());
   const currentDateString = `${currentDate.getDate()}/${currentDate.getMonth()+1}/${currentDate.getFullYear()}`
 
@@ -17,15 +17,15 @@ export const LoginMetrics = (props) => {
 
 
   const changeTimeSelection = (numberOfDays) => {
-  
+
     if (numberOfDays == "Last 30 days") {
       setTime(30);
     }else {
       setTime(7);
     }
-    
+
   };
-  
+
 
     useEffect(() => {
         UsersService.getLogInMetricsGoogle(currentDateString, time).then((value) => {
@@ -46,8 +46,8 @@ export const LoginMetrics = (props) => {
         }).catch((error) => {
           console.log(error);
         });
-     
-    }, [time]);
+
+    }, [currentDateString, time]);
 
 
 
@@ -149,11 +149,11 @@ export const LoginMetrics = (props) => {
     <Card {...props}>
       <CardHeader
         action={(
-          
+
         <FormControl sx={{ m: 1, minWidth: 120 }}>
           <InputLabel >Period</InputLabel>
           <Select
-            value={`Last ${time} days`} 
+            value={`Last ${time} days`}
             onChange={(e) => changeTimeSelection(e.target.value)}
             label="Period"
           >
@@ -178,7 +178,7 @@ export const LoginMetrics = (props) => {
           />
         </Box>
       </CardContent>
-     
+
     </Card>
   );
 };

@@ -7,15 +7,20 @@ import { TripsServices } from '../../../services/TripsServices';
 
 export const UserCalificationMetrics = (props) => {
   const theme = useTheme();
+  const queryString = ""
 
-  const labels = [1, 2, 3, 4, 5]; 
+  const labels = [1, 2, 3, 4, 5];
   const[calificationsData, setCalificationsData] = useState([]);
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  const id = urlParams.get('id');
-  const type = urlParams.get('type');
+
+  if (typeof window !== "undefined") {
+    queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const id = urlParams.get('id');
+    const type = urlParams.get('type');
+  }
 
   useEffect(() => {
+
         TripsServices.getCalificationsById(id, type).then((value) => {
             if (value != undefined){
                 if (value == false) {
@@ -26,7 +31,7 @@ export const UserCalificationMetrics = (props) => {
             }
           }).catch((error) => {
             console.log(error);
-        }); 
+        });
     }, []);
 
   const data = {
@@ -99,7 +104,7 @@ export const UserCalificationMetrics = (props) => {
           zeroLineBorderDash: [2],
           zeroLineBorderDashOffset: [2],
           zeroLineColor: theme.palette.divider
-        }, 
+        },
       }
     ],
     tooltips: {
@@ -135,10 +140,10 @@ export const UserCalificationMetrics = (props) => {
       <Bar
         data={data}
         options={options}
-      />     
+      />
         </Box>
       </CardContent>
-   
+
     </Card>
   );
 };
