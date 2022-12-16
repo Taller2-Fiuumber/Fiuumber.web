@@ -61,6 +61,15 @@ export const AccountProfileDetails = (props) => {
   const [userBlocked, setUserBlock] = useState(false);
   const [noData, setNoData] = useState(false);
 
+  const[openModal, setOpenModal] = useState(false);
+  const[openModal2, setOpenModal2] = useState(false);
+  const[paymentDetail, setPaymentDetail] = useState("");
+  const[loadBalance, setLoadBalance] = useState(0);
+
+  const [complaints, setComplaints] = useState(0);
+  const [error, setError] = useState(false);
+
+
   const [id, setId] = useState('');
   const [typeWindow, setTypeWindow] = useState('');
 
@@ -265,6 +274,60 @@ export const AccountProfileDetails = (props) => {
               />
             </Grid>
          }
+        {(typeWindow!="admin") &&
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="WalletAddress"
+                name="WalletAddress"
+                readOnly={true}
+                // onChange={handleChange}
+                required
+                value={user.wallet != undefined ? user.wallet : ""}
+                variant="outlined"
+              />
+            </Grid>
+         }
+          {(typeWindow!="admin") &&
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="Is blocked"
+                name="Is blocked"
+                readOnly={true}
+                // onChange={handleChange}
+                required
+                value={user.blocked != undefined ? user.blocked : ""}
+                variant="outlined"
+              />
+            </Grid>
+         }
+         {(typeWindow=="driver") &&
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="Number of complaints"
+                name="Number of complaints"
+                readOnly={true}
+                //onChange={handleChange}
+                required
+                value={complaints}
+                variant="outlined"
+              />
+            </Grid>
+         }
           {(typeWindow!="admin") &&
           <Grid
             item
@@ -378,7 +441,7 @@ export const AccountProfileDetails = (props) => {
             }}>
 
 
-<Box
+          <Box
             sx={{
               display: 'flex',
               justifyContent: 'flex-end',
@@ -386,7 +449,7 @@ export const AccountProfileDetails = (props) => {
             }}
           >
 
-            {(type=="passenger") &&
+            {(typeWindow=="passenger") &&
             <Button
               color="info"
               variant="contained" //si block = false => tenbgo que poder apretar => queda blocked user
