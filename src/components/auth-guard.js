@@ -56,7 +56,7 @@ export const AuthGuard = (props) => {
        }
     // }
     // [router.isReady]
-  });
+  },[]);
   // );
 
   // if (!checked) {
@@ -66,7 +66,7 @@ export const AuthGuard = (props) => {
   // If got here, it means that the redirect did not occur, and that tells us that the user is
   // authenticated / authorized.
 
-  return children;
+  return(<>{currentUserToken.token != '' && currentUserToken != null && children}</>) ;
 };
 
 AuthGuard.propTypes = {

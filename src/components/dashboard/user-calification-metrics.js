@@ -8,26 +8,32 @@ import { TripsServices } from '../../../services/TripsServices';
 export const UserCalificationMetrics = (props) => {
   const theme = useTheme();
 
-  const labels = [1, 2, 3, 4, 5]; 
+  const labels = [1, 2, 3, 4, 5];
   const[calificationsData, setCalificationsData] = useState([]);
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  const id = urlParams.get('id');
-  const type = urlParams.get('type');
+
+  const [id, setId] = useState('');
+  const [typeWindow, setTypeWindow] = useState('');
+
 
   useEffect(() => {
-        TripsServices.getCalificationsById(id, type).then((value) => {
-            if (value != undefined){
-                if (value == false) {
-                    setCalificationsData([0,0,0,0,0]);
-                } else {
-                    setCalificationsData(value);
-                }
+
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    setId(urlParams.get('id'));
+    setTypeWindow(urlParams.get('type'));
+
+    TripsServices.getCalificationsById(id, typeWindow).then((value) => {
+        if (value != undefined){
+            if (value == false) {
+                setCalificationsData([0,0,0,0,0]);
+            } else {
+                setCalificationsData(value);
             }
-          }).catch((error) => {
-            console.log(error);
-        }); 
-    }, []);
+        }
+      }).catch((error) => {
+        console.log(error);
+    });
+    }, [id, typeWindow]);
 
   const data = {
     datasets: [
@@ -99,7 +105,7 @@ export const UserCalificationMetrics = (props) => {
           zeroLineBorderDash: [2],
           zeroLineBorderDashOffset: [2],
           zeroLineColor: theme.palette.divider
-        }, 
+        },
       }
     ],
     tooltips: {
@@ -135,10 +141,10 @@ export const UserCalificationMetrics = (props) => {
       <Bar
         data={data}
         options={options}
-      />     
+      />
         </Box>
       </CardContent>
-   
+
     </Card>
   );
 };

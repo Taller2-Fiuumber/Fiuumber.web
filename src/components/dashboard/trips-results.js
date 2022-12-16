@@ -23,29 +23,32 @@ export const TripsResultsList = ({...rest }) => {
   const [trips, setTrips] = useState([]);
   const [amountOfTrips, setAmountOfTrips] = useState(0);
 
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  const id = urlParams.get('id');
-  const type = urlParams.get('type');
-
+  const [id, setId] = useState('');
+  const [typeWindow, setTypeWindow] = useState('');
 
   useEffect(() => {
-    TripsServices.getAmountOfTrips(id, type).then((value) => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    setId(urlParams.get('id'));
+    setTypeWindow(urlParams.get('type'));
+
+
+    TripsServices.getAmountOfTrips(id, typeWindow).then((value) => {
         setAmountOfTrips(value);
     }).catch((error) => {
       console.log(error);
     });
-  }, []);
+  }, [id, typeWindow]);
 
   useEffect(() => {
-    TripsServices.getTripsById(id, page*rowsPerPage, rowsPerPage, type).then((value) => {
+    TripsServices.getTripsById(id, page*rowsPerPage, rowsPerPage, typeWindow).then((value) => {
       setTrips(value);
     }).catch((error) => {
       console.log(error);
     });
-    
 
-  }, [page, rowsPerPage]);
+
+  }, [id, page, rowsPerPage, typeWindow]);
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value));
@@ -59,7 +62,7 @@ export const TripsResultsList = ({...rest }) => {
   return (
 
     // <Card {...rest}>
-    <Grid> 
+    <Grid>
       <PerfectScrollbar>
         <Box sx={{ minWidth: 750 }}>
           <Table>

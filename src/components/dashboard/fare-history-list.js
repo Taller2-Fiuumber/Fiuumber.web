@@ -22,10 +22,8 @@ export const FareHistoryList = ({...rest }) => {
   const [fares, setFares] = useState([]);
   //const [amountOfTrips, setAmountOfTrips] = useState(0);
 
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  const id = urlParams.get('id');
-  const type = urlParams.get('type');
+
+
 
 
   // useEffect(() => {
@@ -37,37 +35,40 @@ export const FareHistoryList = ({...rest }) => {
   // }, []);
 
   useEffect(() => {
-    TripsServices.getHistoryFareRules().then((value) => {
-        setFares(value);
+    getInitialData(page, rowsPerPage);
+  }, []);
+
+
+  const getInitialData = (page, rowsPerPage) => {
+    TripsServices.getAmountOfFares().then((value) => {
+      setAmountOfFares(value);
+    }).catch((error) => {
+      console.log(error);
+    })
+
+    TripsServices.getFaresPages(page*rowsPerPage, rowsPerPage).then((value) => {
+      const fares_aux = value ? value:[]
+      setFares(fares_aux);
     }).catch((error) => {
       console.log(error);
     });
-  }, []);
+  }
 
-  
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value));
+    getInitialData(page, parseInt(event.target.value));
+    // setPage(0);
+  };
 
-  // useEffect(() => {
-  //   TripsServices.getTripsById(id, page*rowsPerPage, rowsPerPage, type).then((value) => {
-  //     setTrips(value);
-  //   }).catch((error) => {
-  //     console.log(error);
-  //   });
-
-  // }, [page, rowsPerPage]);
-
-  // const handleChangeRowsPerPage = (event) => {
-  //   setRowsPerPage(parseInt(event.target.value));
-  //   // setPage(0);
-  // };
-
-  // const handlePageChange = (event, newPage) => {
-  //   setPage(newPage);
-  // };
+  const handlePageChange = (event, newPage) => {
+    setPage(newPage);
+    getInitialData(newPage, parseInt(event.target.value));
+  };
 
   return (
 
     // <Card {...rest}>
-    <Grid> 
+    <Grid>
       <PerfectScrollbar>
         <Box sx={{ minWidth: 750 }}>
           <Table>

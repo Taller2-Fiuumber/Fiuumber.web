@@ -40,8 +40,6 @@ export const UsersService = {
 
     getAmountOfPassenger: async () => {
       try {
-            console.log("funcion get headers: ", UsersService.getHeaders());
-            console.log("current user token: ", currentUserToken.token);
             const response = await axios.get(`${URL_USERS}/passengers/count`, UsersService.getHeaders());
             return response.data.amount;
       }
