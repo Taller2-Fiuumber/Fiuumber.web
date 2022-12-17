@@ -379,7 +379,7 @@ const Page = () => {
 
                     <ToggleButton
                         color="info"  
-                        //value="check"
+                        value="check"
                         selected={historyVisibility}
                         size="large"
                         variant="contained"
