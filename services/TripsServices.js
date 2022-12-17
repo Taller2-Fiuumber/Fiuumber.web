@@ -172,6 +172,38 @@ export const TripsServices = {
         }
       },
 
+      getAmountOfFares: async () => {
+        try {
+                const url = `${URL_TRIPS}/fare-rules/amount`
+                
+                const response = await axios.get(url, TripsServices.getHeaders());
+                return response.data;
+            }
+        catch (error) {
+            console.log(`TripsServices getAmountOfFares: ${error}`);
+            throw error;
+        }
+    },
+
+
+
+    getFaresPages: async ( skip, limit) => {
+        try {
+
+            const url = `${URL_TRIPS}/fare-rules/page?skip=${skip}&limit=${limit}`
+            
+            const response = await axios.get(url, TripsServices.getHeaders());
+
+            return response.data;
+        }
+        catch (error) {
+            console.log(`Get Fares pages: ${error}`);
+            if (error && error.response && error.response.status == 401) return null;
+            throw error;
+        }
+    },
+ 
+
 
       getFinishedTripsById: async (id, typeOfUser) => {
         try {
