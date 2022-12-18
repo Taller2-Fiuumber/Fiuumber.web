@@ -10,6 +10,7 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  Button
 } from '@mui/material';
 import { TripsServices } from '../../../services/TripsServices';
 // import Alert from '@mui/material/Alert';
@@ -17,65 +18,54 @@ import { TripsServices } from '../../../services/TripsServices';
 
 
 export const FareHistoryList = ({...rest }) => {
-  //const [rowsPerPage, setRowsPerPage] = useState(5);
-  //const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [page, setPage] = useState(0);
   const [fares, setFares] = useState([]);
-  //const [amountOfTrips, setAmountOfTrips] = useState(0);
+  const [amountOfFares, setAmountOfFares] = useState(0);
 
-
-
-
-
-  // useEffect(() => {
-  //   TripsServices.getAmountOfTrips(id, type).then((value) => {
-  //       setAmountOfTrips(value);
-  //   }).catch((error) => {
-  //     console.log(error);
-  //   });
-  // }, []);
-
-  useEffect(() => {
-    getInitialData(page, rowsPerPage);
-  }, []);
-
-
-  const getInitialData = (page, rowsPerPage) => {
-    TripsServices.getAmountOfFares().then((value) => {
-      setAmountOfFares(value);
+  const  getInitialData = async () => {
+    await TripsServices.getAmountOfFares().then((value) => {
+      const amount_aux = value ? value:[]
+      setAmountOfFares(amount_aux);
     }).catch((error) => {
       console.log(error);
-    })
+    });
 
-    TripsServices.getFaresPages(page*rowsPerPage, rowsPerPage).then((value) => {
-      const fares_aux = value ? value:[]
-      setFares(fares_aux);
+    await TripsServices.getFaresPages(page*rowsPerPage, rowsPerPage).then((value) => {
+    const fares_aux = value ? value:[]
+    setFares(fares_aux);
     }).catch((error) => {
       console.log(error);
     });
   }
 
+  useEffect(() => {
+    getInitialData();
+  }, []);
+
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value));
-    getInitialData(page, parseInt(event.target.value));
-    // setPage(0);
   };
 
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
-    getInitialData(newPage, parseInt(event.target.value));
+  };
+
+  const applyRules = async (id) => {
+    await TripsServices.applyPricingRules(id);
   };
 
   return (
-
+  
     // <Card {...rest}>
-    <Grid>
+    <Grid> 
       <PerfectScrollbar>
         <Box sx={{ minWidth: 750 }}>
           <Table>
             <TableHead>
               <TableRow>
                 <TableCell>
-                Selected
+                Select
                 </TableCell>
                 <TableCell>
                 Base Price
@@ -110,7 +100,6 @@ export const FareHistoryList = ({...rest }) => {
                 <TableCell>
                 Night Shift
                 </TableCell>
-
               </TableRow>
             </TableHead>
             <TableBody>
@@ -120,7 +109,15 @@ export const FareHistoryList = ({...rest }) => {
                   key={index}
                 >
                   <TableCell>
-                  {fares.selected.toString()}
+                  <Button
+                    color="secondary"
+                    variant="contained"
+                    onClick={() => {
+                      applyRules(fares._id)
+                    }}
+                  >
+                  Apply
+                  </Button>
                   </TableCell>
                   <TableCell>
                   {fares.minimum}
@@ -161,15 +158,15 @@ export const FareHistoryList = ({...rest }) => {
           </Table>
         </Box>
       </PerfectScrollbar>
-      {/* <TablePagination
+      <TablePagination
         component="div"
-        count={amountOfTrips}
+        count={amountOfFares}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleChangeRowsPerPage}
         page={page}
         rowsPerPage={rowsPerPage}
-        rowsPerPageOptions={[2, 10, 25]}
-      /> */}
+        rowsPerPageOptions={[2, 5, 10, 25]}
+      />
       </Grid>
   );
 };

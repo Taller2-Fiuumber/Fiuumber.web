@@ -13,7 +13,7 @@ export const PaymentsServices = {
     loadBallanceToWallet: async (amountInEthers, receiverAddress) => {
         try {
             const url = `${URL_PAYMENTS}/depositToReceiver`;
-            return await axios.post(url, {amountInEthers: amountInEthers.toString(), receiverAddress: receiverAddress}, getHeaders(),);
+            return await axios.post(url, {amountInEthers: amountInEthers.toString(), receiverAddress: receiverAddress}, PaymentsServices.getHeaders(),);
         }
         catch (error) {
             if (error.code === "UNPREDICTABLE_GAS_LIMIT") {
