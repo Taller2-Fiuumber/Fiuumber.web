@@ -319,7 +319,8 @@ export const TripsServices = {
             const url = `${URL_TRIPS}/fare-rules/page?skip=${skip}&limit=${limit}`
 
             const response = await axios.get(url, TripsServices.getHeaders());
-            return response.data;
+            const response_aux = value ? value:[]
+            return response_aux.data;
         }
         catch (error) {
             console.log(`Get Fares pages: ${error}`);

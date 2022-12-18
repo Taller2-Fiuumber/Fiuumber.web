@@ -23,24 +23,25 @@ export const FareHistoryList = ({...rest }) => {
   const [fares, setFares] = useState([]);
   const [amountOfFares, setAmountOfFares] = useState(0);
 
-
-  useEffect(() => {
-    TripsServices.getAmountOfFares().then((value) => {
-        setAmountOfFares(value);
+  const  getInitialData = async () => {
+    await TripsServices.getAmountOfFares().then((value) => {
+      const amount_aux = value ? value:[]
+      setAmountOfFares(amount_aux);
     }).catch((error) => {
       console.log(error);
     });
+
+    await TripsServices.getFaresPages(page*rowsPerPage, rowsPerPage).then((value) => {
+    const fares_aux = value ? value:[]
+    setFares(fares_aux);
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
+  useEffect(() => {
+    getInitialData();
   }, []);
-
-
-  useEffect(() => {
-    TripsServices.getFaresPages(page*rowsPerPage, rowsPerPage).then((value) => {
-      setFares(value);
-    }).catch((error) => {
-      console.log(error);
-    });
-
-  }, [page, rowsPerPage]);
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value));
