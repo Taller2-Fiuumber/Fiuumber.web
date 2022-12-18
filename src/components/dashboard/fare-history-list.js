@@ -10,6 +10,7 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  Button
 } from '@mui/material';
 import { TripsServices } from '../../../services/TripsServices';
 // import Alert from '@mui/material/Alert';
@@ -49,6 +50,10 @@ export const FareHistoryList = ({...rest }) => {
     setPage(newPage);
   };
 
+  const applyRules = async (id) => {
+    await TripsServices.applyPricingRules(id);
+  };
+
   return (
   
     // <Card {...rest}>
@@ -59,7 +64,7 @@ export const FareHistoryList = ({...rest }) => {
             <TableHead>
               <TableRow>
                 <TableCell>
-                Selected
+                Select
                 </TableCell>
                 <TableCell>
                 Base Price
@@ -103,7 +108,15 @@ export const FareHistoryList = ({...rest }) => {
                   key={index}
                 >
                   <TableCell>
-                  {fares.selected.toString()}
+                  <Button
+                    color="secondary"
+                    variant="contained"
+                    onClick={() => {
+                      applyRules(fares._id)
+                    }}
+                  >
+                  Apply
+                  </Button>
                   </TableCell>
                   <TableCell>
                   {fares.minimum}

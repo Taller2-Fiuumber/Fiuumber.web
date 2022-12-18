@@ -49,7 +49,8 @@ const Page = () => {
     const[openModal1, setOpenModal1] = useState(false);
     const[openModal2, setOpenModal2] = useState(false);  
     const[openModal3, setOpenModal3] = useState(false);  
-    const[historyVisibility, setHistoryVisibility] = useState(false);  
+    const[historyVisibility, setHistoryVisibility] = useState(false);
+
     
 
     //Constantes para la formula
@@ -99,7 +100,7 @@ const Page = () => {
 
         console.log(newRules);
 
-        if(await TripsServices.applyPricingRules(newRules)){
+        if(await TripsServices.postPricingRules(newRules)){
             setOpenModal3(true)
         };
     };
@@ -599,7 +600,7 @@ const Page = () => {
                                 onClick={() => {submitRules()}}
                                 size="large"
                                 variant="contained"
-                                >Apply Rules
+                                >Post Rules
                             </Button>
 
                             <Button

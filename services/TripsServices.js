@@ -209,10 +209,25 @@ export const TripsServices = {
       },
 
 
-    applyPricingRules: async (rules) => {
+    postPricingRules: async (rules) => {
 
         try {
-            await axios.post(`${URL_TRIPS}/fare-rule`, rules, TripsServices.getHeaders());
+            const response = await axios.post(`${URL_TRIPS}/fare-rule`, rules, TripsServices.getHeaders());
+            return response.data._id;
+        }
+        catch (error) {
+            console.log(`TripService postPricingRules: ${error}`);
+            if (error && error.response && error.response.status == 401) return null;
+            throw error;
+        }
+    },
+
+
+    applyPricingRules: async (id) => {
+
+        try {
+            const response = await axios.post(`${URL_TRIPS}/fare-rule/select/${id}`, null, TripsServices.getHeaders());
+            console.log(response)
             return true;
 
         }
@@ -222,6 +237,8 @@ export const TripsServices = {
             throw error;
         }
     },
+
+
 
     testPricingRules: async (rules,
         dailyTripAmountDriverDummy,
@@ -260,26 +277,26 @@ export const TripsServices = {
         }
     },
 
-    getHistoryFareRules: async () => {
+    // getHistoryFareRules: async () => {
 
-        try { 
+    //     try { 
 
-            const url = `${URL_TRIPS}/fare-rules`
-            const response = await axios.get(url, TripsServices.getHeaders());
-
-
-            console.log(response);
-            return response;
+    //         const url = `${URL_TRIPS}/fare-rules`
+    //         const response = await axios.get(url, TripsServices.getHeaders());
 
 
+    //         console.log(response);
+    //         return response;
 
-        } 
-        catch (error) {
-            console.log(`TripService applyPricingRules: ${error}`);
-            if (error && error.response && error.response.status == 401) return null;
-            throw error;
-        }
-    },
+
+
+    //     } 
+    //     catch (error) {
+    //         console.log(`TripService applyPricingRules: ${error}`);
+    //         if (error && error.response && error.response.status == 401) return null;
+    //         throw error;
+    //     }
+    // },
 
     getAmountOfFares: async () => {
         try {
@@ -302,7 +319,6 @@ export const TripsServices = {
             const url = `${URL_TRIPS}/fare-rules/page?skip=${skip}&limit=${limit}`
 
             const response = await axios.get(url, TripsServices.getHeaders());
-
             return response.data;
         }
         catch (error) {
@@ -311,6 +327,8 @@ export const TripsServices = {
             throw error;
         }
     },
+
+
 
 
 
